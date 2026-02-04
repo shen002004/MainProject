@@ -1,0 +1,153 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Home Page </title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'Admin/dist/assets/css/bootstrap.css' %}">
+
+    <link rel="stylesheet" href="{% static 'Admin/dist/assets/vendors/iconly/bold.css' %}">
+
+    <link rel="stylesheet" href="{% static 'Admin/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.css' %}">
+    <link rel="stylesheet" href="{% static 'Admin/dist/assets/vendors/bootstrap-icons/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'Admin/dist/assets/css/app.css' %}">
+    <link rel="shortcut icon" href="{% static 'Admin/dist/assets/images/favicon.svg' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div id="app">
+        <div id="sidebar" class="active">
+            <div class="sidebar-wrapper active">
+                <div class="sidebar-header">
+                    <div class="d-flex justify-content-between">
+                        <div class="logo" style="display: flex; align-items: center; justify-content: center; width: 230px;">
+                            <a href="index.html"><img src="{% static 'Admin/dist/assets/images/logo/logo.png' %}" alt="Logo"srcset="" 
+                                style="width: 100px; height: 100px;"></a>
+                        </div>
+                        <div class="toggler">
+                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-menu">
+                    <ul class="menu">
+                        <li class="sidebar-title">Menu</li>
+
+                        <li class="sidebar-item active ">
+                            <a href="{% url 'Admin:HomePage'%}" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-collection-fill"></i>
+                                <span>Data Management</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="{% url 'Admin:Category'%}">Category</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="{% url 'Admin:Subcategory'%}">Subcategory</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="{% url 'Admin:Propertytype'%}">Property Type</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-stack"></i>
+                                <span>Location</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="{% url 'Admin:District'%}">District</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="{% url 'Admin:Place'%}">Place</a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-grid-1x2-fill"></i>
+                                <span>Login List</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="{% url 'Admin:Userlist'%}">User List</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="{% url 'Admin:Sellerlist'%}">Seller List</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="{% url 'Admin:Renterlist'%}">Renter List</a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <li class="sidebar-title">Pages</li>
+
+                        <li class="sidebar-item  ">
+                            <a href="{% url 'Admin:Viewcomplaints'%}" class='sidebar-link'>
+                                <i class="bi bi-envelope-fill"></i>
+                                <span>Complaints</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item  ">
+                            <a href="{% url 'Admin:Viewfeedback'%}" class='sidebar-link'>
+                                <i class="bi bi-chat-dots-fill"></i>
+                                <span>Feedbacks</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            </div>
+        </div>
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+
+            <div class="page-heading">
+                <h3>ADMIN DETAILS</h3>
+            </div>
+            <div class="page-content">
+                <section class="row">
+
+                    {% block content %}
+                    {% endblock content %}
+
+        </div>
+    </div>
+    <script src="{% static 'Admin/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
+    <script src="{% static 'Admin/dist/assets/js/bootstrap.bundle.min.js' %}"></script>
+
+    <script src="{% static 'Admin/dist/assets/vendors/apexcharts/apexcharts.js' %}"></script>
+    <script src="{% static 'Admin/dist/assets/js/pages/dashboard.js' %}"></script>
+
+    <script src="{% static 'Admin/dist/assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

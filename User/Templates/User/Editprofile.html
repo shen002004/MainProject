@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editprofile</title>
+</head>
+
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table border="1" align="center">
+            <h2 class="editprofile-title">Edit Profile</h2>
+
+            <tr>
+                <td colspan="2" align="center"> <img src="{{userdata.user_photo.url}}" width="170" alt=""></td>
+            </tr>
+            <tr>
+                <td>Profile Name</td>
+                <td>
+                    <input type="text" required name="txt_username" id="txt_username" value="{{ userdata.user_name }}">
+                </td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>
+                    <input type="email" required name="txt_email" id="txt_email" value="{{userdata.user_email}}">
+                </td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td>
+                    <input type="text" required name="txt_contact" id="txt_contact" value="{{userdata.user_contact}}">
+                </td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td>
+                    <input type="text" request name="txt_address" id="txt_address" value="{{userdata.user_address}}">
+                </td>
+            </tr>
+
+
+</body>
+<tr>
+    <td colspan="2" align="center">
+        <input type="submit" value="Update Profile" class="editprofile-btn">
+    </td>
+</tr>
+</table>
+                        <table border="1" align="center">
+            <td><a href="{% url 'User:Myprofile'%}" class="profile-action-btn">Back</a></td>
+            </table>
+</form>
+
+</html>
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+    window.location = "{% url 'User:Editprofile'%}"
+</script>
+{% endif %}

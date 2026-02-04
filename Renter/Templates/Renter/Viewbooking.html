@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Bookings</title>
+</head>
+
+<body>
+    <h2 align="center">Booking Requests</h2>
+    <table border="1" align="">
+        <td><a href="{% url 'Renter:Home'%}" class="profile-action-btn">Home</a></td>
+    </table>
+    <table border="1" align="center">
+        <tr>
+            <td>SLNO</td>
+            <td>Property</td>
+            <td>Property Type</td>
+            <td>User</td>
+            <td>From Date</td>
+            <td>To Date</td>
+            <td>Amount</td>
+            <td>Status</td>
+        </tr>
+        {% for i in bookings %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.property_id.property_name }}</td>
+            <td>{{i.property_id.propertytype_id.propertytype_name}}</td>
+            <td>{{ i.user_id.user_name }}</td>
+            <td>{{ i.propertybooking_fromdate }}</td>
+            <td>{{ i.propertybooking_todate }}</td>
+            <td>{{ i.propertybooking_amount }}</td>
+            <td>
+                {% if i.propertybooking_status == 0 %}
+                Pending
+                {% elif i.propertybooking_status == 1 %}
+                Accepted
+            <td><a href="{% url 'Renter:rejectpro' i.id %}">Reject</a></td>
+
+            {% elif i.propertybooking_status == 2 %}
+            Rejected
+            <td><a href="{% url 'Renter:acceptpro' i.id %}">Accept</a></td>
+
+
+            {% endif %}
+            </td>
+
+            <td>
+                {%if i.propertybooking_status == 0 %}
+                <a href="{% url 'Renter:acceptpro' i.id %}">Accept</a>
+                <a href="{% url 'Renter:rejectpro' i.id %}">Reject</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+
+</html>
+
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+    window.location = "{% url 'Renter:Viewbooking' %}"
+</script>
+{% endif %}

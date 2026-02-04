@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RENTER FEEDBACK PAGE</title>
+</head>
+<body>
+            <h2 align="center">Feedback</h2>
+        <form action="" method="post">
+        {% csrf_token %}
+            <td><a href="{% url 'Renter:Home'%}" class="profile-action-btn">Home</a></td>
+           <table border="1" align="center">
+            <tr>
+                <td>Content</td>
+                <td><input type="text" name="txt_content" id=""></td>
+            </tr>
+                <td colspan="3" align="center">
+                    <input type="submit" value="sent">
+                </td>
+           </table>
+        </form>
+    
+    </body>
+</html>
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+    window.location = "{% url 'Renter:Feedback'%}"
+</script>
+{% endif %}

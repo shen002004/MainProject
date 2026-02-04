@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+
+
+<style>
+    * {
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(
+            rgba(0,0,0,0.45),
+            rgba(0,0,0,0.45)
+        ),
+        url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c");
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    form {
+        width: 420px;
+        background: #ffffff;
+        padding: 40px 45px;
+        border-radius: 18px;
+        box-shadow: 0 30px 60px rgba(0,0,0,0.35);
+        position: relative;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 26px;
+        font-weight: 700;
+        color: #0f172a;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table[border="1"] {
+        border: none;
+    }
+
+    td {
+        border: none;
+        padding: 8px 0;
+        font-size: 14px;
+        color: #475569;
+    }
+
+    input[type="email"],
+    input[type="Passsword"] {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 10px;
+        border: 1px solid #cbd5e1;
+        outline: none;
+        font-size: 14px;
+        background: #f8fafc;
+    }
+
+    input[type="email"]:focus,
+    input[type="Passsword"]:focus {
+        border-color: #2563eb;
+        background: #ffffff;
+        box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+    }
+
+    input[type="submit"] {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 15px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="submit"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px rgba(37,99,235,0.35);
+    }
+
+    /* Home link (top left feel) */
+    table:first-of-type {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+    }
+
+    a.profile-action-btn {
+        text-decoration: none;
+        font-weight: 600;
+        color: #2563eb;
+    }
+
+    a.profile-action-btn:hover {
+        text-decoration: underline;
+    }
+</style>
+
+
+
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table border="1" align="" >
+<td><a href="{% url 'Guest:Home'%}" class="profile-action-btn">Home</a></td>
+</table>
+                    <h2 align="center">Login page</h2>
+
+        <table border="1" align="center">
+            <tr>
+                <td>Email</td>
+                <td><input type="email" name="txt_email" id=""></td>
+            </tr>   
+            <tr>
+                <td>Passsword</td>
+                <td><input type="Passsword" name="txt_password" id=""></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="Login">
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+    window.location = "{% url 'Guest:Login'%}"
+</script>
+{% endif %}

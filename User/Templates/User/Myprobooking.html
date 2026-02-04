@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My Property Booking</title>
+    </head>
+    
+    <body>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table border="1" >
+            <td><a href="{% url 'User:Home'%}" class="profile-action-btn">Home</a></td>
+            </table>
+            <table border="1" align="center">
+            <h2 class="editprofile-title" align="center">My Property Buying</h2>
+            <tr>
+                <td>SLNO</td>
+                <td>Date</td>
+                <td>Property type</td>
+                <td>Amount</td>
+                <td>Property</td>
+                <td>Seller</td>
+                <td>Action</td>
+            </tr>
+                {%for i in booking %}
+                <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.propertybuying_date}}</td>
+                <td>{{i.property_id.propertytype_id.propertytype_name}}</td>
+                <td>{{i.propertybuying_amount}}</td>
+                <td><img src="{{i.property_id.property_photo.url}}" width="80"> </td>
+                <td>{{i.property_id.seller_id.seller_name }} </td>
+                <td>
+                <a href="{%url 'User:delbuy' i.id%}">Delete</a>
+                <td>
+                {% if i.propertybuying_status == 0 %}
+                Pending
+                {% elif i.propertybuying_status == 1 %}
+                Accepted
+                {% elif i.propertybuying_status == 2 %}
+                Rejected
+                            {% endif %}
+                </td>
+                </td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </form>
+</body>
+
+</html>
+
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+    window.location = "{% url 'User:Myprobooking'%}"
+</script>
+{% endif %}

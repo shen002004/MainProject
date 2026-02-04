@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>VIEW PROPERTY</title>
+    </head>
+    
+    <body>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table border="1" >
+            <td><a href="{% url 'User:Home'%}" class="profile-action-btn">Home</a></td>
+            </table>
+        <select name="sel_pptype" id="sel_pptype">
+            <option value="">..Select Property Type...</option>
+            {% for i in propertytypedata %}
+            <option value="{{i.id}}">{{i.propertytype_name}}
+                {% endfor %}
+            </option>
+        </select>
+        <h2 class="editprofile-title" align="center">PROPERTY VIEW</h2>
+        <table border="1" align="center" id="result">
+            <tr>
+                <td>SLNO</td>
+                <td>NAME</td>
+                <td>DESCRIPTION</td>
+                <td>PROPERTY TYPE</td>
+                <td>PHOTO</td>
+                <td>DISTRICT</td>
+                <td>PLACE</td>
+                <td>CATEGORY</td>
+                <td>PRICE</td>
+                <td>ACTION</td>
+            </tr>
+            {%for i in properdata %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.property_name}}</td>
+                <td>{{i.property_description}}</td>
+                <td>{{i.propertytype_id.propertytype_name}}</td>
+                <td><img src="{{i.property_photo.url}}" width="80"> </td>
+                <td>{{ i.place_id.district.district_name }}</td>
+                <td>{{ i.place_id.place_name }}</td>
+                <td>{{ i.category_id.category_name }}</td>
+                <td>{{i.property_price}}</td>
+               <td>
+
+        {% if i.property_typestatus == 0 %}
+            <a href="{% url 'User:PropertyRent' i.id %}" class="profile-action-btn">Rent</a>
+        {% elif i.property_typestatus == 1 %}
+            <a href="{% url 'User:Buy' i.id %}" class="profile-action-btn">Buy</a>
+        {% endif %}
+
+    <td>
+        <a href="{% url 'User:ViewGallery' i.id %}" class="profile-action-btn">
+            View Gallery
+        </a>
+    </td>
+</td>
+
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+</body>
+
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $("#sel_pptype").change(function () {
+        var did = $(this).val();
+        var ur = "{% url 'User:Ajaxpro' %}";
+        $.ajax({
+            url: ur,
+            data: { did: did },
+            success: function (data) {
+                $("#result").html(data);
+            },
+        });
+    });
+</script>
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+    window.location = "{% url 'User:Viewpro'%}"
+</script>
+{% endif %}
+

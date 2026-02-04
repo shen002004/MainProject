@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+</head>
+
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table border="1" align="center">
+            <tr>
+                <td>File</td>
+                <td>
+                    <input type="file" name="txt_photo" required>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="Submit">
+                </td>
+            </tr>
+        </table>
+        <table border="2" align="center">
+            <tr>
+                <td>SLNO</td>
+                <td>File</td>
+                <td>Action</td>
+            </tr>
+            {% for i in Gallery %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td><img src="{{i.gallery_photo.url}}" width="80"></td>
+                <td>
+                    <a href="{% url 'Seller:delgal' i.id id %}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+
+        </table>
+                        <table border="1" align="center">
+            <td><a href="{% url 'Seller:Addproperty'%}" class="profile-action-btn">Back</a></td>
+            </table>
+    </form>
+</body>
+
+</html>
+
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+    window.location = "{% url 'Seller:Gallery' id %}"
+</script>
+{% endif %}

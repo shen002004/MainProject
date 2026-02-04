@@ -1,0 +1,137 @@
+{% extends 'Admin/Header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viewcomplaints</title>
+</head>
+<body>
+        <h2 class="editprofile-title" align="center">Viewcomplaints</h2>
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <table border="1" align="center">
+            <tr>
+                <td>SLNO</td>
+
+                <td>User</td>
+
+                <td>Title</td>
+
+                <td>Content</td>
+
+                <td>Date</td>
+
+                <td>ACTION</td>
+            </tr>
+            {% for i in complaint %}
+                        <tr>
+                            <td>{{ forloop.counter}}</td>
+                            <td>{{ i.user_id.user_name}}</td>
+                            <td>{{ i.complaint_title}}</td>
+                            <td>{{ i.complaint_content}}</td>
+                            <td>{{ i.complaint_date}}</td>
+                            <td>
+
+                                {% if i.complaint_status == 0 %}
+                                <a href ="{% url 'Admin:Reply' i.id %}">Reply</a>
+                                
+                                {% elif i.complaint_status == 1 %}
+                                Already Replied
+                                {% endif %}
+
+
+                            </td>
+                        </tr>
+                        {% endfor %}
+        </table>
+    </form>
+        <table border="3" align="center">
+            <h2 class="editprofile-title" align="center">Viewcomplaints of Seller</h2>
+            <tr>
+                <td>SLNO</td>
+
+                <td>Seller</td>
+
+                <td>Title</td>
+
+                <td>Content</td>
+
+                <td>Date</td>
+
+                <td>ACTION</td>
+            </tr>
+
+                        {% for i in scomplaint %}
+                        <tr>
+                            <td>{{ forloop.counter}}</td>
+                            <td>{{ i.seller_id.seller_name}}</td>
+                            <td>{{ i.complaint_title}}</td>
+                            <td>{{ i.complaint_content}}</td>
+                            <td>{{ i.complaint_date}}</td>
+                            <td>
+                                {% if i.complaint_status == 0 %}
+                                <a href ="{% url 'Admin:Reply' i.id %}">Reply</a>
+                                
+                                {% elif i.complaint_status == 1 %}
+                                Already Replied
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+        </table>
+    </form>
+
+            <table border="3" align="center">
+            <h2 class="editprofile-title" align="center">Viewcomplaints of Renter</h2>
+            <tr>
+                <td>SLNO</td>
+
+                <td>Renter</td>
+
+                <td>Title</td>
+
+                <td>Content</td>
+
+                <td>Date</td>
+
+                <td>ACTION</td>
+            </tr>
+
+                        {% for i in rcomplaint %}
+                        <tr>
+                            <td>{{ forloop.counter}}</td>
+                            <td>{{ i.renter_id.renter_name}}</td>
+                            <td>{{ i.complaint_title}}</td>
+                            <td>{{ i.complaint_content}}</td>
+                            <td>{{ i.complaint_date}}</td>
+                            <td>
+                                {% if i.complaint_status == 0 %}
+                                <a href ="{% url 'Admin:Reply' i.id %}">Reply</a>
+                                
+                                {% elif i.complaint_status == 1 %}
+                                Already Replied
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+        </table>
+    </form>
+
+
+
+
+
+</body>
+</html>
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+    window.location = "{% url 'Admin:Viewcomplaints' %}"
+</script>
+{% endif %}
+{% endblock content %}
+

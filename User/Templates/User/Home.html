@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Home page</title>
+</head>
+<body>
+        <form action="" method="post">
+        {% csrf_token %}
+        <table border="1" align="center">
+            <h2 align="center">Home page</h2>
+            <tr><td><a href="{% url 'User:Myprofile'%}" class="profile-action-btn">My profile</a></td></tr>
+            <tr><td><a href="{% url 'User:Viewpro'%}" class="profile-action-btn">View property</a></td></tr>
+            <tr><td><a href="{% url 'User:Myprobooking'%}" class="profile-action-btn">My Property Booking</a></td></tr>
+            <tr><td><a href="{% url 'User:MyproRent'%}"class="profile-action-btn">My Property Rent</a></td></tr>
+            <tr><td><a href="{% url 'User:Complaint'%}"class="profile-action-btn">Complaint</a></td></tr>
+            <tr><td><a href="{% url 'User:Feedback'%}"class="profile-action-btn">Feedback</a></td></tr>
+
+            </table>
+</body>
+</html>

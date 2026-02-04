@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renter Home page</title>
+</head>
+<body>
+            <form action="" method="post">
+        {% csrf_token %}
+        <table border="1" align="center">
+            <h2 align="center">Home page</h2>
+            <tr><td><a href="{% url 'Renter:Myprofile'%}" class="profile-action-btn">My profile</a></td></tr>
+            <tr><td><a href="{% url 'Renter:Addproperty'%}" class="profile-action-btn">Addproperty</a></td></tr>
+            <tr><td><a href="{% url 'Renter:Viewbookings'%}" class="profile-action-btn">Viewbookings</a></td></tr>
+            <tr><td><a href="{% url 'Renter:Complaint'%}" class="profile-action-btn">Complaint</a></td></tr>
+            <tr><td><a href="{% url 'Renter:Feedback'%}" class="profile-action-btn">Feedback</a></td></tr>
+
+            </table>
+</body>
+</html>

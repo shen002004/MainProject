@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Bookings</title>
+</head>
+<body>
+        <h2 align="center">Booking Requests</h2>
+        <table border="1" align="">
+        <td><a href="{% url 'Seller:Home'%}" class="profile-action-btn">Home</a></td>
+        </table>
+    <table border="1" align="center">
+        <tr>
+            <td>SLNO</td>
+            <td>User Name</td>
+            <td>Email</td>
+            <td>Contact</td>
+            <td>Property Name</td>
+            <td>Photo</td>
+            <td>Property Type</td>
+            <td>Price</td>
+            <td>Action</td>
+            </tr>
+
+            {% for i in sbooking %}
+            <tr>
+                <td>{{ forloop.counter}}</td>
+                <td>{{ i.user_id.user_name}}</td>
+                <td>{{ i.user_id.user_email}}</td>
+                <td>{{ i.user_id.user_contact}}</td>
+                <td>{{ i.property_id.property_name}}</td>
+                <td><img src="{{i.property_id.property_photo.url}}" width="80"> </td>
+                <td>{{i.property_id.propertytype_id.propertytype_name}}</td>
+                <td>{{ i.propertybuying_amount}}</td>
+                <td>
+                {% if i.propertybuying_status == 0 %}
+                Pending
+                {% elif i.propertybuying_status == 1 %}
+                Accepted
+                <td><a href="{% url 'Seller:rejectbuying' i.id %}">Reject</a></td>
+                
+                {% elif i.propertybuying_status == 2 %}
+                Rejected
+                <td><a href="{% url 'Seller:acceptbuying' i.id %}">Accept</a></td>
+                {% endif %}
+
+                </td>
+                <td>
+                {%if i.propertybuying_status == 0 %}
+
+                    <a href="{% url 'Seller:acceptbuying' i.id %}">Accept</a>
+                    <a href="{% url 'Seller:rejectbuying' i.id %}">Reject</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+    </table>
+</body>
+</html>
+
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+    window.location = "{% url 'Seller:Viewbooking' %}"
+</script>
+{% endif %}

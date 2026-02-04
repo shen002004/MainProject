@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Password</title>
+</head>
+<body>
+        <form action="" method="post">
+        {% csrf_token %}
+        <table border="1" align="center">
+            <tr>
+                <td>Old Password</td>
+                <td>
+                    <input type="Password" request name="txt_oldpassword" id="txt_oldpassword">
+                </td>
+            </tr>
+            <tr>
+                <td>New password</td>
+                <td>
+                    <input type="password" request name="txt_newpassword" id="txt_newpassword">
+                </td>
+            </tr>
+            <tr>
+                <td>Confirmpassword</td>
+                <td>
+                    <input type="password" request name="txt_confirmpass" id="txt_confirmpass">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                <input type="submit" value="Change Password" class="Changepas-btn">
+                <input type="reset" value="cancel" class="Changepas-btn">
+                </td>
+            </tr>
+        </table>
+                        <table border="1" align="center">
+            <td><a href="{% url 'User:Myprofile'%}" class="profile-action-btn">Back</a></td>
+            </table>
+        
+    </form>
+</body>
+</html>
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+    window.location = "{% url 'User:Changepas'%}"
+</script>
+{% endif %}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RENTERREG</title>
+</head>
+
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table border="1" align="" >
+        <td><a href="{% url 'Guest:Home'%}" class="profile-action-btn">Home</a></td>
+        </table>
+        <table border="1" align="center">
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="txt_name" id=""></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="email" name="txt_email" id=""></td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td><input type="contact" name="txt_contact" id=""></td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td><input type="address" name="txt_address" id=""></td>
+            </tr>
+            <tr>
+                <td>District</td>
+                <td><select name="sel_district" id="sel_district">
+                        <option value="">..Select District...</option>
+                        {% for i in districtData %}
+                        <option value="{{i.id}}">{{i.district_name}}
+                            {% endfor %}
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Place</td>
+                <td><select name="sel_place" id="sel_place">
+                        <option value="">..Select Place...</option>
+                </td>
+            </tr>
+            <tr>
+                <td>Photo</td>
+                <td>
+                    <input type="file" name="txt_photo" required>
+                </td>
+            </tr>
+            <tr>
+                <td>Proof</td>
+                <td>
+                    <input type="file" name="txt_proof" required>
+                </td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="password" name="txt_password" id=""></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="Submit">
+                    <input type="reset" value="Cancel">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+
+</body>
+
+</html>
+
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+    window.location = "{% url 'Guest:Renterreg'%}"
+</script>
+{% endif %}
+
+
+
+<!-- jQuery & AJAX -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $("#sel_district").change(function () {
+        var did = $(this).val();
+        var ur = "{% url 'Guest:Ajaxplace' %}";
+        $.ajax({
+            url: ur,
+            data: { did: did },
+            success: function (data) {
+                $("#sel_place").html(data);
+            },
+        });
+    });
+</script>

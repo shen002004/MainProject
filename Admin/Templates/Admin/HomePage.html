@@ -1,0 +1,431 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Home Page </title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'Admin/dist/assets/css/bootstrap.css' %}">
+
+    <link rel="stylesheet" href="{% static 'Admin/dist/assets/vendors/iconly/bold.css' %}">
+
+    <link rel="stylesheet" href="{% static 'Admin/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.css' %}">
+    <link rel="stylesheet" href="{% static 'Admin/dist/assets/vendors/bootstrap-icons/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'Admin/dist/assets/css/app.css' %}">
+    <link rel="shortcut icon" href="{% static 'Admin/dist/assets/images/favicon.svg' %}" type="image/x-icon">
+</head>
+
+<body>
+    <div id="app">
+        <div id="sidebar" class="active">
+            <div class="sidebar-wrapper active">
+                <div class="sidebar-header">
+                    <div class="d-flex justify-content-between">
+                        <div class="logo" style="display: flex; align-items: center; justify-content: center; width: 230px;">
+                            <a href="index.html"><img src="{% static 'Admin/dist/assets/images/logo/logo.png' %}" alt="Logo"srcset="" 
+                                style="width: 100px; height: 100px;"></a>
+                        </div>
+                        <div class="toggler">
+                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-menu">
+                    <ul class="menu">
+                        <li class="sidebar-title">Menu</li>
+
+                        <li class="sidebar-item active ">
+                            <a href="{% url 'Admin:HomePage'%}" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+
+                        <!-- <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-stack"></i>
+                                <span>Admin Registration</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="{% url 'Admin:AdminReg'%}"> Admin Registration</a>
+                                </li>
+
+                            </ul>
+                        </li> -->
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-collection-fill"></i>
+                                <span>Data Management</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="{% url 'Admin:Category'%}">Category</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="{% url 'Admin:Subcategory'%}">Subcategory</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="{% url 'Admin:Propertytype'%}">Property Type</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-stack"></i>
+                                <span>Location</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="{% url 'Admin:District'%}">District</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="{% url 'Admin:Place'%}">Place</a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-grid-1x2-fill"></i>
+                                <span>Login List</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="{% url 'Admin:Userlist'%}">User List</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="{% url 'Admin:Sellerlist'%}">Seller List</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="{% url 'Admin:Renterlist'%}">Renter List</a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <li class="sidebar-title">Pages</li>
+
+                        <li class="sidebar-item  ">
+                            <a href="{% url 'Admin:Viewcomplaints'%}" class='sidebar-link'>
+                                <i class="bi bi-envelope-fill"></i>
+                                <span>Complaints</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item  ">
+                            <a href="{% url 'Admin:Viewfeedback'%}" class='sidebar-link'>
+                                <i class="bi bi-chat-dots-fill"></i>
+                                <span>Feedbacks</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            </div>
+        </div>
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+
+            <div class="page-heading">
+                <h3>ADMIN DETAILS</h3>
+            </div>
+            <div class="page-content">
+                <section class="row">
+                    <div class="col-12 col-lg-9">
+                        <div class="row">
+                            <div class="col-6 col-lg-3 col-md-6">
+                                <div class="card">
+                                    <div class="card-body px-3 py-4-5">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="stats-icon purple">
+                                                    <i class="iconly-boldProfile"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <h6 class="text-muted font-semibold">User Count</h6>
+                                                <h6 class="font-extrabold mb-0">{{user_count}}</h6>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 col-md-6">
+                                <div class="card">
+                                    <div class="card-body px-3 py-4-5">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="stats-icon blue">
+                                                    <i class="iconly-boldAdd-User"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <h6 class="text-muted font-semibold">Seller Count</h6>
+                                                <h6 class="font-extrabold mb-0">{{seller_count}}</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 col-md-6">
+                                <div class="card">
+                                    <div class="card-body px-3 py-4-5">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="stats-icon green">
+                                                    <i class="iconly-boldAdd-User"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <h6 class="text-muted font-semibold">Renter Count</h6>
+                                                <h6 class="font-extrabold mb-0">{{renter_count}}</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 col-md-6">
+                                <div class="card">
+                                    <div class="card-body px-3 py-4-5">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="stats-icon red">
+                                                    <i class="iconly-boldBookmark"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <h6 class="text-muted font-semibold">Sold Property</h6>
+                                                <h6 class="font-extrabold mb-0">{{property_count}}</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- <div class="card">
+                                    <div class="card-header">
+                                        <h4>Profile Visit</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="chart-profile-visit"></div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-xl-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Profile Visit</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="d-flex align-items-center">
+                                                    <svg class="bi text-primary" width="32" height="32" fill="blue"
+                                                        style="width:10px">
+                                                        <use
+                                                            xlink:href="{% static 'Admin/dist/assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill' %}" />
+                                                    </svg>
+                                                    <h5 class="mb-0 ms-3">Europe</h5>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <h5 class="mb-0">862</h5>
+                                            </div>
+                                            <div class="col-12">
+                                                <div></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="d-flex align-items-center">
+                                                    <svg class="bi text-success" width="32" height="32" fill="blue"
+                                                        style="width:10px">
+                                                        <use
+                                                            xlink:href="{% static 'Admin/dist/assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill' %}" />
+                                                    </svg>
+                                                    <h5 class="mb-0 ms-3">America</h5>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <h5 class="mb-0">375</h5>
+                                            </div>
+                                            <div class="col-12">
+                                                <div></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="d-flex align-items-center">
+                                                    <svg class="bi text-danger" width="32" height="32" fill="blue"
+                                                        style="width:10px">
+                                                        <use
+                                                            xlink:href="{% static 'Admin/dist/assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill' %}" />
+                                                    </svg>
+                                                    <h5 class="mb-0 ms-3">Indonesia</h5>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <h5 class="mb-0">1025</h5>
+                                            </div>
+                                            <div class="col-12">
+                                                <div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-xl-8">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Latest Feedback</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-lg">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Comment</th>
+                                                    </tr>
+                                                </thead>
+                                                {% for i in feedback %}
+                                                <tbody>
+                                                    <tr>
+
+                                                        <td class="col-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="avatar avatar-md">
+                                                                    <img
+                                                                        src="{% static 'Admin/dist/assets/images/faces/5.jpg' %}">
+                                                                    <p class="font-bold ms-3 mb-0">{{forloop.counter}}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div>
+                                                                <p class="font-bold ms-3 mb-0">{{i.feedback_content}}
+                                                                </p>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                {% endfor %}
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-3">
+                        <div class="card">
+                            <div class="card-body py-4 px-4">
+                                <div class="d-flex align-items-center">
+                                    <div class=" avatar avatar-xl">
+                                        <img src="{% static 'Admin/dist/assets/images/faces/1.jpg' %}" alt="Face 1">
+                                    </div>
+                                    <div class="ms-2 name">
+                                        <h5 class="font-bold">{{ admindata.admin_name }}</h5>
+                                        <h6 class="text-muted md-0">{{ admindata.admin_email }}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Modules</h4>
+                            </div>
+                            <div class="recent-message d-flex px-4 py-3">
+                                <div class="avatar avatar-lg">
+                                    <img src="{% static 'Admin/dist/assets/images/faces/1.jpg' %}">
+                                </div>
+                                <div class="name ms-4">
+                                    <h5><a href="{% url 'Admin:Userlist'%}">User List</a></h5>
+                                    <h6 class="text-muted mb-0">@Userlist</h6>
+                                </div>
+                            </div>
+
+
+                            <div class="card-content pb-4">
+                                <div class="recent-message d-flex px-4 py-3">
+                                    <div class="avatar avatar-lg">
+                                        <img src="{% static 'Admin/dist/assets/images/faces/4.jpg' %}">
+                                    </div>
+                                    <div class="name ms-4">
+                                        <h5><a href="{% url 'Admin:Renterlist'%}">Renter List</a></h5>
+                                        <h6 class="text-muted mb-0">@Renter</h6>
+
+                                    </div>
+                                </div>
+
+                                <div class="recent-message d-flex px-4 py-3">
+                                    <div class="avatar avatar-lg">
+                                        <img src="{% static 'Admin/dist/assets/images/faces/5.jpg' %}">
+                                    </div>
+                                    <div class="name ms-4">
+                                        <h5><a href="{% url 'Admin:Sellerlist'%}">Seller List</a></h5>
+
+                                        <h6 class="text-muted mb-0">@Seller</h6>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- <div class="card">
+                            <div class="card-header">
+                                <h4>Visitors Profile</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="chart-visitors-profile"></div>
+                            </div>
+                        </div> -->
+                    </div>
+                </section>
+            </div>
+
+            <footer>
+                <div class="footer clearfix mb-0 text-muted">
+                    <div class="float-start">
+                        <p>2025 &copy; RealEstate</p>
+                    </div>
+                    <div class="float-end">
+                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
+                                href="http://ahmadsaugi.com">Shen</a></p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="{% static 'Admin/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
+    <script src="{% static 'Admin/dist/assets/js/bootstrap.bundle.min.js' %}"></script>
+
+    <script src="{% static 'Admin/dist/assets/vendors/apexcharts/apexcharts.js' %}"></script>
+    <script src="{% static 'Admin/dist/assets/js/pages/dashboard.js' %}"></script>
+
+    <script src="{% static 'Admin/dist/assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Property Rent</title>
+</head>
+<body>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <table border="1" align="center">
+            <h2 class="editprofile-title" align="center">My Property Renting</h2>
+            <tr>
+                <td>SLNO</td>
+                <td>Property type</td>
+                <td>From Date</td>
+                <td>To Date</td>
+                <td>Renter</td>
+                <td>Property</td>
+                <td>Amount</td>
+                <td>Action</td>
+
+            </tr>
+                {%for i in renting %}
+                <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.property_id.propertytype_id.propertytype_name}}</td>
+                <td>{{i.propertybooking_fromdate}}</td>
+                <td>{{i.propertybooking_todate}}</td>
+                <td>{{i.property_id.renter_id.renter_name}}</td>
+                <td><img src="{{i.property_id.property_photo.url}}" width="80"> </td>
+                <td>{{i.propertybooking_amount}}</td>
+                <td><a href="{%url 'User:delrent' i.id %}">Delete</a></td>
+                <td>
+                    <a href="{% url 'User:Paymenthistory' i.id %}"class="profile-action-btn">Payment History</a></td>
+            </tr>
+            {% endfor %}
+            </table>
+            <table border="1" align="center" >
+            <td><a href="{% url 'User:Home'%}" class="profile-action-btn">Home</a></td>
+            </table>
+        </form>
+</body>
+</html>
+
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+    window.location = "{% url 'User:MyproRent'%}"
+</script>
+{% endif %}

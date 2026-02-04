@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Home Page</title>
+</head>
+<body>
+        <form action="" method="post">
+        {% csrf_token %}
+        <table border="1" align="center">
+            <h2 align="center">Home page</h2>
+            <tr><td><a href="{% url 'Guest:Login'%}" class="profile-action-btn">Login</a></td></tr>
+            <tr><td><a href="{% url 'Guest:Renterreg'%}" class="profile-action-btn">Renter Registration</a></td></tr>
+            <tr><td><a href="{% url 'Guest:Seller'%}" class="profile-action-btn">Seller Registration</a></td></tr>
+            <tr><td><a href="{% url 'Guest:UserReg'%}" class="profile-action-btn">User Registration</a></td></tr>
+
+        </table>
+</body>
+</html>

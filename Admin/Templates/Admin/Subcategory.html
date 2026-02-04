@@ -1,0 +1,177 @@
+{% extends 'Admin/Header.html' %}
+{% block content %}<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subcategory</title>
+    <style>
+        /* ===== SUBCATEGORY PAGE CSS (PAGE ONLY) ===== */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #aac5e0;
+}
+
+/* Form spacing */
+form {
+    margin-top: 30px;
+}
+
+/* Tables */
+form table {
+    width: 70%;
+    margin: 22px auto;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+}
+
+/* Remove default borders */
+form table[border] {
+    border: none;
+}
+
+/* Table cells */
+form table td {
+    padding: 12px 14px;
+    font-size: 14px;
+    color: #1f2937;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* Header row */
+form table tr:first-child {
+    background-color: #2563eb;
+    color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Select & input fields */
+form select,
+form input[type="text"] {
+    width: 95%;
+    padding: 8px 10px;
+    border-radius: 4px;
+    border: 1px solid #cbd5e1;
+    font-size: 14px;
+}
+
+/* Focus effect */
+form select:focus,
+form input[type="text"]:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37,99,235,0.2);
+    outline: none;
+}
+
+/* Submit & Cancel buttons */
+form input[type="submit"],
+form input[type="reset"] {
+    padding: 8px 18px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 0 6px;
+}
+
+/* Submit */
+form input[type="submit"] {
+    background-color: #2563eb;
+    color: #ffffff;
+}
+
+/* Cancel */
+form input[type="reset"] {
+    background-color: #9ca3af;
+    color: #ffffff;
+}
+
+/* Action links */
+form table a {
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+    margin: 0 4px;
+}
+
+/* Edit link */
+form table a[href*="edit"] {
+    background-color: #facc15;
+    color: #1e0606;
+}
+
+/* Delete link */
+form table a[href*="del"] {
+    background-color: #ef4444;
+    color: #ffffff;
+}
+
+/* Hover effect */
+form table a:hover {
+    opacity: 0.85;
+}
+
+    </style>
+</head>
+
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table border="1" align="center">
+            <tr>
+                <td>Category</td>
+                <td><select name="sel_category">
+                        <option value="">..Select Category...</option>
+                        {% for i in categoryData %}
+                        <option {% if i.id == editdata.category_id %} selected{% endif %} value="{{i.id}}">{{i.category_name}}
+                            {% endfor %}
+                        </option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td>Subcategory</td>
+                <td><input type="text" vale="{{editdata.subcategory_name}}" name="txt_Subcategory" id=""></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="Submit">
+                    <input type="reset" value="Cancel">
+                </td>
+            </tr>
+        </table>
+        <table border="2" align="center">
+            <tr>                <td>SLNO</td>
+                <td>CATEGORY</td>
+                <td>SUBCATEGORY</td>
+                <td>ACTION</td>
+            </tr>
+            {%for i in Subcategory %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.category.category_name}}</td>
+                <td>{{i.subcategory_name}}</td>
+                <td>
+                    <a href="{%url 'Admin:delsubcategory' i.id%}">Delete</a>
+                    <a href="{%url 'Admin:editsubcat' i.id%}">Edit</a>  
+                </td>
+            </tr>
+            {% endfor %}
+    </form>
+</body>
+
+</html>
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+    window.location = "{%url 'Admin:Subcategory'%}"
+</script>
+{% endif %}
+{% endblock content %}

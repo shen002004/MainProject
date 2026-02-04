@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdminReg</title>
+</head>
+
+<body>
+    <form action="" method="post">
+        <h2 align="center">Admin Registration</h2>
+        {% csrf_token %}
+                <table border="1" align="" >
+        <td><a href="{% url 'Admin:HomePage'%}" class="profile-action-btn">Home</a></td>
+        </table>
+        <table border="1" align="center">
+            <tr>
+                <td>Name</td>
+                <td><input type="text" value="{{editdata.admin_name}}" name="txt_name" id=""></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="email" value="{{editdata.admin_email}}" name="txt_email" id=""></td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td><input type="text" value="{{editdata.admin_contact}}" name="txt_contact" id=""></td>
+            </tr>
+
+            <tr>
+                <td>Password</td>
+                <td><input type="password" name="txt_password" id=""></td>
+            </tr>
+
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="Submit">
+                    <input type="reset" value="Cancel">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <table border="2" align="center">
+        <tr>
+            <td>SLNO</td>
+            <td>NAME</td>
+            <td>EMAIL</td>
+            <td>CONTACT</td>
+            <td>ACTION</td>
+        </tr>
+        {% for i in admindata %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.admin_name}}</td>
+            <td>{{i.admin_email}}</td>
+            <td>{{i.admin_contact}}</td>
+            <td>
+                <a href="{%url 'Admin:delAdreg' i.id%}">Delete</a>
+                <a href="{% url 'Admin:editAdreg' i.id %}">Edit</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+
+{% if msg  %}
+<script>
+    alert("{{msg}}");
+    window.location = "{% url 'Admin:AdminReg'%}"
+</script>
+{% endif %}

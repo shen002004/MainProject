@@ -1,0 +1,199 @@
+{% extends 'Admin/Header.html' %}
+{% block content %}
+
+<style>
+    body {
+        font-family: 'Segoe UI', Roboto, sans-serif;
+        padding: 20px;
+        background-color: #f8fafc; /* Light neutral background to make glass pop */
+    }
+
+    .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        padding: 10px;
+    }
+
+    /* Base Glass Card */
+    .renter-card {
+        position: relative;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 20px;
+        padding: 20px;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .renter-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+    }
+
+    /* Status Glass Tints */
+    .status-0 { background: rgba(255, 255, 255, 0.7); color: #2d3748; }
+    .status-1 { background: rgba(74, 222, 128, 0.2); color: #065f46; }
+    .status-2 { background: rgba(248, 113, 113, 0.2); color: #991b1b; }
+
+    /* Header with Dual Images */
+    .renter-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 15px;
+    }
+
+    .header-left {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+
+    .profile-img, .proof-link img {
+        width: 55px;
+        height: 55px;
+        border-radius: 12px;
+        object-fit: cover;
+        border: 2px solid #fff;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transition: transform 0.2s;
+    }
+
+    .profile-img:hover, .proof-link img:hover {
+        transform: scale(1.1);
+    }
+
+    .renter-info h4 {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    .renter-info span {
+        font-size: 11px;
+        opacity: 0.8;
+        display: block;
+    }
+
+    .proof-label {
+        font-size: 9px;
+        text-transform: uppercase;
+        text-align: center;
+        display: block;
+        margin-top: 2px;
+        font-weight: bold;
+    }
+
+    /* Compact Details */
+    .renter-body {
+        font-size: 13px;
+        background: rgba(255,255,255,0.2);
+        padding: 12px;
+        border-radius: 12px;
+        margin-bottom: 15px;
+    }
+
+    .detail-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 4px;
+    }
+
+    .detail-row b { opacity: 0.7; }
+
+    /* Improved Glass Buttons */
+    .renter-actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    .renter-actions a {
+        flex: 1;
+        text-align: center;
+        padding: 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 700;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: 0.3s;
+        border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    /* Vibrant Button Colors */
+    .btn-accept {
+        background: rgba(22, 163, 74, 0.7); /* Solid-ish green glass */
+        color: white;
+    }
+
+    .btn-reject {
+        background: rgba(220, 38, 38, 0.7); /* Solid-ish red glass */
+        color: white;
+    }
+
+    .renter-actions a:hover {
+        filter: brightness(1.2);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    h2 { font-weight: 800; color: #1e293b; margin-bottom: 40px; }
+</style>
+
+<h2 align="center">Renter Directory</h2>
+
+<div class="card-container">
+    {% for i in renterlist %}
+    <div class="renter-card status-{{ i.renter_status }}">
+        
+        <div class="renter-header">
+            <div class="header-left">
+                <a href="{{ i.renter_photo.url }}" target="_blank">
+                    <img src="{{ i.renter_photo.url }}" class="profile-img" alt="Profile">
+                </a>
+                <div class="renter-info">
+                    <h4>{{ i.renter_name }}</h4>
+                    <span>{{ i.renter_email }}</span>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <a href="{{ i.renter_proof.url }}" target="_blank" class="proof-link">
+                    <img src="{{ i.renter_proof.url }}" alt="Proof">
+                </a>
+                <span class="proof-label">Proof</span>
+            </div>
+        </div>
+
+        <div class="renter-body">
+            <div class="detail-row"><b>Contact:</b> <span>{{ i.renter_contact }}</span></div>
+            <div class="detail-row"><b>Place:</b> <span>{{ i.place.place_name }}</span></div>
+            <div class="detail-row"><b>District:</b> <span>{{ i.place.district.district_name }}</span></div>
+            <div class="detail-row"><b>Address:</b> <span>{{ i.renter_address }}</span></div>
+        </div>
+
+        <div class="renter-actions">
+            {% if i.renter_status == 0 %}
+                <a href="{% url 'Admin:acceptrenter' i.id %}" class="btn-accept">Accept</a>
+                <a href="{% url 'Admin:rejectrenter' i.id %}" class="btn-reject">Reject</a>
+            {% elif i.renter_status == 1 %}
+                <a href="{% url 'Admin:rejectrenter' i.id %}" class="btn-reject">Reject</a>
+            {% elif i.renter_status == 2 %}
+                <a href="{% url 'Admin:acceptrenter' i.id %}" class="btn-accept">Accept</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% if msg %}
+<script>
+    alert("{{ msg }}");
+    window.location = "{% url 'Admin:Renterlist' %}";
+</script>
+{% endif %}
+
+{% endblock %}

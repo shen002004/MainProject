@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint </title>
+</head>
+<body>
+        <h2 align="center">Complaint Registration</h2>
+        <form action="" method="post">
+        {% csrf_token %}
+            <td><a href="{% url 'User:Home'%}" class="profile-action-btn">Home</a></td>
+           <table border="1" align="center">
+            <tr>
+                <td>Title</td>
+                <td><input type="text" name="txt_title" id=""></td>
+            </tr>
+            <tr>
+                <td>Content</td>
+                <td><input type="text" name="txt_content" id=""</td>
+            </tr>
+                <td colspan="3" align="center">
+                    <input type="submit" value="sent">
+                </td>
+           </table>
+        </form>
+        
+        <table border="2" align="center">
+        <tr>
+            <td>SLNO</td>
+            <td>Title</td>
+            <td>Content</td>
+            <td>date</td>
+            <td>Reply</td>
+            <td>Action</td>
+        </tr>
+        {%for i in complaint %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.complaint_title}}</td>
+            <td>{{i.complaint_content}}</td>
+            <td>{{i.complaint_date}}</td>
+            <td>{{i.complaint_reply}}</td>
+            </td>
+            <td>
+                <a href="{% url 'User:delcom' i.id%}">Delete</a>
+            </td>
+        </tr>
+        {%endfor%}
+    </table>
+</body>
+</html>
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+    window.location = "{% url 'User:Complaint'%}"
+</script>
+{% endif %}
