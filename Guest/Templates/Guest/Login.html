@@ -5,151 +5,331 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            width: 950px;
+            max-width: 100%;
+            height: 550px;
+            background: #fff;
+            border-radius: 22px;
+            display: flex;
+            overflow: hidden;
+            box-shadow: 0px 25px 60px rgba(0, 0, 0, 0.35);
+        }
+
+        /* LEFT SIDE IMAGE */
+        .login-left {
+            width: 50%;
+            background: url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c") center/cover no-repeat;
+            position: relative;
+            padding: 40px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .login-left::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+        }
+
+        .login-left * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .login-left h1 {
+            font-size: 35px;
+            font-weight: 800;
+        }
+
+        .login-left p {
+            font-size: 15px;
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+
+        .login-left .home-btn {
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            display: inline-block;
+            width: fit-content;
+            transition: 0.3s;
+        }
+
+        .login-left .home-btn:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        /* RIGHT SIDE FORM */
+        .login-right {
+            width: 50%;
+            padding: 55px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-right h2 {
+            font-size: 30px;
+            font-weight: 800;
+            color: #111827;
+        }
+
+        .login-right span {
+            color: #6b7280;
+            font-size: 14px;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .input-box {
+            margin-top: 25px;
+        }
+
+        .input-box label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+            display: block;
+            margin-bottom: 7px;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 13px 15px;
+            border-radius: 12px;
+            border: 1px solid #d1d5db;
+            outline: none;
+            background: #f9fafb;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .input-box input:focus {
+            border-color: #2563eb;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+        }
+
+        .forgot {
+            margin-top: 10px;
+            text-align: right;
+        }
+
+        .forgot a {
+            font-size: 13px;
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        .forgot a:hover {
+            text-decoration: underline;
+        }
+
+        .btn-login {
+            margin-top: 25px;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 12px 30px rgba(37, 99, 235, 0.35);
+        }
+
+        /* SOCIAL ICONS */
+        .social-box {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .social-box p {
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 12px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+
+        }
+
+
+
+        /* RESPONSIVE */
+        @media(max-width: 900px) {
+            .login-container {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .login-left,
+            .login-right {
+                width: 100%;
+            }
+
+            .login-left {
+                height: 250px;
+            }
+        }
+
+        .password-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .password-box input {
+            flex: 1;
+        }
+
+        .show-btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0px 6px 18px rgba(37, 99, 235, 0.35);
+        }
+
+        .show-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 10px 25px rgba(37, 99, 235, 0.45);
+        }
+
+        .show-btn:active {
+            transform: scale(0.95);
+        }
+    </style>
 </head>
 
-
-<style>
-    * {
-        box-sizing: border-box;
-        font-family: 'Segoe UI', Tahoma, sans-serif;
-    }
-
-    body {
-        margin: 0;
-        min-height: 100vh;
-        background: linear-gradient(
-            rgba(0,0,0,0.45),
-            rgba(0,0,0,0.45)
-        ),
-        url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c");
-        background-size: cover;
-        background-position: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    form {
-        width: 420px;
-        background: #ffffff;
-        padding: 40px 45px;
-        border-radius: 18px;
-        box-shadow: 0 30px 60px rgba(0,0,0,0.35);
-        position: relative;
-    }
-
-    h2 {
-        text-align: center;
-        margin-bottom: 30px;
-        font-size: 26px;
-        font-weight: 700;
-        color: #0f172a;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    table[border="1"] {
-        border: none;
-    }
-
-    td {
-        border: none;
-        padding: 8px 0;
-        font-size: 14px;
-        color: #475569;
-    }
-
-    input[type="email"],
-    input[type="Passsword"] {
-        width: 100%;
-        padding: 12px 14px;
-        border-radius: 10px;
-        border: 1px solid #cbd5e1;
-        outline: none;
-        font-size: 14px;
-        background: #f8fafc;
-    }
-
-    input[type="email"]:focus,
-    input[type="Passsword"]:focus {
-        border-color: #2563eb;
-        background: #ffffff;
-        box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
-    }
-
-    input[type="submit"] {
-        width: 100%;
-        padding: 12px;
-        border: none;
-        border-radius: 12px;
-        background: linear-gradient(135deg, #2563eb, #1d4ed8);
-        color: #ffffff;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        margin-top: 15px;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    input[type="submit"]:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 25px rgba(37,99,235,0.35);
-    }
-
-    /* Home link (top left feel) */
-    table:first-of-type {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-    }
-
-    a.profile-action-btn {
-        text-decoration: none;
-        font-weight: 600;
-        color: #2563eb;
-    }
-
-    a.profile-action-btn:hover {
-        text-decoration: underline;
-    }
-</style>
-
-
-
 <body>
-    <form action="" method="post">
-        {% csrf_token %}
-        <table border="1" align="" >
-<td><a href="{% url 'Guest:Home'%}" class="profile-action-btn">Home</a></td>
-</table>
-                    <h2 align="center">Login page</h2>
 
-        <table border="1" align="center">
-            <tr>
-                <td>Email</td>
-                <td><input type="email" name="txt_email" id=""></td>
-            </tr>   
-            <tr>
-                <td>Passsword</td>
-                <td><input type="Passsword" name="txt_password" id=""></td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                    <input type="submit" value="Login">
-                </td>
-            </tr>
-        </table>
-    </form>
+    <div class="login-container">
+
+        <!-- LEFT SIDE -->
+        <div class="login-left">
+            <div>
+                <h1>Welcome Back</h1>
+                <p>
+                    Login to your account and explore the best property listings.
+                    Your dream home is just one step away.
+                </p>
+            </div>
+
+            <a href="{% url 'Guest:Home' %}" class="home-btn">⬅ Home</a>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="login-right">
+            <form action="" method="post">
+                {% csrf_token %}
+
+                <h2>Login</h2>
+                <span>Please enter your login details</span>
+
+                <div class="input-box">
+                    <label>Email</label>
+                    <input type="email" name="txt_email" placeholder="Enter Email" required>
+                </div>
+
+                <div class="input-box">
+                    <label>Password</label>
+
+                    <div class="password-box">
+                        <input type="password" name="txt_password" id="password" placeholder="Enter Password" required>
+                        <button type="button" class="show-btn" onclick="togglePassword()">Show</button>
+                    </div>
+                </div>
+
+                <!-- 
+                <div class="forgot">
+                    <a href="#">Forgot Password?</a>
+                </div> -->
+
+                <input type="submit" value="Login" class="btn-login">
+                <div class="social-box">
+                    <p>New here? Register as</p>
+
+                    <div class="social-icons">
+                        <a href="{% url 'Guest:Renterreg' %}">Renter</a>
+                        <a href="{% url 'Guest:Seller' %}">Seller</a>
+                        <a href="{% url 'Guest:UserReg' %}">User</a>
+                    </div>
+                </div>
+
+
+
+            </form>
+        </div>
+
+    </div>
+
 </body>
+<script>
+    function togglePassword() {
+        let passInput = document.getElementById("password");
+        let btn = event.target;
+
+        if (passInput.type === "password") {
+            passInput.type = "text";
+            btn.innerText = "Hide";
+        } else {
+            passInput.type = "password";
+            btn.innerText = "Show";
+        }
+    }
+</script>
+
 
 </html>
 
 {% if msg %}
 <script>
     alert("{{msg}}");
-    window.location = "{% url 'Guest:Login'%}"
+    window.location = "{% url 'Guest:Login' %}";
 </script>
 {% endif %}

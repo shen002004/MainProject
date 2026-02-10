@@ -43,8 +43,14 @@ def District(request):
     dis=tbl_district.objects.all()
     if request.method=='POST':
         district=request.POST.get('txt_district')
-        tbl_district.objects.create(district_name=district)
-        return render(request,'Admin/District.html',{'msg':"District Added"})
+        
+        districtcount=tbl_district.objects.filter(district_name=district).count()
+        if districtcount>0:
+
+            return render(request,'Admin/District.html',{'msg':"District Already Exists"})
+        else:
+            tbl_district.objects.create(district_name=district)
+            return render(request,'Admin/District.html',{'msg':"District Added"})
     else:
         return render(request,'Admin/District.html',{'district':dis})
     
@@ -102,6 +108,7 @@ def Category(request):
         return render(request,'Admin/Category.html',{'msg':"Category Added"})
     else:
         return render(request,'Admin/Category.html',{'Category':cat})
+    
 
 #category delete
 def delcategory(request,did):
@@ -221,10 +228,8 @@ def rejectuser(request,rej):
 
 
 def Sellerlist(request):
-    pending=tbl_seller.objects.filter(seller_status=0)
-    accept=tbl_seller.objects.filter(seller_status=1)
-    reject=tbl_seller.objects.filter(seller_status=2)
-    return render(request,'Admin/Sellerlist.html',{'pending':pending,'acceptseller':accept,'rejectseller':reject})
+    pending=tbl_seller.objects.all()
+    return render(request,'Admin/Sellerlist.html',{'sellerlist':pending})
 
 def acceptseller(request,act):
     data=tbl_seller.objects.get(id=act)
@@ -257,9 +262,6 @@ def rejectrenter(request,rej):
 
 
 
-
-
-
 def Viewcomplaints(request):
     user=tbl_user.objects.all()
     complaint=tbl_complaint.objects.filter(user_id__in=user)
@@ -269,7 +271,6 @@ def Viewcomplaints(request):
     rcomplaint=tbl_complaint.objects.filter(renter_id__in=renter)
 
     return render(request,'Admin/Viewcomplaints.html',{'complaint':complaint,'scomplaint':scomplaint,'rcomplaint':rcomplaint})
-
 
 
 
@@ -295,3 +296,64 @@ def Viewfeedback(request):
     renter=tbl_renter.objects.all()
     rfeedback=tbl_feedback.objects.filter(renter_id__in=renter)
     return render(request, 'Admin/Viewfeedback.html',{'feedback':feedback,'sfeedback':sfeedback,'rfeedback':rfeedback})
+
+def Addbhk(request):
+    bhk=tbl_bhk.objects.all()
+    propertytypeData=tbl_propertytype.objects.all()
+    if request.method=='POST':
+        Addbhk=request.POST.get('txt_bhkdetails')
+        propertytype=tbl_propertytype.objects.get(id=request.POST.get('sel_propertytype'))
+        tbl_bhk.objects.create(bhk_name=Addbhk,propertytype=propertytype)
+        return render(request,'Admin/Addbhk.html',{'msg':"BHK Added"})
+    else:    
+        return render(request,'Admin/Addbhk.html',{'propertytypeData':propertytypeData,'Addbhk':bhk})
+
+
+
+def deladdbhk(request,did):
+    tbl_bhk.objects.get(id=did).delete()
+    return render(request,'Admin/Addbhk.html',{'msg':"data deleted"})
+
+
+def editaddbhk(request,eid):
+    editdata= tbl_bhk.objects.get(id=eid)
+    propertytypeData=tbl_propertytype.objects.all()
+    if request.method=='POST':
+        Addbhk=request.POST.get('txt_bhkdetails')
+        Propertytype=tbl_propertytype.objects.get(id=request.POST.get('sel_propertytype'))
+        editdata.bhk_name=Addbhk
+        editdata.propertytype = Propertytype
+        editdata.save()
+        return render(request,'Admin/Addbhk.html',{'msg':"Data Updated"})
+    else:
+        return render(request,'Admin/Addbhk.html',{'editdata':editdata,'propertytypeData':propertytypeData})
+    
+def Furnish(request):
+    furnish=tbl_furnish.objects.all()
+    propertytypeData=tbl_propertytype.objects.all()
+    if request.method=='POST':
+        Furnish=request.POST.get('txt_furnishdetails')
+        propertytype=tbl_propertytype.objects.get(id=request.POST.get('sel_propertytype'))
+        tbl_furnish.objects.create(furnish_name=Furnish,propertytype=propertytype)
+        return render(request,'Admin/Furnish.html',{'msg':"Furnisher Added"})
+    else:    
+        return render(request,'Admin/Furnish.html',{'propertytypeData':propertytypeData,'Furnish':furnish})
+    
+
+def delfurnish(request,did):
+    tbl_furnish.objects.get(id=did).delete()
+    return render(request,'Admin/Furnish.html',{'msg':"data deleted"})
+
+
+def editfurnish(request,eid):
+    editdata= tbl_furnish.objects.get(id=eid)
+    propertytypeData=tbl_propertytype.objects.all()
+    if request.method=='POST':
+        Furnish=request.POST.get('txt_furnishdetails')
+        Propertytype=tbl_propertytype.objects.get(id=request.POST.get('sel_propertytype'))
+        editdata.furnish_name=Furnish
+        editdata.propertytype = Propertytype
+        editdata.save()
+        return render(request,'Admin/Furnish.html',{'msg':"Data Updated"})
+    else:
+        return render(request,'Admin/Furnish.html',{'editdata':editdata,'propertytypeData':propertytypeData})

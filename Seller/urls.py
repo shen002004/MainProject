@@ -29,4 +29,7 @@ urlpatterns = [
         path('rejectbuying/<int:rej>',views.rejectbuying,name='rejectbuying'),
 
 
+        path('Ajaxbf/',views.Ajaxbf,name="Ajaxbf"),
+
+
 ]

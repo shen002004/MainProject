@@ -23,4 +23,14 @@ class tbl_Subcategory(models.Model):
 
 class tbl_propertytype(models.Model):
     propertytype_name=models.CharField(max_length=30)
+
+class tbl_bhk(models.Model):
+    bhk_name=models.CharField(max_length=30)
+    propertytype=models.ForeignKey('tbl_propertytype',on_delete=models.CASCADE,null=True)
+
+class tbl_furnish(models.Model):
+    furnish_name=models.CharField(max_length=30)
+    propertytype=models.ForeignKey('tbl_propertytype',on_delete=models.CASCADE,null=True)
+
+
     

@@ -33,7 +33,7 @@
                         </option>
                     </select>
             </tr>
-
+            <tbody id="result"></tbody>
             <tr>
                 <td>Photo</td>
                 <td>
@@ -152,6 +152,17 @@
             data: { did: did },
             success: function (data) {
                 $("#sel_place").html(data);
+            },
+        });
+    });
+    $("#sel_propertytype").change(function () {
+        var did = $(this).val();
+        var ur = "{% url 'Seller:Ajaxbf' %}";
+        $.ajax({
+            url: ur,
+            data: { did: did },
+            success: function (data) {
+                $("#result").html(data);
             },
         });
     });

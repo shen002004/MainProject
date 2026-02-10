@@ -6,7 +6,11 @@ from Admin.models import *
 class tbl_property(models.Model):
     property_name=models.CharField(max_length=30)
     property_description=models.CharField(max_length=30)
+    
     propertytype_id=models.ForeignKey(tbl_propertytype,on_delete=models.CASCADE,null=True)
+    bhk_id=models.ForeignKey(tbl_bhk,on_delete=models.CASCADE,null=True)
+    furnish_id=models.ForeignKey(tbl_furnish,on_delete=models.CASCADE,null=True)
+
     property_date=models.DateField(auto_now_add=True)
     property_price=models.CharField(max_length=30)
     property_photo=models.FileField(upload_to="Assets/Property/Photo/")

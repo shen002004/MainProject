@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Furnisher</title>
+</head>
+
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <table border="1" align="center">
+            <tr>
+                <td>Property Type</td>
+                <td><select name="sel_propertytype">
+                        <option  value="">..Select Property...</option>
+                        {% for i in propertytypeData %}
+                        <option{% if i.id == editdata.propertytype_id %} selected{% endif %} value="{{i.id}}">{{i.propertytype_name}}</option>
+                        {% endfor %}
+                    </select></td>
+
+            </tr>
+
+            <tr>
+                <td>Furnish Details</td>
+                <td><input type="text" value="{{editdata.furnish_name}}" name="txt_furnishdetails" id=""></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="Add"></td>
+            </tr>
+        </table>
+
+        <table border="1" align="center">
+            <tr>
+                <td>SNO</td>
+                <td>Property Type</td>
+                <td>Furnish Details</td>
+                <td>Action</td>
+            </tr>
+            {% for i in Furnish %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{ i.propertytype.propertytype_name}}</td>
+                <td>{{i.furnish_name}}</td>
+                <td>
+                    <a href="{%url 'Admin:delfurnish' i.id%}">Delete</a>
+                    <a href="{%url 'Admin:editfurnish' i.id%}">Edit</a>
+                </td>
+            </tr>
+            {% endfor %}
+
+        </table>
+        
+    </form>
+
+</html>
+</body>
+
+</html>
+
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+    window.location = "{%url 'Admin:Furnish'%}"
+</script>
+{% endif %}

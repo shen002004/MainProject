@@ -9,14 +9,20 @@ def UserReg(request):
     if request.method=='POST':
         name=request.POST.get('txt_name')
         email=request.POST.get('txt_email')
-        contact=request.POST.get('txt_contact')
+        contact=request.POST.get('txt_contact')  
         address=request.POST.get('txt_address')
         place=request.POST.get('sel_place')  
         photo=request.FILES.get('txt_photo')  
-        password=request.POST.get('txt_password')    
-        tbl_user.objects.create(user_name=name,user_email=email,user_contact=contact,user_address=address,
+        password=request.POST.get('txt_password') 
+
+        emailcount=tbl_user.objects.filter(user_email=email).count()   
+        if emailcount>0:
+            return render(request,'Guest/UserReg.html',{'msg':"Email already exists"})
+        else:
+            tbl_user.objects.create(user_name=name,user_email=email,user_contact=contact,user_address=address,
                                 place=tbl_Place.objects.get(id=place),user_photo=photo,user_password=password)
         return render(request,'Guest/UserReg.html',{'msg':"User Registered"})
+        
     else:
         return render(request,'Guest/UserReg.html',{'districtData':districtData})
     
@@ -76,14 +82,18 @@ def Seller(request):
         photo=request.FILES.get('txt_photo')  
         proof=request.FILES.get('txt_proof')
         password=request.POST.get('txt_password')
-        tbl_seller.objects.create(seller_name=name,seller_email=email,seller_contact=contact,seller_address=address,
+
+        emailcount=tbl_seller.objects.filter(seller_email=email).count()
+        if emailcount>0:
+                return render(request,'Guest/Seller.html',{'msg':"Email already exists"})
+        else:
+            tbl_seller.objects.create(seller_name=name,seller_email=email,seller_contact=contact,seller_address=address,
                                   place=tbl_Place.objects.get(id=place),seller_photo=photo,seller_proof=proof,seller_password=password) 
         return render(request,'Guest/Seller.html',{'msg':"seller Registered"})
     else:
         return render(request,'Guest/Seller.html',{'districtData':districtData})
     
-    
-    
+
 def Renterreg(request):
     districtData=tbl_district.objects.all()
     if request.method=='POST':
@@ -95,7 +105,12 @@ def Renterreg(request):
         photo=request.FILES.get('txt_photo')  
         proof=request.FILES.get('txt_proof')
         password=request.POST.get('txt_password')
-        tbl_renter.objects.create(renter_name=name,renter_email=email,renter_contact=contact,renter_address=address,
+
+        emailcount=tbl_renter.objects.filter(renter_email=email).count()
+        if emailcount>0:
+                return render(request,'Guest/Renterreg.html',{'msg':"Email already exists"})
+        else:
+            tbl_renter.objects.create(renter_name=name,renter_email=email,renter_contact=contact,renter_address=address,
                                   place=tbl_Place.objects.get(id=place),renter_photo=photo,renter_proof=proof,renter_password=password)         
         
         return render(request,'Guest/Renterreg.html',{'msg':"Renter Registered"})
@@ -105,3 +120,6 @@ def Renterreg(request):
 
 def Home(request):
     return render(request,'Guest/Home.html')
+
+def index(request):
+    return render(request,'Guest/index.html')

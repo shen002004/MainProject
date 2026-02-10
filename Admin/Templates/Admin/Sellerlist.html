@@ -15,14 +15,6 @@
         padding: 10px;
     }
 
-    .section-title {
-        font-weight: 800;
-        color: #1e293b;
-        margin: 40px 0 20px 0;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
     /* Base Glass Card */
     .seller-card {
         position: relative;
@@ -43,11 +35,11 @@
     }
 
     /* Status Glass Tints */
-    .status-pending { background: rgba(255, 255, 255, 0.7); color: #2d3748; }
-    .status-accept { background: rgba(74, 222, 128, 0.2); color: #065f46; }
-    .status-reject { background: rgba(248, 113, 113, 0.2); color: #991b1b; }
+    .status-0 { background: rgba(255, 255, 255, 0.7); color: #2d3748; } /* Pending */
+    .status-1 { background: rgba(74, 222, 128, 0.2); color: #065f46; } /* Accepted */
+    .status-2 { background: rgba(248, 113, 113, 0.2); color: #991b1b; } /* Rejected */
 
-    /* Header with Dual Images */
+    /* Header */
     .seller-header {
         display: flex;
         justify-content: space-between;
@@ -96,7 +88,7 @@
         font-weight: bold;
     }
 
-    /* Compact Details */
+    /* Details */
     .seller-body {
         font-size: 13px;
         background: rgba(255,255,255,0.2);
@@ -111,9 +103,11 @@
         margin-bottom: 4px;
     }
 
-    .detail-row b { opacity: 0.7; }
+    .detail-row b {
+        opacity: 0.7;
+    }
 
-    /* Improved Glass Buttons */
+    /* Buttons */
     .seller-actions {
         display: flex;
         gap: 10px;
@@ -130,34 +124,48 @@
         text-transform: uppercase;
         transition: 0.3s;
         border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .btn-accept {
+        background: rgba(22, 163, 74, 0.7);
         color: white;
     }
 
-    .btn-accept { background: rgba(22, 163, 74, 0.7); }
-    .btn-reject { background: rgba(220, 38, 38, 0.7); }
+    .btn-reject {
+        background: rgba(220, 38, 38, 0.7);
+        color: white;
+    }
 
     .seller-actions a:hover {
         filter: brightness(1.2);
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
+
+    h2 {
+        font-weight: 800;
+        color: #1e293b;
+        margin-bottom: 40px;
+    }
 </style>
 
 <h2 align="center">Seller Directory</h2>
 
-<h3 class="section-title" align="center">Pending Applications</h3>
 <div class="card-container">
-    {% for i in pending %}
-    <div class="seller-card status-pending">
+    {% for i in sellerlist %}
+    <div class="seller-card status-{{ i.seller_status }}">
+
         <div class="seller-header">
             <div class="header-left">
                 <a href="{{ i.seller_photo.url }}" target="_blank">
                     <img src="{{ i.seller_photo.url }}" class="profile-img" alt="Profile">
                 </a>
+
                 <div class="seller-info">
                     <h4>{{ i.seller_name }}</h4>
                     <span>{{ i.seller_email }}</span>
                 </div>
             </div>
+
             <div class="header-right">
                 <a href="{{ i.seller_proof.url }}" target="_blank" class="proof-link">
                     <img src="{{ i.seller_proof.url }}" alt="Proof">
@@ -165,80 +173,27 @@
                 <span class="proof-label">Proof</span>
             </div>
         </div>
+
         <div class="seller-body">
             <div class="detail-row"><b>Contact:</b> <span>{{ i.seller_contact }}</span></div>
             <div class="detail-row"><b>Place:</b> <span>{{ i.place.place_name }}</span></div>
             <div class="detail-row"><b>District:</b> <span>{{ i.place.district.district_name }}</span></div>
             <div class="detail-row"><b>Address:</b> <span>{{ i.seller_address }}</span></div>
         </div>
-        <div class="seller-actions">
-            <a href="{% url 'Admin:acceptseller' i.id %}" class="btn-accept">Accept</a>
-            <a href="{% url 'Admin:rejectseller' i.id %}" class="btn-reject">Reject</a>
-        </div>
-    </div>
-    {% endfor %}
-</div>
 
-<h3 class="section-title" align="center" style="color: #16a34a;">Accepted Sellers</h3>
-<div class="card-container">
-    {% for i in acceptseller %}
-    <div class="seller-card status-accept">
-        <div class="seller-header">
-            <div class="header-left">
-                <a href="{{ i.seller_photo.url }}" target="_blank">
-                    <img src="{{ i.seller_photo.url }}" class="profile-img">
-                </a>
-                <div class="seller-info">
-                    <h4>{{ i.seller_name }}</h4>
-                    <span>{{ i.seller_email }}</span>
-                </div>
-            </div>
-            <div class="header-right">
-                <a href="{{ i.seller_proof.url }}" target="_blank" class="proof-link">
-                    <img src="{{ i.seller_proof.url }}">
-                </a>
-                <span class="proof-label">Proof</span>
-            </div>
-        </div>
-        <div class="seller-body">
-            <div class="detail-row"><b>Contact:</b> <span>{{ i.seller_contact }}</span></div>
-            <div class="detail-row"><b>Address:</b> <span>{{ i.seller_address }}</span></div>
-        </div>
         <div class="seller-actions">
-            <a href="{% url 'Admin:rejectseller' i.id %}" class="btn-reject" style="flex:none; width:100%;">Reject Seller</a>
-        </div>
-    </div>
-    {% endfor %}
-</div>
+            {% if i.seller_status == 0 %}
+                <a href="{% url 'Admin:acceptseller' i.id %}" class="btn-accept">Accept</a>
+                <a href="{% url 'Admin:rejectseller' i.id %}" class="btn-reject">Reject</a>
 
-<h3 class="section-title" align="center" style="color: #dc2626;">Rejected Sellers</h3>
-<div class="card-container">
-    {% for i in rejectseller %}
-    <div class="seller-card status-reject">
-        <div class="seller-header">
-            <div class="header-left">
-                <a href="{{ i.seller_photo.url }}" target="_blank">
-                    <img src="{{ i.seller_photo.url }}" class="profile-img">
-                </a>
-                <div class="seller-info">
-                    <h4>{{ i.seller_name }}</h4>
-                    <span>{{ i.seller_email }}</span>
-                </div>
-            </div>
-            <div class="header-right">
-                <a href="{{ i.seller_proof.url }}" target="_blank" class="proof-link">
-                    <img src="{{ i.seller_proof.url }}">
-                </a>
-                <span class="proof-label">Proof</span>
-            </div>
+            {% elif i.seller_status == 1 %}
+                <a href="{% url 'Admin:rejectseller' i.id %}" class="btn-reject">Reject</a>
+
+            {% elif i.seller_status == 2 %}
+                <a href="{% url 'Admin:acceptseller' i.id %}" class="btn-accept">Accept</a>
+            {% endif %}
         </div>
-        <div class="seller-body">
-            <div class="detail-row"><b>Contact:</b> <span>{{ i.seller_contact }}</span></div>
-            <div class="detail-row"><b>District:</b> <span>{{ i.place.district.district_name }}</span></div>
-        </div>
-        <div class="seller-actions">
-            <a href="{% url 'Admin:acceptseller' i.id %}" class="btn-accept" style="flex:none; width:100%;">Re-Accept Seller</a>
-        </div>
+
     </div>
     {% endfor %}
 </div>

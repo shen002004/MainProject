@@ -13,4 +13,7 @@ urlpatterns = [
         path('Seller/',views.Seller,name='Seller'),
         
         path('Renterreg/',views.Renterreg,name='Renterreg'),
+
+        path('index/',views.index,name='index'),
+        
 ]

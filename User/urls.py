@@ -34,4 +34,11 @@ urlpatterns = [
 
     path('Feedback/',views.Feedback,name='Feedback'),
     path('Ajaxpro/',views.Ajaxpro,name='Ajaxpro'),
+
+    path('Proviewmore/<int:id>',views.Proviewmore,name='Proviewmore'),
+
+    path('loader/',views.loader, name='loader'),
+    path('paymentsuc/',views.paymentsuc, name='paymentsuc'),
+
+
 ]

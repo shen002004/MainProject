@@ -1,42 +1,40 @@
 <table border="1" align="center">
-            <tr>
-                <td>SLNO</td>
-                <td>NAME</td>
-                <td>DESCRIPTION</td>
-                <td>PROPERTY TYPE</td>
-                <td>PHOTO</td>
-                <td>DISTRICT</td>
-                <td>PLACE</td>
-                <td>CATEGORY</td>
-                <td>PRICE</td>
-                <td>ACTION</td>
-            </tr>
-            {%for i in properdata %}
-            <tr>
-                <td>{{forloop.counter}}</td>
-                <td>{{i.property_name}}</td>
-                <td>{{i.property_description}}</td>
-                <td>{{i.propertytype_id.propertytype_name}}</td>
-                <td><img src="{{i.property_photo.url}}" width="80"> </td>
-                <td>{{ i.place_id.district.district_name }}</td>
-                <td>{{ i.place_id.place_name }}</td>
-                <td>{{ i.category_id.category_name }}</td>
-                <td>{{i.property_price}}</td>
-               <td>
-
-        {% if i.property_typestatus == 0 %}
+    <tr>
+        <td>SLNO</td>
+        <td>NAME</td>
+        <!-- <td>DESCRIPTION</td> -->
+        <td>PROPERTY TYPE</td>
+        <td>PHOTO</td>
+        <td>DISTRICT</td>
+        <!-- <td>PLACE</td> -->
+        <td>CATEGORY</td>
+        <!-- <td>PRICE</td> -->
+        <td>ACTION</td>
+    </tr>
+    {%for i in properdata %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{i.property_name}}</td>
+        <!-- <td>{{i.property_description}}</td> -->
+        <td>{{i.propertytype_id.propertytype_name}}</td>
+        <td><img src="{{i.property_photo.url}}" width="80"> </td>
+        <td>{{ i.place_id.district.district_name }}</td>
+        <!-- <td>{{ i.place_id.place_name }}</td> -->
+        <td>{{ i.category_id.category_name }}</td>
+        <!-- <td>{{i.property_price}}</td> -->
+        <td>
+<!-- 
+            {% if i.property_typestatus == 0 %}
             <a href="{% url 'User:PropertyRent' i.id %}" class="profile-action-btn">Rent</a>
-        {% elif i.property_typestatus == 1 %}
+            {% elif i.property_typestatus == 1 %}
             <a href="{% url 'User:Buy' i.id %}" class="profile-action-btn">Buy</a>
-        {% endif %}
+            {% endif %}
 
-    <td>
-        <a href="{% url 'User:ViewGallery' i.id %}" class="profile-action-btn">
-            View Gallery
-        </a>
-    </td>
-</td>
+        <td> -->
+            <a href="{% url 'User:Proviewmore' i.id %}">View More</a>
 
-            </tr>
-            {% endfor %}
-        </table>
+        </td>
+
+    </tr>
+    {% endfor %}
+</table>

@@ -133,3 +133,11 @@ def rejectbuying(request,rej):
     data.propertybuying_status=2
     data.save()
     return render(request,'Seller/Viewbooking.html',{'msg':"Rejected"})
+
+def Ajaxbf(request):
+    bhkcount = tbl_bhk.objects.filter(propertytype_id=request.GET.get('did')).count()
+    funcount = tbl_furnish.objects.filter(propertytype_id=request.GET.get('did')).count()
+    if bhkcount and funcount > 0:
+        bhk = tbl_bhk.objects.filter(propertytype_id=request.GET.get('did'))
+        fun = tbl_furnish.objects.filter(propertytype_id=request.GET.get('did'))
+        return render(request,'Seller/Ajaxbf.html',{'bhk':bhk,'fun':fun})

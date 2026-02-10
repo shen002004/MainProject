@@ -45,11 +45,18 @@ urlpatterns = [
 
     path('Viewfeedback/',views.Viewfeedback,name='Viewfeedback'),
 
-    path('Propertytype',views.Propertytype,name='Propertytype'),
+    path('Propertytype/',views.Propertytype,name='Propertytype'),
     path('delpropertytype/<int:did>',views.delpropertytype,name='delpropertytype'),
     path('editpropertytype/<int:eid>/',views.editpropertytype,name='editpropertytype'),
 
+    path('Addbhk/',views.Addbhk,name='Addbhk'),
+    path('deladdbhk/<int:did>/',views.deladdbhk,name='deladdbhk'),
+    path('editaddbhk/<int:eid>/',views.editaddbhk,name='editaddbhk'),
 
+
+    path('Furnish/',views.Furnish,name='Furnish'),
+    path('delfurnish/<int:did>/',views.delfurnish,name='delfurnish'),
+    path('editfurnish/<int:eid>/',views.editfurnish,name='editfurnish'),
 
 
 ]

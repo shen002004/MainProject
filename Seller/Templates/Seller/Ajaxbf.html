@@ -1,0 +1,24 @@
+{% if bhk and fun %}
+<tr>
+    <td>BHK</td>
+    <td>
+        <select name="sel_bhk" id="sel_bhk">
+            <option value="">..Select BHK...</option>
+            {% for i in bhk %}
+            <option value="{{i.id}}">{{i.bhk_name}}</option>
+            {% endfor %}
+        </select>
+    </td>
+</tr>
+<tr>
+    <td>Furnish</td>
+    <td>
+        <select name="sel_furnish" id="sel_furnish">
+            <option value="">..Select Furnish...</option>
+            {% for i in fun %}
+            <option value="{{i.id}}">{{i.furnish_name}}</option>
+            {% endfor %}    
+        </select>
+    </td>
+</tr>
+{% endif %}

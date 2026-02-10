@@ -62,11 +62,23 @@ def Changepas(request):
 def Viewpro(request):
     properdata=tbl_property.objects.all()
     propertytypedata=tbl_propertytype.objects.all()
-    return render(request,'User/Viewpro.html',{'properdata':properdata,'propertytypedata':propertytypedata})
+    bhkdata=tbl_bhk.objects.all()
+    furnishdata=tbl_furnish.objects.all()
+    return render(request,'User/Viewpro.html',{'properdata':properdata,'propertytypedata':propertytypedata,
+                                               'bhkdata':bhkdata,'furnishdata':furnishdata})
 
 def Ajaxpro(request):
     ptypeid=request.GET.get('did')
+    bhk=request.GET.get('bhk')
+    fid=request.GET.get('fid')
+    print(bhk)
     properdata=tbl_property.objects.filter(propertytype_id=ptypeid)
+    if bhk:
+        properdata=tbl_property.objects.filter(bhk_id=bhk)
+    if fid:
+        properdata=tbl_property.objects.filter(furnish_id=fid)
+    if bhk and fid:
+        properdata=tbl_property.objects.filter(bhk_id=bhk,furnish_id=fid)
     return render(request,'User/Ajaxpro.html',{'properdata':properdata})
 
 def Buy(request,pid):
@@ -83,7 +95,7 @@ def Buy(request,pid):
 
 def ViewGallery(request,pid):
     data=tbl_gallery.objects.filter(property=pid)
-    return render(request,'User/ViewGallery.html',{'data':data})
+    return render(request,'User/ViewGallery.html',{'data':data,'id':pid})
 
 
 def PropertyRent(request, pid):
@@ -175,14 +187,19 @@ def AddPayment(request,bid):
         msg = "Already Rented this property"
         return render(request, 'User/Paymenthistory.html', {'msg': msg})
     else:
+        bookingdata = tbl_propertybookingpayment.objects.get(id=bid,propertybookingpayment_status=0)
         if request.method=='POST':
-            bookingdata = tbl_propertybookingpayment.objects.get(id=bid,propertybookingpayment_status=0)
             bookingdata.propertybookingpayment_status=1
             bookingdata.save()
-
-            return render(request,'User/AddPayment.html',{'msg':"Payment Added"})
+            return redirect("User:loader")
         else:
-            return render(request,'User/AddPayment.html')
+            return render(request,'User/AddPayment.html',{"amount":bookingdata.propertybookingpayment_amount})
+        
+def loader(request):
+    return render(request,"User/Loader.html")
+
+def paymentsuc(request):
+    return render(request,"User/Paymentsuc.html")
 
 
 def Paymenthistory(request,bid):
@@ -218,7 +235,13 @@ def Feedback(request):
         return render(request,'User/Feedback.html',{'msg': "Feedback submited Successfully"})
     else:
         return render(request,'User/Feedback.html')
+    
+def Proviewmore(request,id):
 
+    properdata=tbl_property.objects.get(id=id)
+    bhkdata=tbl_bhk.objects.all()
+    furnish=tbl_furnish.objects.all()
 
+    return render(request,'User/Proviewmore.html',{'properdata':properdata,'bhkdata':bhkdata,'furnish':furnish})
 
 
