@@ -1,85 +1,372 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script type="text/javascript">
-  function preventBack() { window.history.forward(); }
-  setTimeout("preventBack()", 0);
-  window.onunload = function () { null };
-</script>
-<style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <script type="text/javascript">
+    function preventBack() { window.history.forward(); }
+    setTimeout("preventBack()", 0);
+    window.onunload = function () { null };
+  </script>
 
-#loader {
-  background-color: rgb(255, 255, 255);
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 1;
-  width: 120px;
-  height: 120px;
-  margin: -76px 0 0 -76px;
-  border: 16px solid #b9b9b9;
-  border-radius: 50%;
-  border-top: 16px solid #127cc3;
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
-}
+  <title>Processing Payment</title>
 
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: #f4f7ff;
+    }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+    h1 {
+      font-size: 26px;
+      margin-bottom: 40px;
+      color: #275EFE;
+      font-weight: 600;
+    }
 
-.animate-bottom {
-  position: relative;
-  -webkit-animation-name: animatebottom;
-  -webkit-animation-duration: 1s;
-  animation-name: animatebottom;
-  animation-duration: 1s
-}
+    /* Center Loader */
+    .loader-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-@-webkit-keyframes animatebottom {
-  from { bottom:-100px; opacity:0 } 
-  to { bottom:0px; opacity:1 }
-}
+    /* TYPEWRITER LOADER */
+    .typewriter {
+      --blue: #5C86FF;
+      --blue-dark: #275EFE;
+      --key: #fff;
+      --paper: #EEF0FD;
+      --text: #D3D4EC;
+      --tool: #FBC56C;
+      --duration: 3s;
+      position: relative;
+      animation: bounce05 var(--duration) linear infinite;
+    }
 
-@keyframes animatebottom { 
-  from{ bottom:-100px; opacity:0 } 
-  to{ bottom:0; opacity:1 }
-}
+    .typewriter .slide {
+      width: 92px;
+      height: 20px;
+      border-radius: 3px;
+      margin-left: 14px;
+      transform: translateX(14px);
+      background: linear-gradient(var(--blue), var(--blue-dark));
+      animation: slide05 var(--duration) ease infinite;
+    }
 
-#myDiv {
-  display: none;
-  text-align: center;
-}
-</style>
-</head>
-<body onload="myFunction()" style="margin:0;" >
-<center><h1> Processing Payment....</h1></center>
-<div id="loader"></div>
-<div style="display:none;" id="myDiv" class="animate-bottom">
-  <h2>Tada!</h2>
-  <p></p>
-</div>
+    .typewriter .slide:before,
+    .typewriter .slide:after,
+    .typewriter .slide i:before {
+      content: "";
+      position: absolute;
+      background: var(--tool);
+    }
 
-<script>
-      var myVar;
-      function myFunction() {
-      window.setTimeout(function() {
-      window.location = "{% url 'User:paymentsuc' %}";
-      }, 5000);
+    .typewriter .slide:before {
+      width: 2px;
+      height: 8px;
+      top: 6px;
+      left: 100%;
+    }
+
+    .typewriter .slide:after {
+      left: 94px;
+      top: 3px;
+      height: 14px;
+      width: 6px;
+      border-radius: 3px;
+    }
+
+    .typewriter .slide i {
+      display: block;
+      position: absolute;
+      right: 100%;
+      width: 6px;
+      height: 4px;
+      top: 4px;
+      background: var(--tool);
+    }
+
+    .typewriter .slide i:before {
+      right: 100%;
+      top: -2px;
+      width: 4px;
+      border-radius: 2px;
+      height: 14px;
+    }
+
+    .typewriter .paper {
+      position: absolute;
+      left: 24px;
+      top: -26px;
+      width: 40px;
+      height: 46px;
+      border-radius: 5px;
+      background: var(--paper);
+      transform: translateY(46px);
+      animation: paper05 var(--duration) linear infinite;
+    }
+
+    .typewriter .paper:before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      right: 6px;
+      top: 7px;
+      border-radius: 2px;
+      height: 4px;
+      transform: scaleY(0.8);
+      background: var(--text);
+      box-shadow: 0 12px 0 var(--text), 0 24px 0 var(--text),
+        0 36px 0 var(--text);
+    }
+
+    .typewriter .keyboard {
+      width: 120px;
+      height: 56px;
+      margin-top: -10px;
+      z-index: 1;
+      position: relative;
+    }
+
+    .typewriter .keyboard:before,
+    .typewriter .keyboard:after {
+      content: "";
+      position: absolute;
+    }
+
+    .typewriter .keyboard:before {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 7px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      transform: perspective(10px) rotateX(2deg);
+      transform-origin: 50% 100%;
+    }
+
+    .typewriter .keyboard:after {
+      left: 2px;
+      top: 25px;
+      width: 11px;
+      height: 4px;
+      border-radius: 2px;
+      box-shadow: 15px 0 0 var(--key), 30px 0 0 var(--key),
+        45px 0 0 var(--key), 60px 0 0 var(--key), 75px 0 0 var(--key),
+        90px 0 0 var(--key), 22px 10px 0 var(--key),
+        37px 10px 0 var(--key), 52px 10px 0 var(--key),
+        60px 10px 0 var(--key), 68px 10px 0 var(--key),
+        83px 10px 0 var(--key);
+      animation: keyboard05 var(--duration) linear infinite;
+    }
+
+    @keyframes bounce05 {
+      85%,
+      92%,
+      100% {
+        transform: translateY(0);
       }
-function showPage() {
-  document.getElementById("loader").style.display = "none";
-  document.getElementById("myDiv").style.display = "block";
-}
-</script>
+
+      89% {
+        transform: translateY(-4px);
+      }
+
+      95% {
+        transform: translateY(2px);
+      }
+    }
+
+    @keyframes slide05 {
+      5% {
+        transform: translateX(14px);
+      }
+
+      15%,
+      30% {
+        transform: translateX(6px);
+      }
+
+      40%,
+      55% {
+        transform: translateX(0);
+      }
+
+      65%,
+      70% {
+        transform: translateX(-4px);
+      }
+
+      80%,
+      89% {
+        transform: translateX(-12px);
+      }
+
+      100% {
+        transform: translateX(14px);
+      }
+    }
+
+    @keyframes paper05 {
+      5% {
+        transform: translateY(46px);
+      }
+
+      20%,
+      30% {
+        transform: translateY(34px);
+      }
+
+      40%,
+      55% {
+        transform: translateY(22px);
+      }
+
+      65%,
+      70% {
+        transform: translateY(10px);
+      }
+
+      80%,
+      85% {
+        transform: translateY(0);
+      }
+
+      92%,
+      100% {
+        transform: translateY(46px);
+      }
+    }
+
+    @keyframes keyboard05 {
+      5%,
+      12%,
+      21%,
+      30%,
+      39%,
+      48%,
+      57%,
+      66%,
+      75%,
+      84% {
+        box-shadow: 15px 0 0 var(--key), 30px 0 0 var(--key),
+          45px 0 0 var(--key), 60px 0 0 var(--key),
+          75px 0 0 var(--key), 90px 0 0 var(--key),
+          22px 10px 0 var(--key), 37px 10px 0 var(--key),
+          52px 10px 0 var(--key), 60px 10px 0 var(--key),
+          68px 10px 0 var(--key), 83px 10px 0 var(--key);
+      }
+
+      9% {
+        box-shadow: 15px 2px 0 var(--key), 30px 0 0 var(--key),
+          45px 0 0 var(--key), 60px 0 0 var(--key),
+          75px 0 0 var(--key), 90px 0 0 var(--key),
+          22px 10px 0 var(--key), 37px 10px 0 var(--key),
+          52px 10px 0 var(--key), 60px 10px 0 var(--key),
+          68px 10px 0 var(--key), 83px 10px 0 var(--key);
+      }
+
+      18% {
+        box-shadow: 15px 0 0 var(--key), 30px 0 0 var(--key),
+          45px 0 0 var(--key), 60px 2px 0 var(--key),
+          75px 0 0 var(--key), 90px 0 0 var(--key),
+          22px 10px 0 var(--key), 37px 10px 0 var(--key),
+          52px 10px 0 var(--key), 60px 10px 0 var(--key),
+          68px 10px 0 var(--key), 83px 10px 0 var(--key);
+      }
+
+      27% {
+        box-shadow: 15px 0 0 var(--key), 30px 0 0 var(--key),
+          45px 0 0 var(--key), 60px 0 0 var(--key),
+          75px 0 0 var(--key), 90px 0 0 var(--key),
+          22px 12px 0 var(--key), 37px 10px 0 var(--key),
+          52px 10px 0 var(--key), 60px 10px 0 var(--key),
+          68px 10px 0 var(--key), 83px 10px 0 var(--key);
+      }
+
+      36% {
+        box-shadow: 15px 0 0 var(--key), 30px 0 0 var(--key),
+          45px 0 0 var(--key), 60px 0 0 var(--key),
+          75px 0 0 var(--key), 90px 0 0 var(--key),
+          22px 10px 0 var(--key), 37px 10px 0 var(--key),
+          52px 12px 0 var(--key), 60px 12px 0 var(--key),
+          68px 12px 0 var(--key), 83px 10px 0 var(--key);
+      }
+
+      45% {
+        box-shadow: 15px 0 0 var(--key), 30px 0 0 var(--key),
+          45px 0 0 var(--key), 60px 0 0 var(--key),
+          75px 0 0 var(--key), 90px 2px 0 var(--key),
+          22px 10px 0 var(--key), 37px 10px 0 var(--key),
+          52px 10px 0 var(--key), 60px 10px 0 var(--key),
+          68px 10px 0 var(--key), 83px 10px 0 var(--key);
+      }
+
+      54% {
+        box-shadow: 15px 0 0 var(--key), 30px 2px 0 var(--key),
+          45px 0 0 var(--key), 60px 0 0 var(--key),
+          75px 0 0 var(--key), 90px 0 0 var(--key),
+          22px 10px 0 var(--key), 37px 10px 0 var(--key),
+          52px 10px 0 var(--key), 60px 10px 0 var(--key),
+          68px 10px 0 var(--key), 83px 10px 0 var(--key);
+      }
+
+      63% {
+        box-shadow: 15px 0 0 var(--key), 30px 0 0 var(--key),
+          45px 0 0 var(--key), 60px 0 0 var(--key),
+          75px 0 0 var(--key), 90px 0 0 var(--key),
+          22px 10px 0 var(--key), 37px 10px 0 var(--key),
+          52px 10px 0 var(--key), 60px 10px 0 var(--key),
+          68px 10px 0 var(--key), 83px 12px 0 var(--key);
+      }
+
+      72% {
+        box-shadow: 15px 0 0 var(--key), 30px 0 0 var(--key),
+          45px 2px 0 var(--key), 60px 0 0 var(--key),
+          75px 0 0 var(--key), 90px 0 0 var(--key),
+          22px 10px 0 var(--key), 37px 10px 0 var(--key),
+          52px 10px 0 var(--key), 60px 10px 0 var(--key),
+          68px 10px 0 var(--key), 83px 10px 0 var(--key);
+      }
+
+      81% {
+        box-shadow: 15px 0 0 var(--key), 30px 0 0 var(--key),
+          45px 0 0 var(--key), 60px 0 0 var(--key),
+          75px 0 0 var(--key), 90px 0 0 var(--key),
+          22px 10px 0 var(--key), 37px 12px 0 var(--key),
+          52px 10px 0 var(--key), 60px 10px 0 var(--key),
+          68px 10px 0 var(--key), 83px 10px 0 var(--key);
+      }
+    }
+  </style>
+</head>
+
+<body onload="myFunction()">
+
+  <h1>Processing Payment....</h1>
+
+  <div class="loader-container">
+    <div class="typewriter">
+      <div class="slide"><i></i></div>
+      <div class="paper"></div>
+      <div class="keyboard"></div>
+    </div>
+  </div>
+
+  <script>
+    function myFunction() {
+      window.setTimeout(function () {
+        window.location = "{% url 'User:paymentsuc' %}";
+      }, 5000);
+    }
+  </script>
 
 </body>
 </html>

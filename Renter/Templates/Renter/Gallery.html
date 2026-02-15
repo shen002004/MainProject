@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GALLERY</title>
-</head>
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GALLERY</title>
+    </head>
+</table>
+        <table border="1" align="">
+    <td><a href="{% url 'Renter:Addproperty'%}" class="profile-action-btn">Back</a></td>
+    </table>
 
 <body>
     <form action="" method="post" enctype="multipart/form-data">
@@ -39,10 +43,6 @@
             </tr>
             {% endfor %}
 
-        </table>
-                <table border="1" align="center">
-            <td><a href="{% url 'Renter:Addproperty'%}" class="profile-action-btn">Back</a></td>
-            </table>
     </form>
 </body>
 

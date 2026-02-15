@@ -6,9 +6,9 @@ urlpatterns = [
     path('Home/',views.Home,name='Home'),
     
     path('Myprofile/',views.Myprofile,name='Myprofile'),
-    
-    path('Editprofile/',views.Editprofile,name='Editprofile'),    
-    
+
+    path('Editprofile/',views.Editprofile,name='Editprofile'),   
+     
     path('Changepas/',views.Changepas,name='Changepas'),
     
     path('Viewpro/',views.Viewpro,name='Viewpro'),

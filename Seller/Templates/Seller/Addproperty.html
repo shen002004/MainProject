@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Property</title>
-</head>
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Add Property</title>
+    </head>
+    <table border="1" align="">
+    <td><a href="{% url 'Seller:Home'%}" class="profile-action-btn">Home</a></td>
+    </table>
 
 <body>
     <form action="" method="post" enctype="multipart/form-data">
@@ -121,9 +124,6 @@
             {% endfor %}
         </table>
                 </table>
-                <table border="1" align="center">
-            <td><a href="{% url 'Seller:Home'%}" class="profile-action-btn">Home</a></td>
-            </table>
     </form>
 </body>
 
