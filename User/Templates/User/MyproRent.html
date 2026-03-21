@@ -1,49 +1,190 @@
+{% extends 'User/Header.html' %}
+{% block content %}
+{% load static %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Property Rent</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-image: url("{% static 'Main/images/img_7.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+        }
+
+        /* Page Title */
+        .title {
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #777;
+            margin-bottom: 40px;
+        }
+
+        /* Table Container */
+        .table-container {
+            width: 80%;
+            margin: auto;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        /* Header */
+        thead {
+            background: #1b1b1b;
+            color: white;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        thead th {
+            padding: 18px;
+        }
+
+        /* Body */
+        tbody td {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Hover */
+        tbody tr:hover {
+            background: #f9f9f9;
+        }
+
+        /* Property Image */
+        .property-img {
+            width: 70px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 6px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* Delete */
+        .delete {
+            border: 1px solid #ddd;
+            color: #555;
+        }
+
+        /* Payment */
+        .payment {
+            background: #4CAF50;
+            color: white;
+        }
+    </style>
 </head>
+
 <body>
+
+<!--     
+    <div class="title">MY PROPERTY RENTING</div>  -->
+
+    <div class="table-container">
+
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
-            <table border="1" align="center">
-            <h2 class="editprofile-title" align="center">My Property Renting</h2>
-            <tr>
-                <td>SLNO</td>
-                <td>Property type</td>
-                <td>From Date</td>
-                <td>To Date</td>
-                <td>Renter</td>
-                <td>Property</td>
-                <td>Amount</td>
-                <td>Action</td>
+            <table>
 
-            </tr>
-                {%for i in renting %}
-                <tr>
-                <td>{{forloop.counter}}</td>
-                <td>{{i.property_id.propertytype_id.propertytype_name}}</td>
-                <td>{{i.propertybooking_fromdate}}</td>
-                <td>{{i.propertybooking_todate}}</td>
-                <td>{{i.property_id.renter_id.renter_name}}</td>
-                <td><img src="{{i.property_id.property_photo.url}}" width="80"> </td>
-                <td>{{i.propertybooking_amount}}</td>
-                <td><a href="{%url 'User:delrent' i.id %}">Delete</a></td>
-                <td>
-                    <a href="{% url 'User:Paymenthistory' i.id %}"class="profile-action-btn">Payment History</a></td>
-            </tr>
-            {% endfor %}
+                <thead>
+                    <tr>
+                        <th>SLNO</th>
+                        <th>PROPERTY TYPE</th>
+                        <th>FROM DATE</th>
+                        <th>TO DATE</th>
+                        <th>RENTER</th>
+                        <th>PROPERTY</th>
+                        <th>AMOUNT</th>
+                        <th>ACTION</th>
+                        <th>PAYMENT</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for i in renting %}
+
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+
+                        <td>{{i.property_id.propertytype_id.propertytype_name}}</td>
+
+                        <td>{{i.propertybooking_fromdate}}</td>
+
+                        <td>{{i.propertybooking_todate}}</td>
+
+                        <td>{{i.property_id.renter_id.renter_name}}</td>
+
+                        <td>
+                            <img src="{{i.property_id.property_photo.url}}" class="property-img">
+                        </td>
+
+                        <td>{{i.propertybooking_amount}}</td>
+
+                        <td>
+                            <a href="{% url 'User:delrent' i.id %}" class="btn delete">Delete</a>
+                        </td>
+
+                        <td>
+                            <a href="{% url 'User:Paymenthistory' i.id %}" class="btn payment">History</a>
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
             </table>
-            <table border="1" align="center" >
-            <td><a href="{% url 'User:Home'%}" class="profile-action-btn">Home</a></td>
-            </table>
+
         </form>
-</body>
-</html>
 
+    </div>
+
+    <!-- <center>
+        <a href="{% url 'User:Home'%}" class="home-btn">Home</a>
+    </center> -->
+
+</body>
+
+</html>
 
 {% if msg %}
 <script>
@@ -51,3 +192,6 @@
     window.location = "{% url 'User:MyproRent'%}"
 </script>
 {% endif %}
+
+
+{% endblock content %}

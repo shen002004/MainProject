@@ -1,3 +1,8 @@
+{% extends 'User/Header.html' %}
+{% block content %}
+{% load static %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,50 +11,320 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Change Password</title>
 </head>
+<style>
+    /* Background */
 
-<body>
-    <form action="" method="post">
+    .change-wrapper {
+
+        background-image: url("{% static 'Main/images/pngtree-living-room-with-a-blue-wall-image_2629404.jpg'%}");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 120px;
+        padding-bottom: 60px;
+
+    }
+
+
+    /* CARD */
+
+    .change-card {
+
+        width: 450px;
+
+        backdrop-filter: blur(20px);
+        background: rgba(103, 72, 72, 0.25);
+
+        border-radius: 30px;
+        padding: 40px;
+
+        color: white;
+
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+
+        text-align: center;
+
+    }
+
+
+    /* TITLE */
+
+    .change-title {
+
+        font-size: 26px;
+        font-weight: 600;
+        margin-bottom: 25px;
+
+    }
+
+
+    /* INPUT GROUP */
+
+    .change-group {
+
+        text-align: left;
+        margin-bottom: 18px;
+
+    }
+
+    .change-group label {
+
+        font-weight: 600;
+        display: block;
+        margin-bottom: 6px;
+
+    }
+
+    .change-group input {
+
+        width: 100%;
+        padding: 10px;
+
+        border-radius: 10px;
+        border: none;
+        outline: none;
+
+    }
+
+
+    /* BUTTONS */
+
+    .change-buttons {
+
+        margin-top: 25px;
+
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+
+        flex-wrap: wrap;
+
+    }
+
+
+    .change-btn {
+
+        padding: 12px 24px;
+
+        background: white;
+        color: black;
+
+        border-radius: 25px;
+
+        border: none;
+
+        font-weight: 600;
+
+        cursor: pointer;
+
+        transition: .3s;
+
+    }
+
+
+    .change-btn:hover {
+
+        background: black;
+        color: white;
+
+    }
+
+
+    .back-btn {
+
+        padding: 12px 24px;
+
+        background: white;
+        color: black;
+
+        border-radius: 25px;
+
+        text-decoration: none;
+
+        font-weight: 600;
+
+        transition: .3s;
+
+    }
+
+
+    .back-btn:hover {
+
+        background: black;
+        color: white;
+
+    }
+
+    /* Password Box */
+
+    .password-box {
+
+        position: relative;
+
+    }
+
+    .password-box input {
+
+        width: 100%;
+        padding: 10px;
+        padding-right: 40px;
+
+        border-radius: 10px;
+        border: none;
+        outline: none;
+
+    }
+
+
+    /* Eye Icon */
+
+    .toggle-eye {
+
+        position: absolute;
+
+        right: 12px;
+        top: 50%;
+
+        transform: translateY(-50%);
+
+        cursor: pointer;
+
+        color: #333;
+
+        font-size: 18px;
+
+    }
+</style>
+
+
+
+<div class="change-wrapper">
+
+    <form method="post">
+
         {% csrf_token %}
-        <table border="1" align="center">
-            <tr>
-                <td>Old Password</td>
-                <td>
-                    <input type="Password" request name="txt_oldpassword" id="txt_oldpassword">
-                </td>
-            </tr>
-            <tr>
-                <td>New password</td>
-                <td>
-                    <input type="password" request name="txt_newpassword" id="txt_newpassword"
-                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                        title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-                        placeholder="Enter Password" required>
-                </td>
-            </tr>
-            <tr>
-                <td>Confirmpassword</td>
-                <td>
-                    <input type="password" request name="txt_confirmpass" id="txt_confirmpass"
-                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                        title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-                        placeholder="Confirm Password" required>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                    <input type="submit" value="Change Password" class="Changepas-btn">
-                    <input type="reset" value="cancel" class="Changepas-btn">
-                </td>
-            </tr>
-        </table>
-        <table border="1" align="center">
-            <td><a href="{% url 'User:Myprofile'%}" class="profile-action-btn">Back</a></td>
-        </table>
+
+        <div class="change-card">
+
+            <div class="change-title">
+                Change Password
+            </div>
+
+
+            <div class="change-group">
+                <label>Old Password</label>
+
+                <div class="password-box">
+                    <input type="password" id="oldpassword" name="txt_oldpassword" required>
+
+                    <i class="fa-solid fa-eye toggle-eye" onclick="togglePassword('oldpassword', this)">
+                    </i>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="change-group">
+                <label>New Password</label>
+
+                <div class="password-box">
+
+                    <input type="password" id="newpassword" name="txt_newpassword"
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+
+                    <i class="fa-solid fa-eye toggle-eye" onclick="togglePassword('newpassword', this)">
+                    </i>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="change-group">
+                <label>Confirm Password</label>
+
+                <div class="password-box">
+
+                    <input type="password" id="confirmpassword" name="txt_confirmpass"
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+
+                    <i class="fa-solid fa-eye toggle-eye" onclick="togglePassword('confirmpassword', this)">
+                    </i>
+
+                </div>
+
+            </div>
+
+
+            <div class="change-buttons">
+
+                <button type="submit" class="change-btn">
+                    Change Password
+                </button>
+
+
+                <button type="reset" class="change-btn">
+                    Cancel
+                </button>
+
+
+                <a href="{% url 'User:Myprofile'%}" class="back-btn">
+                    Back
+                </a>
+
+
+            </div>
+
+
+        </div>
 
     </form>
-</body>
 
-</html>
+</div>
+
+
+
+
+<script>
+
+function togglePassword(fieldId, icon) {
+
+let passInput = document.getElementById(fieldId);
+
+if(passInput.type === "password"){
+
+passInput.type="text";
+
+icon.classList.remove("fa-eye");
+icon.classList.add("fa-eye-slash");
+
+}
+else{
+
+passInput.type="password";
+
+icon.classList.remove("fa-eye-slash");
+icon.classList.add("fa-eye");
+
+}
+
+}
+
+</script>
+
+
+
+
+
 
 {% if msg %}
 <script>
@@ -57,3 +332,5 @@
     window.location = "{% url 'User:Changepas'%}"
 </script>
 {% endif %}
+
+{% endblock content %}

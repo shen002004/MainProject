@@ -1,0 +1,205 @@
+{% extends 'User/Header.html' %}
+{% block content %}
+{% load static %}
+<br>
+<br>
+<br>
+<br>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #d1c5b3;
+            min-height: 100vh;
+            padding: 40px 24px;
+            color: #1a1a1a;
+        }
+
+        .auction-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(26px, 4vw, 38px);
+            color: #2c2416;
+            margin-bottom: 28px;
+            letter-spacing: -0.01em;
+        }
+
+        .auction-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow-x: auto;
+        }
+
+        .auction-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 32px rgba(60, 40, 10, 0.09);
+        }
+
+        /* Header row */
+        .auction-table tr:first-child {
+            background: #2c2416;
+        }
+
+        .auction-table tr:first-child td {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #c9b99a;
+            padding: 16px 18px;
+            border: none;
+        }
+
+        /* Data rows */
+        .auction-table tr:not(:first-child) {
+            border-bottom: 1px solid #f0ebe2;
+            transition: background 0.15s ease;
+        }
+
+        .auction-table tr:not(:first-child):last-child {
+            border-bottom: none;
+        }
+
+        .auction-table tr:not(:first-child):hover {
+            background: #faf8f4;
+        }
+
+        .auction-table tr:not(:first-child) td {
+            padding: 16px 18px;
+            vertical-align: middle;
+            font-size: 14px;
+            color: #3a3020;
+            border: none;
+        }
+
+        /* Counter */
+        .auction-table tr:not(:first-child) td:first-child {
+            font-weight: 600;
+            color: #b8a485;
+            font-size: 13px;
+        }
+
+        /* Image */
+        .auction-table tr:not(:first-child) td:nth-child(2) img {
+            width: 76px;
+            height: 76px;
+            object-fit: cover;
+            border-radius: 10px;
+            display: block;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+        }
+
+        /* Base Amount */
+        .auction-table tr:not(:first-child) td:nth-child(3) {
+            font-weight: 600;
+            font-size: 15px;
+            color: #2c2416;
+        }
+
+        /* Date & Time */
+        .auction-table tr:not(:first-child) td:nth-child(4),
+        .auction-table tr:not(:first-child) td:nth-child(5) {
+            color: #6b5d45;
+            font-size: 13px;
+        }
+
+        /* Seller */
+        .auction-table tr:not(:first-child) td:nth-child(6) {
+            font-weight: 500;
+            color: #4a3c28;
+        }
+
+        /* Bid Amount */
+        .auction-table tr:not(:first-child) td:nth-child(7) {
+            font-weight: 700;
+            font-size: 15px;
+            color: #2c7a4b;
+        }
+
+        /* Status */
+        .auction-table tr:not(:first-child) td:last-child {
+            font-size: 12px;
+            font-weight: 500;
+            color: #6b5d45;
+        }
+
+        .auction-table tr:not(:first-child) td:last-child a {
+            display: inline-block;
+            padding: 6px 14px;
+            background: #2c2416;
+            color: #c9b99a;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            margin-left: 6px;
+            transition: background 0.2s ease;
+        }
+
+        .auction-table tr:not(:first-child) td:last-child a:hover {
+            background: #7a6a55;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="auction-wrapper">
+        <p class="auction-heading">Auction Listings</p>
+        <table class="auction-table" cellpadding="10">
+            <tr>
+                <td>#</td>
+                <td>Property</td>
+                <td>Amount</td>
+                <td>Date</td>
+                <td>Start Time</td>
+                <td>Seller</td>
+                <td>Amount</td>
+                <td>Status</td>
+            </tr>
+            {% for i in auction %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td><img src="{{i.auction.property.property_photo.url}}" width="100" height="100" alt=""></td>
+                <td>{{i.auction.auctionhead_amount}}</td>
+                <td>{{i.auction.auctionhead_todate}}</td>
+                <td>{{i.auction.auction_starttime}}</td>
+                <td>{{i.auction.property.seller_id.seller_name}}
+                    <br>
+                    {{i.auction.property.seller_id.seller_email}} 
+                    <br>
+                    {{i.auction.property.seller_id.seller_contact}} 
+                
+                </td>
+                <td>{{i.auctionbody_amount}}</td>
+                <td>
+                    {% if i.auction.auctionhead_status == 3 %}
+                    Payment Completed
+                    {% else %}
+                    Auction Completed | <a href="{% url 'User:auctionpayment' i.id %}">Payment</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
+
+{% endblock%}

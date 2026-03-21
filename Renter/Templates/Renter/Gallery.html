@@ -1,54 +1,371 @@
 <!DOCTYPE html>
 <html lang="en">
-    
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>GALLERY</title>
-    </head>
-</table>
-        <table border="1" align="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GALLERY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #0d0d0d;
+            --surface: #161616;
+            --surface2: #1f1f1f;
+            --border: #2a2a2a;
+            --accent: #c8a96e;
+            --accent2: #e8c990;
+            --text: #f0ede8;
+            --muted: #888;
+            --danger: #c0392b;
+            --danger-hover: #e74c3c;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 300;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.4;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            z-index: 100;
+        }
+
+        /* ── BACK BUTTON TABLE ── */
+        table[border="1"]:first-of-type {
+            display: block;
+            padding: 20px 40px;
+            border: none;
+            background: transparent;
+        }
+        table[border="1"]:first-of-type td {
+            border: none;
+            padding: 0;
+        }
+
+        .profile-action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 22px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            text-decoration: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: all 0.25s ease;
+        }
+        .profile-action-btn::before {
+            content: '←';
+            font-size: 15px;
+        }
+        .profile-action-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* ── PAGE HEADER ── */
+        .page-header {
+            text-align: center;
+            padding: 10px 40px 50px;
+        }
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            color: var(--text);
+        }
+        .page-header h1 span {
+            color: var(--accent);
+        }
+        .page-header p {
+            color: var(--muted);
+            font-size: 13px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-top: 8px;
+        }
+        .header-rule {
+            width: 60px;
+            height: 1px;
+            background: var(--accent);
+            margin: 16px auto 0;
+        }
+
+        /* ── MAIN LAYOUT ── */
+        .main-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 30px 80px;
+        }
+
+        form { display: contents; }
+
+        /* ── UPLOAD FORM TABLE ── */
+        table[border="1"][align="center"] {
+            width: 100%;
+            max-width: 540px;
+            border-collapse: collapse;
+            border: none;
+            background: var(--surface);
+            border-radius: 2px;
+            overflow: hidden;
+            margin: 0 auto 50px;
+            box-shadow: 0 0 0 1px var(--border), 0 20px 60px rgba(0,0,0,0.4);
+            display: table;
+        }
+
+        table[border="1"][align="center"] tr:first-child td:first-child {
+            background: var(--surface2);
+            border-bottom: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 11px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            padding: 18px 26px;
+            width: 120px;
+            border-right: 1px solid var(--border);
+        }
+
+        table[border="1"][align="center"] tr:first-child td:last-child {
+            padding: 14px 22px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        table[border="1"][align="center"] td {
+            border: none;
+            padding: 20px 26px;
+        }
+
+        input[type="file"] {
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            cursor: pointer;
+            width: 100%;
+        }
+        input[type="file"]::file-selector-button {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 7px 18px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-right: 14px;
+            transition: all 0.2s ease;
+        }
+        input[type="file"]::file-selector-button:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        input[type="submit"] {
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            padding: 12px 48px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        input[type="submit"]:hover {
+            background: var(--accent2);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(200,169,110,0.25);
+        }
+
+        table[border="1"][align="center"] td[colspan="2"] {
+            text-align: center;
+            padding: 20px;
+            background: var(--surface2);
+        }
+
+        /* ── GALLERY TABLE ── */
+        table[border="2"] {
+            border-collapse: collapse;
+            border: none;
+            width: 100%;
+            display: table;
+            margin: 0 auto;
+        }
+
+        .gallery-section-label {
+            font-size: 11px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 16px;
+            padding-left: 4px;
+        }
+
+        table[border="2"] tr:first-child {
+            background: var(--surface2);
+        }
+
+        table[border="2"] tr:first-child td {
+            font-size: 10px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--muted);
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border);
+            font-weight: 500;
+        }
+
+        table[border="2"] tr:first-child td:first-child { width: 70px; }
+        table[border="2"] tr:first-child td:last-child  { width: 100px; }
+
+        table[border="2"] tr + tr td {
+            border: none;
+            border-bottom: 1px solid var(--border);
+            padding: 16px 20px;
+            background: var(--surface);
+            transition: background 0.2s ease;
+            vertical-align: middle;
+        }
+
+        table[border="2"] tr + tr:hover td {
+            background: var(--surface2);
+        }
+
+        table[border="2"] tr + tr td:first-child {
+            color: var(--muted);
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            font-variant-numeric: tabular-nums;
+        }
+
+        table[border="2"] tr + tr td:nth-child(2) img {
+            display: block;
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        table[border="2"] tr + tr td:nth-child(2) img:hover {
+            width: 90px;
+            height: 68px;
+            border-color: var(--accent);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+
+        table[border="2"] tr + tr td:last-child a {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 14px;
+            border: 1px solid #3a1a1a;
+            color: #c0392b;
+            text-decoration: none;
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            background: rgba(192,57,43,0.06);
+        }
+        table[border="2"] tr + tr td:last-child a::before {
+            content: '×';
+            font-size: 16px;
+            font-weight: 300;
+        }
+        table[border="2"] tr + tr td:last-child a:hover {
+            background: rgba(192,57,43,0.18);
+            border-color: var(--danger);
+            box-shadow: 0 4px 16px rgba(192,57,43,0.2);
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .page-header                  { animation: fadeUp 0.5s ease both; }
+        table[border="1"][align="center"] { animation: fadeUp 0.5s ease both 0.1s; }
+        table[border="2"]             { animation: fadeUp 0.5s ease both 0.2s; }
+    </style>
+</head>
+
+<table border="1" align="">
     <td><a href="{% url 'Renter:Addproperty'%}" class="profile-action-btn">Back</a></td>
-    </table>
+</table>
 
 <body>
-    <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <table border="1" align="center">
-            <tr>
-                <td>File</td>
-                <td>
-                    <input type="file" name="txt_photo" required>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                    <input type="submit" value="Submit">
-                </td>
-            </tr>
-        </table>
-        <table border="2" align="center">
-            <tr>
-                <td>SLNO</td>
-                <td>File</td>
-                <td>Action</td>
-            </tr>
-            {% for i in Gallery %}
-            <tr>
-                <td>{{forloop.counter}}</td>
-                <td><img src="{{i.gallery_photo.url}}" width="80"></td>
-                <td>
-                    <a href="{% url 'Renter:delgal' i.id id %}">Delete</a>
-                </td>
-            </tr>
-            {% endfor %}
+    <div class="page-header">
+        <p>Property</p>
+        <h1>Photo <span>Gallery</span></h1>
+        <div class="header-rule"></div>
+    </div>
 
-    </form>
+    <div class="main-wrapper">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table border="1" align="center">
+                <tr>
+                    <td>File</td>
+                    <td>
+                        <input type="file" name="txt_photo" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" value="Submit">
+                    </td>
+                </tr>
+            </table>
+
+            <p class="gallery-section-label">Uploaded Images</p>
+            <table border="2" align="center">
+                <tr>
+                    <td>SLNO</td>
+                    <td>File</td>
+                    <td>Action</td>
+                </tr>
+                {% for i in Gallery %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td><img src="{{i.gallery_photo.url}}" width="80"></td>
+                    <td>
+                        <a href="{% url 'Renter:delgal' i.id id %}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </form>
+    </div>
 </body>
 
 </html>
-
-
 
 {% if msg %}
 <script>

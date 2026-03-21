@@ -1,3 +1,7 @@
+{% extends 'Seller/Header.html' %}
+{% block content %}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,49 +9,247 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seller Myprofile</title>
-</head>
+    <style>
+        /* Background Section */
 
-<body>
-    <form action="" method="post">
-        {% csrf_token %}
-        <table border="1" align="center">
-            <tr>
-                <td colspan="2" align="center"> <img src="{{sellerdata.seller_photo.url}}" width="170" alt=""> </td>
-            </tr>
+        .profile-wrapper {
+            background-image: url("{% static 'Main/images/hero_bg_1.jpg'%}");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
 
-            <tr>
-                <td>Name</td>
-                <td>{{sellerdata.seller_name}}</td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td>{{sellerdata.seller_email}}</td>
-            </tr>
-            <tr>
-                <td>Contact</td>
-                <td>{{sellerdata.seller_contact}}</td>
-            </tr>
-            <tr>
-                <td>Address</td>
-                <td>{{sellerdata.seller_address}}</td>
-            </tr>
-            <tr>
-                <td>District</td>
-                <td>{{sellerdata.place.district.district_name }}</td>
-            </tr>
-            <tr>
-                <td>Place</td>
-                <td>{{sellerdata.place.place_name}}</td>
-            </tr>
-            <tr>
-                <td><a href="{%url 'Seller:Editprofile' %}" class="profile-action-btn">Edit Profile</a></td>
-                <td><a href="{%url 'Seller:Changepas' %}" class="profile-action-btn">Change Password</a></td>
-            </tr>
-        </table>
-                <table border="1" align="center">
-            <td><a href="{% url 'Seller:Home'%}" class="profile-action-btn">Home</a></td>
-            </table>
-    </form>
-</body>
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 120px;
+            padding-bottom: 60px;
+        }
 
-</html>
+
+        /* PROFILE CARD */
+
+        .profile-card {
+
+            width: 500px;
+
+            backdrop-filter: blur(20px);
+            background: rgba(36, 28, 28, 0.25);
+
+            border-radius: 30px;
+            padding: 40px;
+
+            color: white;
+
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+
+            text-align: center;
+
+            transition: 0.3s;
+
+        }
+
+
+        /* Hover Effect */
+
+        .profile-card:hover {
+
+            transform: translateY(-5px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+
+        }
+
+
+        /* TITLE */
+
+        .profile-title {
+
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+
+        }
+
+
+        /* IMAGE */
+
+        .profile-img {
+
+            margin-bottom: 20px;
+
+        }
+
+        .profile-img img {
+
+            width: 160px;
+            height: 160px;
+
+            border-radius: 50%;
+            border: 5px solid white;
+
+            object-fit: cover;
+
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+
+        }
+
+
+        /* DETAILS */
+
+        .profile-details {
+
+            margin-top: 10px;
+            text-align: left;
+
+        }
+
+        .profile-row {
+
+            display: flex;
+            justify-content: space-between;
+            padding: 16px 5px;
+
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+
+            font-size: 16px;
+
+        }
+
+
+        .profile-row span {
+
+            font-weight: 600;
+
+        }
+
+
+        .profile-row p {
+
+            margin: 0;
+            text-align: right;
+
+        }
+
+
+        /* BUTTONS */
+
+        .profile-buttons {
+
+            margin-top: 35px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+
+        }
+
+
+        .profile-btn {
+
+            padding: 12px 24px;
+
+            background: white;
+            color: black;
+
+            border-radius: 30px;
+
+            text-decoration: none;
+            font-weight: 600;
+
+            transition: .3s;
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+        }
+
+
+        .profile-btn:hover {
+
+            background: black;
+            color: white;
+
+            transform: translateY(-3px);
+
+        }
+    </style>
+
+
+
+    <div class="profile-wrapper">
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="profile-card">
+
+                <div class="profile-title">
+                    Seller Profile
+                </div>
+
+
+                <div class="profile-img">
+                    <img src="{{sellerdata.seller_photo.url}}">
+                </div>
+
+
+                <div class="profile-details">
+
+                    <div class="profile-row">
+                        <span>Name</span>
+                        <p>{{sellerdata.seller_name}}</p>
+                    </div>
+
+                    <div class="profile-row">
+                        <span>Email</span>
+                        <p>{{sellerdata.seller_email}}</p>
+                    </div>
+
+                    <div class="profile-row">
+                        <span>Contact</span>
+                        <p>{{sellerdata.seller_contact}}</p>
+                    </div>
+
+                    <div class="profile-row">
+                        <span>Address</span>
+                        <p>{{sellerdata.seller_address}}</p>
+                    </div>
+
+                    <div class="profile-row">
+                        <span>District</span>
+                        <p>{{sellerdata.place.district.district_name}}</p>
+                    </div>
+
+                    <div class="profile-row">
+                        <span>Place</span>
+                        <p>{{sellerdata.place.place_name}}</p>
+                    </div>
+
+                </div>
+
+
+                <div class="profile-buttons">
+
+                    <a href="{%url 'Seller:Editprofile' %}" class="profile-btn">
+                        Edit Profile
+                    </a>
+
+                    <a href="{%url 'Seller:Changepas' %}" class="profile-btn">
+                        Change Password
+                    </a>
+
+                    <a href="{% url 'Seller:Home'%}" class="profile-btn">
+                        Back
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </form>
+
+    </div>
+
+    {% endblock content %}

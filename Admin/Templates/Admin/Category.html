@@ -29,7 +29,7 @@
             background: #ffffff;
             border-radius: 6px;
             overflow: hidden;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
         }
 
         /* Remove default table borders */
@@ -65,7 +65,7 @@
         /* Input focus */
         form input[type="text"]:focus {
             border-color: #2563eb;
-            box-shadow: 0 0 0 2px rgba(37,99,235,0.2);
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
             outline: none;
         }
 
@@ -100,6 +100,7 @@
             font-size: 18px;
             display: inline-block;
         }
+
         .editicon,
         .deleteicon {
             transition: color 0.2s ease, transform 0.15s ease;
@@ -110,7 +111,6 @@
             transform: scale(1.15);
             color: rgb(208, 0, 0);
         }
-
     </style>
 </head>
 
@@ -122,12 +122,8 @@
             <div class="mb-3">
                 <td><label class="form-label">Category Name</label></td>
                 <td>
-                    <input type="text"
-                           class="form-control"
-                           name="txt_Category"
-                           value="{{ editdata.category_name }}"
-                           placeholder="Enter category name"
-                           required>
+                    <input type="text" class="form-control" name="txt_Category" value="{{ editdata.category_name }}"
+                        placeholder="Enter category name" required>
                 </td>
             </div>
             <tr>
@@ -150,14 +146,12 @@
                 <td>{{ forloop.counter }}</td>
                 <td>{{ i.category_name }}</td>
                 <td>
-                    <a href="{% url 'Admin:editcategory' i.id %}"
-                      class="editicon">
+                    <a href="{% url 'Admin:editcategory' i.id %}" class="editicon">
                         <i class="fa-solid fa-pen"></i>
                     </a>
 
-                    <a href="{% url 'Admin:delcategory' i.id %}"
-                    class="deleteicon"   
-                    onclick="return confirm('Are you sure?')">
+                    <a href="{% url 'Admin:delcategory' i.id %}" class="deleteicon"
+                        onclick="return confirm('Are you sure?')">
                         <i class="fa-solid fa-trash"></i>
                     </a>
                 </td>

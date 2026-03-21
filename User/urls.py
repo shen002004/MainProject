@@ -34,11 +34,22 @@ urlpatterns = [
 
     path('Feedback/',views.Feedback,name='Feedback'),
     path('Ajaxpro/',views.Ajaxpro,name='Ajaxpro'),
+    path('Ajaxplace/',views.Ajaxplace,name='Ajaxplace'),
 
     path('Proviewmore/<int:id>',views.Proviewmore,name='Proviewmore'),
 
     path('loader/',views.loader, name='loader'),
     path('paymentsuc/',views.paymentsuc, name='paymentsuc'),
 
+    path('chatbot_api/', views.chatbot_api, name='chatbot_api'),
 
+    path('viewauctionlist/',views.viewauctionlist,name="viewauctionlist"),
+    path('auction/<int:id>',views.auction,name="auction"),
+    path('ajaxplacebid/',views.ajaxplacebid,name="ajaxplacebid"),
+    path('ajaxgetbid/',views.ajaxgetbid,name="ajaxgetbid"),
+    path('ajaxclosebid/',views.ajaxclosebid,name="ajaxclosebid"),
+    path('ajaxgettimmer/',views.ajaxgettimmer,name="ajaxgettimmer"),
+
+    path('myauction/',views.myauction,name="myauction"),
+    path('auctionpayment/<int:id>',views.auctionpayment,name="auctionpayment"),
 ]

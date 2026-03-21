@@ -1,68 +1,297 @@
+{% extends 'Seller/Header.html' %}
+{% block content %}
+{% load static %}
+<br>
+<br>
+<br>
+<br>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Bookings</title>
+    <title>Bookings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #f7f6f2;
+            --white: #ffffff;
+            --ink: #1a1916;
+            --mid: #6b6860;
+            --faint: #e8e6e0;
+            --line: #dddad3;
+            --green: #2a7a52;
+            --green-bg: #eef7f2;
+            --red: #b83333;
+            --red-bg: #fdf1f1;
+            --amber: #9a6a1a;
+            --amber-bg: #fdf6ea;
+            --gold: #c4913a;
+        }
+
+         body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-image: url("{% static 'Main/images/img_9.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+        }
+        .wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* ── Header ── */
+        .hdr {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 32px;
+        }
+
+        .hdr h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 36px;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+            line-height: 1;
+            color: var(--ink);
+        }
+
+        .hdr h1 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .hdr p {
+            font-size: 13px;
+            color: var(--mid);
+            margin-top: 6px;
+            font-weight: 300;
+        }
+
+        /* ── Card ── */
+        .card {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        /* ── Table ── */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead tr {
+            border-bottom: 1px solid var(--line);
+        }
+
+        thead th {
+            padding: 14px 16px;
+            font-size: 10.5px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--mid);
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--faint);
+            transition: background 0.15s;
+        }
+
+        tbody tr:last-child { border-bottom: none; }
+        tbody tr:hover { background: #faf9f7; }
+
+        tbody td {
+            padding: 14px 16px;
+            font-size: 13.5px;
+            color: var(--ink);
+            vertical-align: middle;
+        }
+
+        /* Serial */
+        td.sl {
+            font-size: 12px;
+            color: var(--mid);
+            font-weight: 400;
+            width: 40px;
+        }
+
+        /* Image */
+        td.photo img {
+            width: 68px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid var(--line);
+            display: block;
+        }
+
+        /* Price */
+        td.price {
+            font-family: 'Instrument Serif', serif;
+            font-size: 16px;
+            color: var(--ink);
+        }
+
+        /* Name / contact sub-text */
+        .sub { font-size: 12px; color: var(--mid); margin-top: 2px; font-weight: 300; }
+
+        /* ── Badges ── */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11.5px;
+            font-weight: 500;
+        }
+        .badge::before {
+            content: '';
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .badge-pending  { background: var(--amber-bg); color: var(--amber); }
+        .badge-pending::before  { background: var(--amber); }
+        .badge-accepted { background: var(--green-bg);  color: var(--green); }
+        .badge-accepted::before { background: var(--green); }
+        .badge-rejected { background: var(--red-bg);   color: var(--red); }
+        .badge-rejected::before { background: var(--red); }
+
+        /* ── Action links ── */
+        .actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+        .btn {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.15s;
+            border: 1px solid transparent;
+        }
+        .btn-accept {
+            background: var(--green-bg);
+            color: var(--green);
+            border-color: #c0dfd0;
+        }
+        .btn-accept:hover { background: var(--green); color: #fff; }
+
+        .btn-reject {
+            background: var(--red-bg);
+            color: var(--red);
+            border-color: #f0cccc;
+        }
+        .btn-reject:hover { background: var(--red); color: #fff; }
+
+        /* ── Empty ── */
+        .empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--mid);
+            font-size: 14px;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            body { padding: 32px 16px 60px; }
+            thead th:nth-child(3),
+            thead th:nth-child(4),
+            tbody td:nth-child(3),
+            tbody td:nth-child(4) { display: none; }
+        }
+    </style>
 </head>
 <body>
-        <h2 align="center">Booking Requests</h2>
-        <table border="1" align="">
-        <td><a href="{% url 'Seller:Home'%}" class="profile-action-btn">Home</a></td>
+
+<div class="wrap">
+
+    <div class="hdr">
+        <div>
+            <h1>Property <em>Bookings</em></h1>
+            <p>Manage and review all incoming booking requests</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>User</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                    <th>Property</th>
+                    <th>Photo</th>
+                    <th>Type</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in sbooking %}
+                <tr>
+                    <td class="sl">{{ forloop.counter }}</td>
+                    <td>{{ i.user_id.user_name }}</td>
+                    <td>{{ i.user_id.user_email }}</td>
+                    <td>{{ i.user_id.user_contact }}</td>
+                    <td>{{ i.property_id.property_name }}</td>
+                    <td class="photo"><img src="{{ i.property_id.property_photo.url }}" alt="property"></td>
+                    <td>{{ i.property_id.propertytype_id.propertytype_name }}</td>
+                    <td class="price">{{ i.propertybuying_amount }}</td>
+                    <td>
+                        {% if i.propertybuying_status == 0 %}
+                            <span class="badge badge-pending">Pending</span>
+                        {% elif i.propertybuying_status == 1 %}
+                            <span class="badge badge-accepted">Accepted</span>
+                        {% elif i.propertybuying_status == 2 %}
+                            <span class="badge badge-rejected">Rejected</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="actions">
+                            {% if i.propertybuying_status == 0 %}
+                                <a href="{% url 'Seller:acceptbuying' i.id %}" class="btn btn-accept">Accept</a>
+                                <a href="{% url 'Seller:rejectbuying' i.id %}" class="btn btn-reject">Reject</a>
+                            {% elif i.propertybuying_status == 1 %}
+                                <a href="{% url 'Seller:rejectbuying' i.id %}" class="btn btn-reject">Reject</a>
+                            {% elif i.propertybuying_status == 2 %}
+                                <a href="{% url 'Seller:acceptbuying' i.id %}" class="btn btn-accept">Accept</a>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="10" class="empty">No bookings found.</td></tr>
+                {% endfor %}
+            </tbody>
         </table>
-    <table border="1" align="center">
-        <tr>
-            <td>SLNO</td>
-            <td>User Name</td>
-            <td>Email</td>
-            <td>Contact</td>
-            <td>Property Name</td>
-            <td>Photo</td>
-            <td>Property Type</td>
-            <td>Price</td>
-            <td>Action</td>
-            </tr>
+    </div>
 
-            {% for i in sbooking %}
-            <tr>
-                <td>{{ forloop.counter}}</td>
-                <td>{{ i.user_id.user_name}}</td>
-                <td>{{ i.user_id.user_email}}</td>
-                <td>{{ i.user_id.user_contact}}</td>
-                <td>{{ i.property_id.property_name}}</td>
-                <td><img src="{{i.property_id.property_photo.url}}" width="80"> </td>
-                <td>{{i.property_id.propertytype_id.propertytype_name}}</td>
-                <td>{{ i.propertybuying_amount}}</td>
-                <td>
-                {% if i.propertybuying_status == 0 %}
-                Pending
-                {% elif i.propertybuying_status == 1 %}
-                Accepted
-                <td><a href="{% url 'Seller:rejectbuying' i.id %}">Reject</a></td>
-                
-                {% elif i.propertybuying_status == 2 %}
-                Rejected
-                <td><a href="{% url 'Seller:acceptbuying' i.id %}">Accept</a></td>
-                {% endif %}
-
-                </td>
-                <td>
-                {%if i.propertybuying_status == 0 %}
-
-                    <a href="{% url 'Seller:acceptbuying' i.id %}">Accept</a>
-                    <a href="{% url 'Seller:rejectbuying' i.id %}">Reject</a>
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-    </table>
-</body>
-</html>
-
+</div>
 
 {% if msg %}
 <script>
-    alert("{{msg}}");
-    window.location = "{% url 'Seller:Viewbooking' %}"
+    alert("{{ msg }}");
+    window.location = "{% url 'Seller:Viewbooking' %}";
 </script>
 {% endif %}
+
+</body>
+</html>
+
+{% endblock content %}

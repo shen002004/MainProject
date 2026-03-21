@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,9 +6,159 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Myprofile</title>
+
+
+    <style>
+        /* BACKGROUND SAME AS SELLER PAGE */
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+
+            background-image: url("{% static 'Main/images/hero_bg_1.jpg'%}");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        /* PROFILE CARD */
+
+        form table:first-of-type {
+
+            width: 500px;
+
+            backdrop-filter: blur(20px);
+            background: rgba(36, 28, 28, 0.25);
+
+            border-radius: 30px;
+            padding: 40px;
+
+            color: white;
+
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+
+            text-align: left;
+
+            border: none;
+        }
+
+
+        /* REMOVE TABLE BORDER */
+
+        table[border] {
+            border: none;
+        }
+
+
+        /* PROFILE IMAGE */
+
+        img {
+
+            width: 160px;
+            height: 160px;
+
+            border-radius: 50%;
+            border: 5px solid white;
+
+            object-fit: cover;
+
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+        }
+
+
+        /* TABLE TEXT */
+
+        td {
+
+            padding: 14px 8px;
+            font-size: 16px;
+
+            border: none;
+        }
+
+        table,
+        tr,
+        td {
+            border: none !important;
+        }
+
+
+        /* LABEL TEXT */
+
+        td:first-child {
+
+            font-weight: 600;
+
+        }
+
+
+        /* BUTTONS */
+
+        .profile-action-btn {
+
+            padding: 12px 24px;
+
+            background: white;
+            color: black;
+
+            border-radius: 30px;
+
+            text-decoration: none;
+            font-weight: 600;
+
+            transition: .3s;
+
+            display: inline-block;
+            margin-top: 10px;
+
+        }
+
+
+        /* BUTTON HOVER */
+
+        .profile-action-btn:hover {
+
+            background: black;
+            color: white;
+
+            transform: translateY(-3px);
+
+        }
+
+
+        /* HOME BUTTON CARD */
+
+        form table:last-of-type {
+
+            width: 200px;
+            margin-top: 20px;
+
+            backdrop-filter: blur(20px);
+            background: rgba(36, 28, 28, 0.25);
+
+            border-radius: 30px;
+
+            text-align: center;
+            border: none;
+
+        }
+    </style>
+
+
+
+
+
 </head>
 
 <body>
+
     <form action="" method="post">
         {% csrf_token %}
         <table border="1" align="center">
@@ -44,11 +195,13 @@
                 <td><a href="{%url 'Renter:Changepas' %}" class="profile-action-btn">Change Password</a></td>
             </tr>
         </table>
-                </table>
-                <table border="1" align="center">
-            <tr><td><a href="{% url 'Renter:Home'%}" class="profile-action-btn">Home</a></td></tr>
+        </table>
+        <table border="1" align="center">
+            <tr>
+                <td><a href="{% url 'Renter:Home'%}" class="profile-action-btn">Home</a></td>
+            </tr>
 
-            </table>
+        </table>
     </form>
 </body>
 

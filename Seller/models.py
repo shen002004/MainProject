@@ -28,3 +28,14 @@ class tbl_gallery(models.Model):
     gallery_photo=models.FileField(upload_to="Assets/Property/Gallery/")
     
     
+
+class tbl_auctionhead(models.Model):
+    property = models.ForeignKey(tbl_property, on_delete=models.CASCADE)
+    auctionhead_amount = models.CharField(max_length=30)
+    auctionhead_date = models.DateField(auto_now_add=True)
+    auctionhead_todate = models.DateField()
+    auction_starttime = models.CharField(max_length=30)
+    auctionhead_status = models.IntegerField(default=0)
+    auction_totalamount = models.CharField(max_length=30)
+
+    

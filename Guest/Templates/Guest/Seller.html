@@ -3,105 +3,210 @@
 
 <head>
     <meta charset="UTF-8">
+    <title>Seller Registration</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seller</title>
+
+    {% load static %}
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1e1e1e, #2c3e50);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 2em;
+            width: 350px;
+            background-color: #171717;
+            border-radius: 25px;
+            transition: .4s ease-in-out;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+        }
+
+        .form:hover {
+            transform: scale(1.03);
+            border: 1px solid #444;
+        }
+
+        #heading {
+            text-align: center;
+            margin-bottom: 1em;
+            color: white;
+            font-size: 1.4em;
+            font-weight: bold;
+        }
+
+        .field {
+            display: flex;
+            align-items: center;
+            border-radius: 25px;
+            padding: 0.6em;
+            background-color: #171717;
+            box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+        }
+
+        .input-field,
+        select,
+        textarea {
+            background: none;
+            border: none;
+            outline: none;
+            width: 100%;
+            color: #d3d3d3;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        select option {
+            color: black;
+        }
+
+        .btn {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 1.5em;
+        }
+
+        .button1,
+        .button2 {
+            padding: 0.6em 1.5em;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            transition: .4s ease-in-out;
+            background-color: #252525;
+            color: white;
+            cursor: pointer;
+        }
+
+        .button1:hover {
+            background-color: #3498db;
+        }
+
+        .button2:hover {
+            background-color: red;
+        }
+
+        .back-btn {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .back-btn a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .back-btn a:hover {
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
-    <form action="" method="post" enctype="multipart/form-data">
+
+    <form action="" method="post" enctype="multipart/form-data" class="form">
         {% csrf_token %}
-         <table border="1" align="">
-            <td><a href="{% url 'Guest:Login'%}" class="profile-action-btn">Back</a></td>
-        </table>
-        <table border="1" align="center">
-            <tr>
-                <td>Name</td>
-                <td><input type="text" name="txt_name" placeholder="Enter Name" required></td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td><input type="email" name="txt_email" placeholder="Enter Email" required></td>
-            </tr>
-            <tr>
-                <td>Contact</td>
-                <td><input type="contact" name="txt_contact"  placeholder="Enter Contact Number"  maxlength="10" inputmode="numeric" pattern="[0-9]{10}"
-                        title="Enter exactly 10 digits" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                        required></td>
-            </tr>
-            <tr>
-                <td>Address</td>
-                <td><textarea type="address" name="txt_address" placeholder="Enter Address" required></textarea></td>
-            </tr>
-            <tr>
-                <td>District</td>
-                <td><select name="sel_district" id="sel_district">
-                        <option value="">..Select District...</option>
-                        {% for i in districtData %}
-                        <option value="{{i.id}}">{{i.district_name}}
-                            {% endfor %}
-                        </option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Place</td>
-                <td><select name="sel_place" id="sel_place">
-                        <option value="">..Select Place...</option>
-                </td>
-            </tr>
-            <tr>
-                <td>Photo</td>
-                <td>
-                    <input type="file" name="txt_photo" required>
-                </td>
-            </tr>
-            <tr>
-                <td>Proof</td>
-                <td>
-                    <input type="file" name="txt_proof" required>
-                </td>
-            </tr>
-            <tr>
-                <td>Password</td>
-                <td><input type="password" name="txt_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                        title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-                        placeholder="Enter Password" required></td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                    <input type="submit" value="Submit">
-                    <input type="reset" value="Cancel">
-                </td>
-            </tr>
-        </table>
+
+        <div class="back-btn">
+            <a href="{% url 'Guest:index'%}">⬅ Back</a>
+        </div>
+
+        <p id="heading">Seller Registration</p>
+
+        <div class="field">
+            <input type="text" name="txt_name" placeholder="Enter Name" class="input-field" required>
+        </div>
+
+        <div class="field">
+            <input type="email" name="txt_email" placeholder="Enter Email" class="input-field" required>
+        </div>
+
+        <div class="field">
+            <input type="text" name="txt_contact" placeholder="Enter Contact Number" maxlength="10" inputmode="numeric"
+                pattern="[0-9]{10}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="input-field"
+                required>
+        </div>
+
+        <div class="field">
+            <textarea name="txt_address" placeholder="Enter Address" class="input-field" required></textarea>
+        </div>
+
+        <div class="field">
+            <select name="sel_district" id="sel_district" class="input-field" required>
+                <option value="">Select District</option>
+                {% for i in districtData %}
+                <option value="{{i.id}}">{{i.district_name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="field">
+            <select name="sel_place" id="sel_place" class="input-field" required>
+                <option value="">Select Place</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <input type="file" name="txt_photo" class="input-field" required>
+        </div>
+
+        <div style="color:white; font-size:13px; margin-left:10px;">Proof</div>
+        <div class="field">
+            <input type="file" name="txt_proof" class="input-field" required>
+        </div>
+
+        <div class="field">
+            <input type="password" name="txt_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 characters"
+                placeholder="Enter Password" class="input-field" required>
+        </div>
+
+        <div class="btn">
+            <input type="submit" value="Register" class="button1">
+            <input type="reset" value="Cancel" class="button2">
+        </div>
+
     </form>
+
+
+    {% if msg %}
+    <script>
+        alert("{{msg}}");
+        window.location = "{% url 'Guest:Seller'%}"
+    </script>
+    {% endif %}
+
+
+    <!-- jQuery & AJAX (UNCHANGED) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $("#sel_district").change(function () {
+            var did = $(this).val();
+            var ur = "{% url 'Guest:Ajaxplace' %}";
+            $.ajax({
+                url: ur,
+                data: { did: did },
+                success: function (data) {
+                    $("#sel_place").html(data);
+                },
+            });
+        });
+    </script>
+
 </body>
 
 </html>
-
-
-
-{% if msg %}
-<script>
-    alert("{{msg}}");
-    window.location = "{% url 'Guest:Seller'%}"
-</script>
-{% endif %}
-
-
-<!-- jQuery & AJAX -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-    $("#sel_district").change(function () {
-        var did = $(this).val();
-        var ur = "{% url 'Guest:Ajaxplace' %}";
-        $.ajax({
-            url: ur,
-            data: { did: did },
-            success: function (data) {
-                $("#sel_place").html(data);
-            },
-        });
-    });
-</script>
-

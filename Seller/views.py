@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from Guest.models import *
 from Seller.models import *
 from User.models import *
@@ -46,29 +46,54 @@ def Changepas(request):
 def Home(request):
     return render(request,'Seller/Home.html')
 
-
 def Addproperty(request):
-    place=tbl_Place.objects.all()
-    adp=tbl_property.objects.filter(seller_id=request.session['sid'])
-    districtData=tbl_district.objects.all()
-    propertytypedata=tbl_propertytype.objects.all()
-    categorydata=tbl_category.objects.all()
-    if request.method=='POST':
-        name=request.POST.get('txt_name')
-        description=request.POST.get('txt_description')
-        propertytype=request.POST.get('sel_propertytype')
-        photo=request.FILES.get('txt_photo')
-        place=request.POST.get('sel_place')
-        category=request.POST.get('sel_category')
-        price=request.POST.get('txt_price')
-        tbl_property.objects.create(property_name=name,property_description=description,property_photo=photo,
-                                    propertytype_id=tbl_propertytype.objects.get(id=propertytype),
-                    place_id=tbl_Place.objects.get(id=place),category_id=tbl_category.objects.get(id=category),property_price=price,
-                    property_typestatus=1,seller_id=tbl_seller.objects.get(id=request.session['sid']))
-        return render(request,'Seller/Addproperty.html',{'msg':"Property Added"})   
+    place = tbl_Place.objects.all()
+    adp = tbl_property.objects.filter(seller_id=request.session['sid'])
+    districtData = tbl_district.objects.all()
+    propertytypedata = tbl_propertytype.objects.all()
+    categorydata = tbl_category.objects.all()
+
+    if request.method == 'POST':
+        name = request.POST.get('txt_name')
+        description = request.POST.get('txt_description')
+        propertytype = request.POST.get('sel_propertytype')
+        photo = request.FILES.get('txt_photo')
+        place = request.POST.get('sel_place')
+        category = request.POST.get('sel_category')
+        price = request.POST.get('txt_price')
+        bhk = request.POST.get('sel_bhk')
+        furnish = request.POST.get('sel_furnish')
+
+        # Base data dictionary
+        data = {
+            "property_name": name,
+            "property_description": description,
+            "property_photo": photo,
+            "propertytype_id": tbl_propertytype.objects.get(id=propertytype),
+            "place_id": tbl_Place.objects.get(id=place),
+            "category_id": tbl_category.objects.get(id=category),
+            "property_price": price,
+            "property_typestatus": 1,
+            "seller_id": tbl_seller.objects.get(id=request.session['sid'])
+        }
+
+        if bhk:
+            data["bhk_id"] = tbl_bhk.objects.get(id=bhk)
+
+        if furnish:
+            data["furnish_id"] = tbl_furnish.objects.get(id=furnish)
+
+        tbl_property.objects.create(**data)
+
+        return render(request, 'Seller/Addproperty.html', {'msg': "Property Added"})
+
     else:
-        return render(request,'Seller/Addproperty.html',{'districtData':districtData,'categorydata':categorydata,'Addproperty':adp,'propertytypedata':propertytypedata})
-    
+        return render(request, 'Seller/Addproperty.html', {
+            'districtData': districtData,
+            'categorydata': categorydata,
+            'Addproperty': adp,
+            'propertytypedata': propertytypedata
+        })
 def delpro(request,did):
     tbl_property.objects.get(id=did).delete()
     return render(request,'Seller/Addproperty.html',{'msg':"data deleted"})
@@ -126,6 +151,14 @@ def acceptbuying(request,act):
     data=tbl_propertybuing.objects.get(id=act)
     data.propertybuying_status=1
     data.save()
+
+    book=tbl_property.objects.get(id=data.property_id.id)
+    book.property_status=1
+    book.save()
+
+
+
+
     return render(request,'Seller/Viewbooking.html',{'msg':"Accepted"})
 
 def rejectbuying(request,rej):
@@ -141,3 +174,37 @@ def Ajaxbf(request):
         bhk = tbl_bhk.objects.filter(propertytype_id=request.GET.get('did'))
         fun = tbl_furnish.objects.filter(propertytype_id=request.GET.get('did'))
         return render(request,'Seller/Ajaxbf.html',{'bhk':bhk,'fun':fun})
+    
+
+def addtoauction(request,id):
+   property = tbl_property.objects.get(id=id) 
+   if request.method == "POST":
+    auctioncount = tbl_auctionhead.objects.filter(property=property).count()
+    if auctioncount > 0:
+        return render(request,"Seller/AddToAuction.html",{"msg":"This Product Already Added To Auction Thank You..!!","id":id})
+    else:
+        tbl_auctionhead.objects.create(property=property,
+                                        auctionhead_amount=request.POST.get('txt_amount'),
+                                        auctionhead_todate=request.POST.get('txt_todate'),
+                                        auction_starttime=request.POST.get('txt_starttime'))
+        property.property_status = 2
+        property.save()
+        return render(request,"Seller/AddToAuction.html",{"msg":"Product Added To Auction List","id":id})
+   return render(request,"Seller/AddToAuction.html",{"data":property})
+
+def auctionlist(request):
+    auction = tbl_auctionhead.objects.filter(property__seller_id=request.session["sid"],auctionhead_status__lt=3)
+    return render(request,"Seller/AuctionList.html",{"auction":auction})
+
+def auctionupdation(request, id, status):
+    auction = tbl_auctionhead.objects.get(id=id)
+    auction.auctionhead_status = status
+    auction.save()
+    return redirect('Seller:auctionlist')
+
+def completedauction(request):
+    auction = tbl_auctionhead.objects.filter(property__seller_id=request.session["sid"],auctionhead_status__gt=2)
+    for i in auction:
+        aucbody = tbl_auctionbody.objects.get(auction=i.id, auctionbody_status=1)
+        i.user = aucbody.user.user_name
+    return render(request,"Seller/CompletedAuction.html",{"auction":auction})

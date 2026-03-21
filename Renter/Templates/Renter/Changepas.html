@@ -1,9 +1,169 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Changepas</title>
+
+
+    <style>
+
+/* BACKGROUND */
+
+body{
+margin:0;
+font-family: Arial, Helvetica, sans-serif;
+
+background-image: url("{% static 'Main/images/pngtree-living-room-with-a-blue-wall-image_2629404.jpg'%}");
+background-position:center;
+background-size:cover;
+background-repeat:no-repeat;
+background-attachment:fixed;
+
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+
+/* MAIN CARD */
+
+form table:first-of-type{
+
+width:450px;
+
+backdrop-filter: blur(20px);
+background: rgba(103, 72, 72, 0.25);
+
+border-radius:30px;
+padding:40px;
+
+color:white;
+
+box-shadow:0 20px 50px rgba(0,0,0,0.35);
+
+border:none;
+
+}
+
+
+/* REMOVE TABLE LINES */
+
+table, tr, td{
+border:none !important;
+}
+
+
+/* TABLE TEXT */
+
+td{
+padding:14px 8px;
+font-size:16px;
+color:white;
+}
+
+
+/* INPUT FIELDS */
+
+input[type="password"]{
+
+width:100%;
+padding:10px;
+
+border-radius:10px;
+border:none;
+outline:none;
+
+}
+
+
+/* BUTTONS */
+
+.Changepas-btn{
+
+padding:12px 24px;
+
+background:white;
+color:black;
+
+border-radius:25px;
+
+border:none;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:.3s;
+
+margin:5px;
+
+}
+
+
+/* BUTTON HOVER */
+
+.Changepas-btn:hover{
+
+background:black;
+color:white;
+
+}
+
+
+/* BACK BUTTON CARD */
+
+form table:last-of-type{
+
+width:150px;
+margin-top:20px;
+
+backdrop-filter: blur(20px);
+background: rgba(103, 72, 72, 0.25);
+
+border-radius:25px;
+
+text-align:center;
+
+}
+
+
+/* BACK BUTTON */
+
+.profile-action-btn{
+
+padding:10px 20px;
+
+background:white;
+color:black;
+
+border-radius:25px;
+
+text-decoration:none;
+
+font-weight:600;
+
+display:inline-block;
+
+transition:.3s;
+
+}
+
+.profile-action-btn:hover{
+
+background:black;
+color:white;
+
+}
+
+</style>
+
+
+
+
+
 </head>
 <body>
         <form action="" method="post">

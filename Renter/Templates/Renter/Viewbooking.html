@@ -1,3 +1,14 @@
+{% extends 'Renter/Header.html' %}
+{% block content %}
+{% load static %}
+
+<br>
+<br>
+<br>
+<br>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,12 +16,153 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Bookings</title>
+   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+
+         body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-image: url("{% static 'Main/images/img_9.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 24px;
+            color: #1a1814;
+        }
+        h2 span { color: #c8682a; }
+
+        /* HOME BUTTON */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: #5a5550;
+            text-decoration: none;
+            background: #fff;
+            border: 1.5px solid #e0dbd4;
+            border-radius: 8px;
+            padding: 9px 18px;
+            margin-bottom: 24px;
+            transition: color 0.2s, border-color 0.2s, box-shadow 0.2s;
+        }
+        .back-btn:hover {
+            color: #c8682a;
+            border-color: #c8682a;
+            box-shadow: 0 3px 12px rgba(200,104,42,0.15);
+        }
+
+        /* NAV TABLE */
+        table[border="1"]:first-of-type {
+            border: none !important;
+            margin-bottom: 8px;
+        }
+        table[border="1"]:first-of-type td { border: none !important; }
+
+        /* MAIN TABLE */
+        table[border="1"]:not(:first-of-type) {
+            width: 95%;
+            max-width: 1100px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            border: none !important;
+            background: #fff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(26,24,20,0.09);
+        }
+
+        table[border="1"]:not(:first-of-type) tr:first-child td {
+            background: #1a1814;
+            color: #fff;
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 14px 18px;
+            border: none !important;
+        }
+
+        table[border="1"]:not(:first-of-type) tr:not(:first-child) td {
+            padding: 13px 18px;
+            font-size: 13px;
+            color: #3a3530;
+            border: none !important;
+            border-bottom: 1px solid #f0ece6 !important;
+            vertical-align: middle;
+        }
+
+        table[border="1"]:not(:first-of-type) tr:not(:first-child):last-child td {
+            border-bottom: none !important;
+        }
+
+        table[border="1"]:not(:first-of-type) tr:not(:first-child):hover td {
+            background: #faf8f5;
+        }
+
+        table[border="1"]:not(:first-of-type) tr:not(:first-child) td:first-child {
+            font-weight: 700;
+            color: #b0a99e;
+            font-size: 12px;
+        }
+
+        /* STATUS BADGES */
+        td {
+            position: relative;
+        }
+
+        /* Action links */
+        table a {
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 5px 12px;
+            border-radius: 6px;
+            transition: background 0.2s;
+            display: inline-block;
+            margin: 2px 2px;
+        }
+
+        /* Accept = green */
+        table a[href*="accept"] {
+            color: #27ae60;
+            border: 1.5px solid #27ae60;
+        }
+        table a[href*="accept"]:hover { background: #eafaf1; }
+
+        /* Reject = red */
+        table a[href*="reject"] {
+            color: #c0392b;
+            border: 1.5px solid #c0392b;
+        }
+        table a[href*="reject"]:hover { background: #fdecea; }
+
+        /* Inline status text styling via wrapping span workaround — 
+           we style the td that contains status keywords using CSS content tricks */
+        table[border="1"]:not(:first-of-type) tr:not(:first-child) td:nth-child(8) {
+            font-weight: 600;
+            font-size: 12px;
+        }
+    </style>
 </head>
 
 <body>
-    <h2 align="center">Booking Requests</h2>
+    <h2>Booking <span>Requests</span></h2>
     <table border="1" align="">
-        <td><a href="{% url 'Renter:Home'%}" class="profile-action-btn">Home</a></td>
+        <td><a href="{% url 'Renter:Home'%}" class="back-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg> Back</a></td>
     </table>
     <table border="1" align="center">
         <tr>
@@ -22,6 +174,7 @@
             <td>To Date</td>
             <td>Amount</td>
             <td>Status</td>
+            <td>Action</td>
         </tr>
         {% for i in bookings %}
         <tr>
@@ -49,8 +202,8 @@
 
             <td>
                 {%if i.propertybooking_status == 0 %}
-                <a href="{% url 'Renter:acceptpro' i.id %}">Accept</a>
-                <a href="{% url 'Renter:rejectpro' i.id %}">Reject</a>
+              <td><a href="{% url 'Renter:acceptpro' i.id %}">Accept</a></td>
+              <td><a href="{% url 'Renter:rejectpro' i.id %}">Reject</a></td>
                 {% endif %}
             </td>
         </tr>
@@ -68,3 +221,4 @@
     window.location = "{% url 'Renter:Viewbooking' %}"
 </script>
 {% endif %}
+{% endblock %}

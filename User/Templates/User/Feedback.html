@@ -1,32 +1,164 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Feedback</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+            url("{% static 'Main/images/hero_1.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            padding: 80px 20px;
+        }
+
+        .card {
+            background: #fff;
+            width: 90%;
+            max-width: 800px;
+            margin: auto;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .home-link {
+            text-decoration: none;
+            color: #131212;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #ff5a5f;
+            box-shadow: 0 0 5px rgba(255, 90, 95, 0.4);
+        }
+
+        .btn {
+            background: #ff5a5f;
+            color: #fff;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #e04848;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="card">
+            <a href="{% url 'User:Home'%}" class="home-link">← Back to Home</a>
+
+            <h2>Feedback</h2>
+
+            <form action="" method="post">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <input type="text" name="txt_content" placeholder="Enter Feedback Content" required>
+                </div>
+
+                <div style="text-align:center;">
+                    <input type="submit" value="Send" class="btn">
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    {% if msg %}
+    <script>
+        alert("{{msg}}");
+        window.location = "{% url 'User:Feedback'%}";
+    </script>
+    {% endif %}
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>USER FEEDBACK PAGE</title>
 </head>
+
 <body>
-            <h2 align="center">Feedback</h2>
-        <form action="" method="post">
-        {% csrf_token %}
-            <td><a href="{% url 'User:Home'%}" class="profile-action-btn">Home</a></td>
-           <table border="1" align="center">
+    <h2 align="center">Feedback</h2>
+    <form action="" method="post"> {% csrf_token %}
+         <td><a href="{% url 'User:Home'%}"
+                class="profile-action-btn">Home</a></td>
+        <table border="1" align="center">
             <tr>
                 <td>Content</td>
-                <td><input type="text" name="txt_content"  placeholder="Enter Feedback Content" required></td>
+                <td><input type="text" name="txt_content" placeholder="Enter Feedback Content" required></td>
             </tr>
-                <td colspan="3" align="center">
-                    <input type="submit" value="sent">
-                </td>
-           </table>
-        </form>
-    
-    </body>
-</html>
+            <td colspan="3" align="center"> <input type="submit" value="sent"> </td>
+        </table>
+    </form>
+</body>
 
-{% if msg %}
-<script>
-    alert("{{msg}}");
-    window.location = "{% url 'User:Feedback'%}"
-</script>
-{% endif %}
+</html> {% if msg %}
+<script> alert("{{msg}}"); window.location = "{% url 'User:Feedback'%}" </script> {% endif %} -->

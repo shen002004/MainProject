@@ -19,7 +19,9 @@
     <link rel="stylesheet" href="{% static 'Admin/dist/assets/vendors/bootstrap-icons/bootstrap-icons.css' %}">
     <link rel="stylesheet" href="{% static 'Admin/dist/assets/css/app.css' %}">
     <link rel="shortcut icon" href="{% static 'Admin/dist/assets/images/favicon.svg' %}" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -28,9 +30,10 @@
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
-                        <div class="logo" style="display: flex; align-items: center; justify-content: center; width: 230px;">
-                            <a href="index.html"><img src="{% static 'Admin/dist/assets/images/logo/logo.png' %}" alt="Logo"srcset="" 
-                                style="width: 100px; height: 100px;"></a>
+                        <div class="logo"
+                            style="display: flex; align-items: center; justify-content: center; width: 230px;">
+                            <a href="index.html"><img src="{% static 'Admin/dist/assets/images/logo/logo.png' %}"
+                                    alt="Logo" srcset="" style="width: 100px; height: 100px;"></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -62,8 +65,31 @@
                                 <li class="submenu-item ">
                                     <a href="{% url 'Admin:Propertytype'%}">Property Type</a>
                                 </li>
+                                <li class="submenu-item ">
+                                    <a href="{% url 'Admin:Addbhk'%}">Add BHK</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="{% url 'Admin:Furnish'%}">Furnish</a>
+                                </li>
                             </ul>
                         </li>
+
+
+                                                <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-stack"></i>
+                                <span>ChatBot</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="{% url 'Admin:Trainchatbot'%}">Train ChatBot</a>
+                            </ul>
+                        </li>
+
+
+
+
+
 
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
@@ -138,15 +164,15 @@
                     {% block content %}
                     {% endblock content %}
 
+            </div>
         </div>
-    </div>
-    <script src="{% static 'Admin/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
-    <script src="{% static 'Admin/dist/assets/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'Admin/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
+        <script src="{% static 'Admin/dist/assets/js/bootstrap.bundle.min.js' %}"></script>
 
-    <script src="{% static 'Admin/dist/assets/vendors/apexcharts/apexcharts.js' %}"></script>
-    <script src="{% static 'Admin/dist/assets/js/pages/dashboard.js' %}"></script>
+        <script src="{% static 'Admin/dist/assets/vendors/apexcharts/apexcharts.js' %}"></script>
+        <script src="{% static 'Admin/dist/assets/js/pages/dashboard.js' %}"></script>
 
-    <script src="{% static 'Admin/dist/assets/js/main.js' %}"></script>
+        <script src="{% static 'Admin/dist/assets/js/main.js' %}"></script>
 
 </body>
 

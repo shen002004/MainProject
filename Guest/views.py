@@ -35,13 +35,22 @@ def Login(request):
         sellercount=tbl_seller.objects.filter(seller_email=email,seller_password=password).count()
         rentercount=tbl_renter.objects.filter(renter_email=email,renter_password=password).count()
         if usercount>0:
+
             userdata=tbl_user.objects.get(user_email=email,user_password=password)
-            request.session['uid']=userdata.id
-            return redirect('User:Home')
+            if userdata.user_status== 0:
+                return render(request,'Guest/Login.html',{'msg':"registraction pending"})
+            elif userdata.user_status== 2:
+                return render(request,'Guest/Login.html',{'msg':"registraction rejected"})
+            else:
+                request.session['uid']=userdata.id
+                return redirect('User:Home')
+
+
         elif admincount>0:
             admindata=tbl_admin.objects.get(admin_email=email,admin_password=password)
             request.session['aid']=admindata.id
             return redirect('Admin:HomePage')
+        
         elif sellercount>0:
             sellerdata=tbl_seller.objects.get(seller_email=email,seller_password=password)
             if sellerdata.seller_status== 0:
@@ -51,6 +60,8 @@ def Login(request):
             else:
                 request.session['sid']=sellerdata.id
                 return redirect('Seller:Home')
+            
+
         elif rentercount>0:
             renterdata=tbl_renter.objects.get(renter_email=email,renter_password=password)
             if renterdata.renter_status== 0:

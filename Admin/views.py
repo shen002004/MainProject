@@ -1,3 +1,6 @@
+from urllib import request
+from Admin.train import*
+
 from django.shortcuts import render
 from Admin.models import *
 from Guest.models import *
@@ -357,3 +360,14 @@ def editfurnish(request,eid):
         return render(request,'Admin/Furnish.html',{'msg':"Data Updated"})
     else:
         return render(request,'Admin/Furnish.html',{'editdata':editdata,'propertytypeData':propertytypeData})
+    
+def Trainchatbot(request):
+    tc=tbl_chatbot.objects.all()
+    if request.method== 'POST':
+        question=request.POST.get('txt_question')
+        answer=request.POST.get('txt_answer')
+        tbl_chatbot.objects.create(question=question,answer=answer)
+        train_chatbot()
+        return render(request,'Admin/Trainchatbot.html',{'msg':"Question & Answer Added Successfully"})
+    else:
+        return render(request,'Admin/Trainchatbot.html',{'tc':tc})

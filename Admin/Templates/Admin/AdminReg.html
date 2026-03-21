@@ -5,67 +5,423 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AdminReg</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #f5f3ef;
+            --surface: #ffffff;
+            --surface2: #faf9f7;
+            --border: #e0dbd3;
+            --border2: #ccc8c0;
+            --accent: #1a3a2a;
+            --accent2: #2d5a42;
+            --gold: #b5924c;
+            --gold2: #d4a85a;
+            --text: #1c1c1c;
+            --muted: #7a7570;
+            --danger: #8b2020;
+            --edit: #1a3a2a;
+            --input-bg: #fdfcfa;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Jost', sans-serif;
+            font-weight: 300;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Subtle dot grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(circle, #c5bfb5 1px, transparent 1px);
+            background-size: 28px 28px;
+            opacity: 0.35;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Top bar */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--gold), var(--accent2));
+            z-index: 100;
+        }
+
+        /* ── HOME BUTTON TABLE ── */
+        table[border="1"]:first-of-type {
+            display: block;
+            padding: 24px 44px;
+            border: none;
+            background: transparent;
+            position: relative;
+            z-index: 1;
+        }
+        table[border="1"]:first-of-type td {
+            border: none;
+            padding: 0;
+        }
+
+        .profile-action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 22px;
+            background: transparent;
+            border: 1px solid var(--border2);
+            color: var(--muted);
+            text-decoration: none;
+            font-family: 'Jost', sans-serif;
+            font-size: 12px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            transition: all 0.25s ease;
+        }
+        .profile-action-btn::before { content: '⌂'; font-size: 14px; }
+        .profile-action-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(26,58,42,0.05);
+        }
+
+        /* ── PAGE HEADER ── */
+        .page-header {
+            text-align: center;
+            padding: 0 40px 44px;
+            position: relative;
+            z-index: 1;
+        }
+        .page-header .eyebrow {
+            font-size: 11px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+        .page-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            color: var(--accent);
+            letter-spacing: 0.06em;
+        }
+        .header-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 14px;
+        }
+        .header-ornament span {
+            height: 1px;
+            width: 60px;
+            background: var(--border2);
+        }
+        .header-ornament em {
+            color: var(--gold);
+            font-style: normal;
+            font-size: 16px;
+        }
+
+        /* ── MAIN WRAPPER ── */
+        .main-wrapper {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 0 30px 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        form { display: contents; }
+
+        /* ── REGISTRATION FORM TABLE ── */
+        table[border="1"][align="center"] {
+            width: 100%;
+            max-width: 560px;
+            border-collapse: collapse;
+            border: none;
+            background: var(--surface);
+            margin: 0 auto 52px;
+            display: table;
+            box-shadow:
+                0 0 0 1px var(--border),
+                0 2px 4px rgba(0,0,0,0.04),
+                0 20px 60px rgba(0,0,0,0.07);
+        }
+
+        table[border="1"][align="center"] tr td:first-child {
+            background: var(--surface2);
+            border-bottom: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 11px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            padding: 16px 24px;
+            width: 130px;
+            font-weight: 400;
+        }
+
+        table[border="1"][align="center"] tr td:last-child {
+            border-bottom: 1px solid var(--border);
+            padding: 10px 20px;
+        }
+
+        table[border="1"][align="center"] tr:last-child td {
+            border-bottom: none;
+            background: var(--surface2);
+            padding: 20px;
+            text-align: center;
+        }
+        table[border="1"][align="center"] tr:last-child td:first-child {
+            border-right: none;
+        }
+
+        /* Inputs */
+        table[border="1"][align="center"] input[type="text"],
+        table[border="1"][align="center"] input[type="email"],
+        table[border="1"][align="center"] input[type="password"] {
+            width: 100%;
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 10px 14px;
+            font-family: 'Jost', sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        table[border="1"][align="center"] input[type="text"]:focus,
+        table[border="1"][align="center"] input[type="email"]:focus,
+        table[border="1"][align="center"] input[type="password"]:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(26,58,42,0.08);
+        }
+
+        /* Submit & Reset */
+        input[type="submit"] {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 11px 38px;
+            font-family: 'Jost', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            margin-right: 10px;
+        }
+        input[type="submit"]:hover {
+            background: var(--accent2);
+            box-shadow: 0 6px 20px rgba(26,58,42,0.22);
+            transform: translateY(-1px);
+        }
+
+        input[type="reset"] {
+            background: transparent;
+            color: var(--muted);
+            border: 1px solid var(--border2);
+            padding: 11px 30px;
+            font-family: 'Jost', sans-serif;
+            font-size: 12px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        input[type="reset"]:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        /* ── ADMIN LIST TABLE ── */
+        .section-label {
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 14px;
+            padding-left: 2px;
+        }
+
+        table[border="2"] {
+            border-collapse: collapse;
+            border: none;
+            width: 100%;
+            display: table;
+            margin: 0 auto;
+            box-shadow: 0 0 0 1px var(--border), 0 12px 40px rgba(0,0,0,0.06);
+            background: var(--surface);
+        }
+
+        table[border="2"] tr:first-child {
+            background: var(--accent);
+        }
+
+        table[border="2"] tr:first-child td {
+            font-size: 10px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.75);
+            padding: 14px 18px;
+            font-weight: 500;
+            border: none;
+        }
+
+        table[border="2"] tr + tr td {
+            border: none;
+            border-bottom: 1px solid var(--border);
+            padding: 14px 18px;
+            background: var(--surface);
+            transition: background 0.18s ease;
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        table[border="2"] tr + tr:last-child td { border-bottom: none; }
+
+        table[border="2"] tr + tr:hover td { background: var(--surface2); }
+
+        table[border="2"] tr + tr td:first-child {
+            color: var(--muted);
+            font-size: 12px;
+            font-variant-numeric: tabular-nums;
+            width: 60px;
+        }
+
+        /* Action links */
+        table[border="2"] tr + tr td:last-child {
+            white-space: nowrap;
+        }
+        table[border="2"] tr + tr td:last-child a {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 5px 13px;
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            margin-right: 6px;
+        }
+        table[border="2"] tr + tr td:last-child a:first-child {
+            border: 1px solid #f0d0d0;
+            color: var(--danger);
+            background: rgba(139,32,32,0.04);
+        }
+        table[border="2"] tr + tr td:last-child a:first-child::before { content: '×'; font-size: 15px; font-weight: 300; }
+        table[border="2"] tr + tr td:last-child a:first-child:hover {
+            background: rgba(139,32,32,0.1);
+            border-color: var(--danger);
+        }
+        table[border="2"] tr + tr td:last-child a:last-child {
+            border: 1px solid #c5d4cb;
+            color: var(--edit);
+            background: rgba(26,58,42,0.04);
+        }
+        table[border="2"] tr + tr td:last-child a:last-child::before { content: '✎'; font-size: 13px; }
+        table[border="2"] tr + tr td:last-child a:last-child:hover {
+            background: rgba(26,58,42,0.1);
+            border-color: var(--accent);
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .page-header { animation: fadeUp 0.45s ease both; }
+        table[border="1"][align="center"] { animation: fadeUp 0.45s ease both 0.1s; }
+        table[border="2"] { animation: fadeUp 0.45s ease both 0.2s; }
+    </style>
 </head>
 
 <body>
     <form action="" method="post">
-        <h2 align="center">Admin Registration</h2>
+        <h2 align="center"></h2>
         {% csrf_token %}
-                <table border="1" align="" >
-        <td><a href="{% url 'Admin:HomePage'%}" class="profile-action-btn">Home</a></td>
+        <table border="1" align="">
+            <td><a href="{% url 'Admin:HomePage'%}" class="profile-action-btn">Home</a></td>
         </table>
-        <table border="1" align="center">
-            <tr>
-                <td>Name</td>
-                <td><input type="text" value="{{editdata.admin_name}}" name="txt_name" id=""></td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td><input type="email" value="{{editdata.admin_email}}" name="txt_email" id=""></td>
-            </tr>
-            <tr>
-                <td>Contact</td>
-                <td><input type="text" value="{{editdata.admin_contact}}" name="txt_contact" id=""></td>
-            </tr>
 
-            <tr>
-                <td>Password</td>
-                <td><input type="password" name="txt_password" id=""></td>
-            </tr>
+        <div class="page-header">
+            <p class="eyebrow">System Management</p>
+            <h2>Admin Registration</h2>
+            <div class="header-ornament">
+                <span></span><em>✦</em><span></span>
+            </div>
+        </div>
 
+        <div class="main-wrapper">
+            <table border="1" align="center">
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" value="{{editdata.admin_name}}" name="txt_name" id=""></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><input type="email" value="{{editdata.admin_email}}" name="txt_email" id=""></td>
+                </tr>
+                <tr>
+                    <td>Contact</td>
+                    <td><input type="text" value="{{editdata.admin_contact}}" name="txt_contact" id=""></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input type="password" name="txt_password" id=""></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" value="Submit">
+                        <input type="reset" value="Cancel">
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+
+    <div class="main-wrapper">
+        <p class="section-label">Registered Admins</p>
+        <table border="2" align="center">
             <tr>
-                <td colspan="2" align="center">
-                    <input type="submit" value="Submit">
-                    <input type="reset" value="Cancel">
+                <td>SLNO</td>
+                <td>NAME</td>
+                <td>EMAIL</td>
+                <td>CONTACT</td>
+                <td>ACTION</td>
+            </tr>
+            {% for i in admindata %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.admin_name}}</td>
+                <td>{{i.admin_email}}</td>
+                <td>{{i.admin_contact}}</td>
+                <td>
+                    <a href="{%url 'Admin:delAdreg' i.id%}">Delete</a>
+                    <a href="{% url 'Admin:editAdreg' i.id %}">Edit</a>
                 </td>
             </tr>
+            {% endfor %}
         </table>
-    </form>
-    <table border="2" align="center">
-        <tr>
-            <td>SLNO</td>
-            <td>NAME</td>
-            <td>EMAIL</td>
-            <td>CONTACT</td>
-            <td>ACTION</td>
-        </tr>
-        {% for i in admindata %}
-        <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{i.admin_name}}</td>
-            <td>{{i.admin_email}}</td>
-            <td>{{i.admin_contact}}</td>
-            <td>
-                <a href="{%url 'Admin:delAdreg' i.id%}">Delete</a>
-                <a href="{% url 'Admin:editAdreg' i.id %}">Edit</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+    </div>
 </body>
 </html>
 
-{% if msg  %}
+{% if msg %}
 <script>
     alert("{{msg}}");
     window.location = "{% url 'Admin:AdminReg'%}"

@@ -59,4 +59,7 @@ urlpatterns = [
     path('editfurnish/<int:eid>/',views.editfurnish,name='editfurnish'),
 
 
+    path('Trainchatbot/',views.Trainchatbot,name='Trainchatbot'),
+
+
 ]

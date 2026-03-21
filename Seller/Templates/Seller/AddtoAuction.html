@@ -1,0 +1,200 @@
+{% extends 'Seller/Header.html' %}
+{% block content %}
+{% load static %}
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=DM+Sans:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #d1c5b3;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 40px 24px;
+            color: #1a1a1a;
+        }
+
+        form {
+            width: 100%;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .form-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(24px, 4vw, 34px);
+            color: #2c2416;
+            margin-bottom: 28px;
+            letter-spacing: -0.01em;
+        }
+
+        .form-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 32px rgba(60, 40, 10, 0.09);
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        /* Property image row */
+        .form-card tr:first-child td {
+            padding: 28px 24px 20px;
+            background: #2c2416;
+            text-align: center;
+        }
+
+        .form-card tr:first-child img {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+            display: inline-block;
+        }
+
+        /* Field rows */
+        .form-card tr:not(:first-child):not(:last-child) {
+            border-bottom: 1px solid #f0ebe2;
+        }
+
+        .form-card tr:not(:first-child):not(:last-child) td:first-child {
+            padding: 16px 20px;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #7a6a55;
+            width: 36%;
+            vertical-align: middle;
+            border-right: 1px solid #f0ebe2;
+        }
+
+        .form-card tr:not(:first-child):not(:last-child) td:last-child {
+            padding: 14px 20px;
+            vertical-align: middle;
+            color: #3a3020;
+            font-size: 14px;
+        }
+
+        /* Inputs */
+        .form-card input[type="text"],
+        .form-card input[type="time"],
+        .form-card input[type="date"] {
+            width: 100%;
+            padding: 9px 12px;
+            border: 1.5px solid #e0d9ce;
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            color: #2c2416;
+            background: #faf8f4;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .form-card input[type="text"]:focus,
+        .form-card input[type="time"]:focus,
+        .form-card input[type="date"]:focus {
+            border-color: #7a6a55;
+            box-shadow: 0 0 0 3px rgba(122, 106, 85, 0.12);
+            background: #fff;
+        }
+
+        /* Submit row */
+        .form-card tr:last-child td {
+            padding: 20px 24px;
+            text-align: center;
+            background: #faf8f4;
+            border-top: 1px solid #f0ebe2;
+        }
+
+        .form-card input[type="submit"] {
+            padding: 11px 40px;
+            background: #2c2416;
+            color: #c9b99a;
+            border: none;
+            border-radius: 24px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .form-card input[type="submit"]:hover {
+            background: #7a6a55;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <p class="form-heading">Add Auction</p>
+        <table class="form-card" cellpadding="5">
+            <tr>
+                <td colspan="2" align="center">
+                    <img src="{{data.property_photo.url}}" width="150" height="150">
+                </td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>{{data.property_description}}</td>
+            </tr>
+            <tr>
+                <td>Amount</td>
+                <td><input type="text" name="txt_amount" id=""></td>
+            </tr>
+            <tr>
+                <td>Start Time</td>
+                <td><input type="time" name="txt_starttime" id=""></td>
+            </tr>
+            <tr>
+                <td>Date</td>
+                <td><input type="date" name="txt_todate" id=""></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="Add">
+                </td>
+            </tr>
+        </table>
+        {% if msg %}
+        <script>
+            alert("{{msg}}")
+            window.location = "{% url 'Seller:Addproperty' %}"
+        </script>
+        {% endif %}
+    </form>
+</body>
+
+</html>
+
+{% endblock %}

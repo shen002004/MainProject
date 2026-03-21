@@ -1,31 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Complaint </title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #e8e0d5 0%, #f5f0ea 50%, #ddd5c8 100%);
+            color: #1a1814;
+            min-height: 100vh;
+            padding: 40px 20px 60px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 30px;
+            color: #1a1814;
+        }
+        h2 span { color: #c8682a; }
+
+        /* FORM */
+        form {
+            max-width: 520px;
+            margin: 0 auto 40px;
+            background: #fff;
+            border-radius: 14px;
+            padding: 30px 32px 28px;
+            box-shadow: 0 4px 24px rgba(26,24,20,0.09);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: #5a5550;
+            text-decoration: none;
+            background: #fff;
+            border: 1.5px solid #e0dbd4;
+            border-radius: 8px;
+            padding: 9px 18px;
+            margin: 0 auto 24px;
+            display: flex;
+            width: fit-content;
+            transition: color 0.2s, border-color 0.2s, box-shadow 0.2s;
+        }
+        .back-btn:hover {
+            color: #c8682a;
+            border-color: #c8682a;
+            box-shadow: 0 3px 12px rgba(200,104,42,0.15);
+        }
+        .back-btn svg { transition: transform 0.2s; }
+        .back-btn:hover svg { transform: translateX(-3px); }
+
+        form table {
+            width: 100%;
+            border-collapse: collapse;
+            border: none !important;
+        }
+        form table tr td {
+            border: none !important;
+            padding: 8px 0;
+        }
+        form table tr td:first-child {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #8a847e;
+            width: 90px;
+            padding-top: 14px;
+            vertical-align: top;
+        }
+        form table tr td:last-child { padding-left: 12px; }
+
+        form table input[type="text"] {
+            width: 100%;
+            border: 1.5px solid #e0dbd4;
+            border-radius: 8px;
+            padding: 11px 14px;
+            font-size: 13.5px;
+            font-family: 'Montserrat', sans-serif;
+            color: #1a1814;
+            background: #f8f6f3;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+        }
+        form table input[type="text"]:focus {
+            border-color: #c8682a;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(200,104,42,0.1);
+        }
+
+        form table td[colspan] { padding-top: 20px; text-align: center !important; }
+        form table input[type="submit"] {
+            background: #c8682a;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 36px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+        }
+        form table input[type="submit"]:hover {
+            background: #b05a22;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(200,104,42,0.3);
+        }
+
+        /* COMPLAINTS TABLE */
+        table[border="2"] {
+            width: 90%;
+            max-width: 900px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            border: none !important;
+            background: #fff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(26,24,20,0.09);
+        }
+
+        table[border="2"] tr:first-child td {
+            background: #1a1814;
+            color: #fff;
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 14px 18px;
+            border: none !important;
+        }
+
+        table[border="2"] tr:not(:first-child) td {
+            padding: 14px 18px;
+            font-size: 13.5px;
+            color: #3a3530;
+            border: none !important;
+            border-bottom: 1px solid #f0ece6 !important;
+            vertical-align: middle;
+        }
+
+        table[border="2"] tr:not(:first-child):last-child td { border-bottom: none !important; }
+        table[border="2"] tr:not(:first-child):hover td { background: #faf8f5; }
+
+        table[border="2"] tr:not(:first-child) td:first-child {
+            font-weight: 700;
+            color: #b0a99e;
+            font-size: 12px;
+        }
+
+        table[border="2"] a {
+            font-size: 12px;
+            font-weight: 600;
+            color: #c0392b;
+            text-decoration: none;
+            padding: 5px 12px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        table[border="2"] a:hover { background: #fdecea; }
+    </style>
+
+
 </head>
+
 <body>
-        <h2 align="center">Complaint Registration</h2>
-        <form action="" method="post">
+    <h2 align="center">Complaint Registration</h2>
+    <form action="" method="post">
         {% csrf_token %}
-            <td><a href="{% url 'User:Home'%}" class="profile-action-btn">Home</a></td>
-           <table border="1" align="center">
+        <td style="border:none;padding-bottom:4px;"><a href="{% url 'Renter:Home'%}" class="back-btn"><svg width="14"
+                    height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5" />
+                    <polyline points="12 19 5 12 12 5" />
+                </svg> Back</a></td>
+        <table border="1" align="center">
             <tr>
                 <td>Title</td>
                 <td><input type="text" name="txt_title" id=""></td>
             </tr>
             <tr>
                 <td>Content</td>
-                <td><input type="text" name="txt_content" id=""</td>
+                <td><input type="text" name="txt_content" id="" </td>
             </tr>
-                <td colspan="3" align="center">
-                    <input type="submit" value="sent">
-                </td>
-           </table>
-        </form>
-        
-        <table border="2" align="center">
+            <td colspan="3" align="center">
+                <input type="submit" value="sent">
+            </td>
+        </table>
+    </form>
+
+    <table border="2" align="center">
         <tr>
             <td>SLNO</td>
             <td>Title</td>
@@ -49,6 +231,7 @@
         {%endfor%}
     </table>
 </body>
+
 </html>
 
 {% if msg %}

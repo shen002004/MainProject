@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,6 +6,218 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PROPERTY RENTING</title>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --white: #ffffff;
+            --off-white: #f7f6f4;
+            --border: #e0ddd8;
+            --text: #1a1916;
+            --muted: #8c8880;
+            --accent: #c0714a;
+            --accent-dark: #a35a34;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Barlow', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+
+            background-image: url("{% static 'Main/images/view.jpg' %}");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: rgba(26, 25, 22, 0.55);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ── Form card ── */
+        .form-card {
+            position: relative;
+            z-index: 1;
+            background: rgba(255,255,255,0.97);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 480px;
+            overflow: hidden;
+            box-shadow: 0 24px 64px rgba(0,0,0,0.35), 0 2px 8px rgba(0,0,0,0.15);
+            animation: fadeUp 0.6s ease both;
+        }
+
+        /* Card header */
+        .form-card__header {
+            background: var(--text);
+            padding: 32px 36px 28px;
+        }
+
+        .form-card__eyebrow {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2.8px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .form-card__title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 34px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+            color: var(--white);
+            line-height: 1;
+        }
+
+        .form-card__sub {
+            margin-top: 8px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.45);
+        }
+
+        /* Card body */
+        .form-card__body {
+            padding: 32px 36px 36px;
+        }
+
+        /* ── Table reset & styling ── */
+        table[align="center"] {
+            width: 100% !important;
+            border-collapse: collapse;
+            border: none !important;
+        }
+
+        table[align="center"] tr td {
+            border: none !important;
+            padding: 0;
+        }
+
+        /* Each row = one field group */
+        table[align="center"] tr {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        /* Label cell */
+        table[align="center"] tr td:first-child {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.6px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 7px;
+        }
+
+        /* Input cell */
+        table[align="center"] tr td:last-child {
+            width: 100%;
+        }
+
+        /* All inputs */
+        table[align="center"] input[type="date"],
+        table[align="center"] input[type="number"] {
+            width: 100%;
+            padding: 12px 16px;
+            font-family: 'Barlow', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text);
+            background: var(--off-white);
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        table[align="center"] input[type="date"]:focus,
+        table[align="center"] input[type="number"]:focus {
+            border-color: var(--accent);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(192,113,74,0.12);
+        }
+
+        /* Readonly fields */
+        table[align="center"] input[readonly] {
+            background: #f0ede9;
+            color: var(--muted);
+            cursor: not-allowed;
+        }
+
+        /* Hidden input */
+        input[type="hidden"] { display: none; }
+
+        /* Submit row */
+        table[align="center"] tr:last-child {
+            margin-bottom: 0;
+            margin-top: 8px;
+        }
+
+        table[align="center"] tr:last-child td {
+            width: 100%;
+        }
+
+        table[align="center"] input[type="submit"] {
+            width: 100%;
+            padding: 14px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--white);
+            background: var(--accent);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.18s, box-shadow 0.2s;
+        }
+
+        table[align="center"] input[type="submit"]:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(192,113,74,0.35);
+        }
+
+        table[align="center"] input[type="submit"]:active {
+            transform: translateY(0);
+        }
+
+        /* Divider between price & submit */
+        table[align="center"] tr:nth-last-child(2) {
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 24px;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 520px) {
+            .form-card__header { padding: 24px 24px 20px; }
+            .form-card__body { padding: 24px 24px 28px; }
+        }
+    </style>
+
     <script>
     window.onload = function () {
         const today = new Date().toISOString().split('T')[0];
@@ -42,51 +255,60 @@
             }
         }
     }
-</script>
-
-
+    </script>
 </head>
 
 <body>
-    <form action="" method="post">
-        {% csrf_token %}
-        <table border="1" align="center">
-            <tr>
-                <td>From Date</td>
-                <td>
-                    <input type="date" name="txt_fromdate" id="fromdate" onchange="calculateAmount()">
-                </td>
-            </tr>
-            <tr>
-                <td>To Date</td>
-                <td>
-                    <input type="date" name="txt_todate" id="todate" onchange="calculateAmount()">
-                    <input type="hidden" name="txt_days" id="days">
-                </td>
-            </tr>
-            <tr>
-                <td>Amount</td>
-                <td>
-                    <input type="number" name="txt_Amount" id="amount" readonly>
-                </td>
-            </tr>
-            <tr>
-                <td>One Month Price</td>
-                <td><input type="number" name="txt_price" id="price" value="{{ppt.property_price}}" readonly
-                        oninput="calculateAmount()"></td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                    <input type="submit" value="Book">
-                </td>
-            </tr>
-        </table>
-    </form>
+
+    <div class="form-card">
+        <!-- Header -->
+        <div class="form-card__header">
+            <p class="form-card__eyebrow">Apart. &nbsp;·&nbsp; Rental Booking</p>
+            <h1 class="form-card__title">Property Renting</h1>
+            <p class="form-card__sub">Minimum rental period is 30 days.</p>
+        </div>
+
+        <!-- Body -->
+        <div class="form-card__body">
+            <form action="" method="post">
+                {% csrf_token %}
+                <table border="1" align="center">
+                    <tr>
+                        <td>From Date</td>
+                        <td>
+                            <input type="date" name="txt_fromdate" id="fromdate" onchange="calculateAmount()">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>To Date</td>
+                        <td>
+                            <input type="date" name="txt_todate" id="todate" onchange="calculateAmount()">
+                            <input type="hidden" name="txt_days" id="days">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Amount</td>
+                        <td>
+                            <input type="number" name="txt_Amount" id="amount" readonly>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>One Month Price</td>
+                        <td><input type="number" name="txt_price" id="price" value="{{ppt.property_price}}" readonly
+                                oninput="calculateAmount()"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <input type="submit" value="Book">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+
 </body>
-
 </html>
-
-
 
 {% if msg %}
 <script>

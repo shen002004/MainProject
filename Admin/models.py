@@ -32,5 +32,6 @@ class tbl_furnish(models.Model):
     furnish_name=models.CharField(max_length=30)
     propertytype=models.ForeignKey('tbl_propertytype',on_delete=models.CASCADE,null=True)
 
-
-    
+class tbl_chatbot(models.Model):
+    question=models.CharField(max_length=300)
+    answer=models.CharField(max_length=200)

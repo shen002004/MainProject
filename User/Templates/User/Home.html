@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -19,4 +19,1268 @@
 
             </table>
 </body>
+</html> -->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Apart &mdash; User Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Oswald:400,700">
+  <link rel="stylesheet" href="{% static 'Main/fonts/icomoon/style.css' %}">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+
+  <link rel="stylesheet" href="{% static 'Main/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'Main/css/magnific-popup.css' %}">
+  <link rel="stylesheet" href="{% static 'Main/css/jquery-ui.css' %}">
+  <link rel="stylesheet" href="{% static 'Main/css/owl.carousel.min.css' %}">
+  <link rel="stylesheet" href="{% static 'Main/css/owl.theme.default.min.css' %}">
+  <link rel="stylesheet" href="{% static 'Main/css/bootstrap-datepicker.css' %}">
+  <link rel="stylesheet" href="{% static 'Main/css/mediaelementplayer.css' %}">
+  <link rel="stylesheet" href="{% static 'Main/css/animate.css' %}">
+  <link rel="stylesheet" href="{% static 'Main/fonts/flaticon/font/flaticon.css' %}">
+  <link rel="stylesheet" href="{% static 'Main/css/fl-bigmug-line.css' %}">
+
+
+  <link rel="stylesheet" href="{% static 'Main/css/aos.css' %}">
+
+  <link rel="stylesheet" href="{% static 'Main/css/style.css' %}">
+
+
+  <style>
+    /* ===== Continue Application Button CSS ===== */
+
+    .continue-application {
+      --color: #fff;
+      --background: #404660;
+      --background-hover: #3A4059;
+      --background-left: #2B3044;
+      --folder: #F3E9CB;
+      --folder-inner: #BEB393;
+      --paper: #FFFFFF;
+      --paper-lines: #BBC1E1;
+      --paper-behind: #E1E6F9;
+      --pencil-cap: #fff;
+      --pencil-top: #275EFE;
+      --pencil-middle: #fff;
+      --pencil-bottom: #5C86FF;
+      --shadow: rgba(13, 15, 25, .2);
+      border: none;
+      outline: none;
+      cursor: pointer;
+      position: relative;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 12px 20px 12px 60px;
+      transition: background 0.3s;
+      color: var(--color);
+      background: var(--background);
+    }
+
+    /* Smaller version for footer */
+    .continue-application {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    /* Keep rest of your original animation CSS below */
+    /* IMPORTANT: paste ALL remaining CSS you sent me here */
+    .continue-application {
+      --color: #fff;
+      --background: #404660;
+      --background-hover: #3A4059;
+      --background-left: #2B3044;
+      --folder: #F3E9CB;
+      --folder-inner: #BEB393;
+      --paper: #FFFFFF;
+      --paper-lines: #BBC1E1;
+      --paper-behind: #E1E6F9;
+      --pencil-cap: #fff;
+      --pencil-top: #275EFE;
+      --pencil-middle: #fff;
+      --pencil-bottom: #5C86FF;
+      --shadow: rgba(13, 15, 25, .2);
+      border: none;
+      outline: none;
+      cursor: pointer;
+      position: relative;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 19px;
+      -webkit-appearance: none;
+      -webkit-tap-highlight-color: transparent;
+      padding: 17px 29px 17px 69px;
+      transition: background 0.3s;
+      color: var(--color);
+      background: var(--bg, var(--background));
+    }
+
+    .continue-application>div {
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 53px;
+      position: absolute;
+      overflow: hidden;
+      border-radius: 5px 0 0 5px;
+      background: var(--background-left);
+    }
+
+    .continue-application>div .folder {
+      width: 23px;
+      height: 27px;
+      position: absolute;
+      left: 15px;
+      top: 13px;
+    }
+
+    .continue-application>div .folder .top {
+      left: 0;
+      top: 0;
+      z-index: 2;
+      position: absolute;
+      transform: translateX(var(--fx, 0));
+      transition: transform 0.4s ease var(--fd, 0.3s);
+    }
+
+    .continue-application>div .folder .top svg {
+      width: 24px;
+      height: 27px;
+      display: block;
+      fill: var(--folder);
+      transform-origin: 0 50%;
+      transition: transform 0.3s ease var(--fds, 0.45s);
+      transform: perspective(120px) rotateY(var(--fr, 0deg));
+    }
+
+    .continue-application>div .folder:before,
+    .continue-application>div .folder:after,
+    .continue-application>div .folder .paper {
+      content: "";
+      position: absolute;
+      left: var(--l, 0);
+      top: var(--t, 0);
+      width: var(--w, 100%);
+      height: var(--h, 100%);
+      border-radius: 1px;
+      background: var(--b, var(--folder-inner));
+    }
+
+    .continue-application>div .folder:before {
+      box-shadow: 0 1.5px 3px var(--shadow), 0 2.5px 5px var(--shadow), 0 3.5px 7px var(--shadow);
+      transform: translateX(var(--fx, 0));
+      transition: transform 0.4s ease var(--fd, 0.3s);
+    }
+
+    .continue-application>div .folder:after,
+    .continue-application>div .folder .paper {
+      --l: 1px;
+      --t: 1px;
+      --w: 21px;
+      --h: 25px;
+      --b: var(--paper-behind);
+    }
+
+    .continue-application>div .folder:after {
+      transform: translate(var(--pbx, 0), var(--pby, 0));
+      transition: transform 0.4s ease var(--pbd, 0s);
+    }
+
+    .continue-application>div .folder .paper {
+      z-index: 1;
+      --b: var(--paper);
+    }
+
+    .continue-application>div .folder .paper:before,
+    .continue-application>div .folder .paper:after {
+      content: "";
+      width: var(--wp, 14px);
+      height: 2px;
+      border-radius: 1px;
+      transform: scaleY(0.5);
+      left: 3px;
+      top: var(--tp, 3px);
+      position: absolute;
+      background: var(--paper-lines);
+      box-shadow: 0 12px 0 0 var(--paper-lines), 0 24px 0 0 var(--paper-lines);
+    }
+
+    .continue-application>div .folder .paper:after {
+      --tp: 6px;
+      --wp: 10px;
+    }
+
+    .continue-application>div .pencil {
+      height: 2px;
+      width: 3px;
+      border-radius: 1px 1px 0 0;
+      top: 8px;
+      left: 105%;
+      position: absolute;
+      z-index: 3;
+      transform-origin: 50% 19px;
+      background: var(--pencil-cap);
+      transform: translateX(var(--pex, 0)) rotate(35deg);
+      transition: transform 0.4s ease var(--pbd, 0s);
+    }
+
+    .continue-application>div .pencil:before,
+    .continue-application>div .pencil:after {
+      content: "";
+      position: absolute;
+      display: block;
+      background: var(--b, linear-gradient(var(--pencil-top) 55%, var(--pencil-middle) 55.1%, var(--pencil-middle) 60%, var(--pencil-bottom) 60.1%));
+      width: var(--w, 5px);
+      height: var(--h, 20px);
+      border-radius: var(--br, 2px 2px 0 0);
+      top: var(--t, 2px);
+      left: var(--l, -1px);
+    }
+
+    .continue-application>div .pencil:before {
+      -webkit-clip-path: polygon(0 5%, 5px 5%, 5px 17px, 50% 20px, 0 17px);
+      clip-path: polygon(0 5%, 5px 5%, 5px 17px, 50% 20px, 0 17px);
+    }
+
+    .continue-application>div .pencil:after {
+      --b: none;
+      --w: 3px;
+      --h: 6px;
+      --br: 0 2px 1px 0;
+      --t: 3px;
+      --l: 3px;
+      border-top: 1px solid var(--pencil-top);
+      border-right: 1px solid var(--pencil-top);
+    }
+
+    .continue-application:before,
+    .continue-application:after {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 2px;
+      border-radius: 1px;
+      background: var(--color);
+      transform-origin: 9px 1px;
+      transform: translateX(var(--cx, 0)) scale(0.5) rotate(var(--r, -45deg));
+      top: 26px;
+      right: 16px;
+      transition: transform 0.3s;
+    }
+
+    .continue-application:after {
+      --r: 45deg;
+    }
+
+    .continue-application:hover {
+      --cx: 2px;
+      --bg: var(--background-hover);
+      --fx: -40px;
+      --fr: -60deg;
+      --fd: .15s;
+      --fds: 0s;
+      --pbx: 3px;
+      --pby: -3px;
+      --pbd: .15s;
+      --pex: -24px;
+
+    }
+
+
+
+
+
+
+    .profile-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: white;
+      /* change based on your theme */
+      transition: 0.3s ease;
+    }
+
+    .profile-icon {
+      width: 45px;
+      height: 45px;
+      background: linear-gradient(135deg, #cb2f2f, #313e86);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      /* Bigger icon */
+      transition: all 0.4s ease;
+    }
+
+    /* Hover Effect */
+    .profile-link:hover .profile-icon {
+      transform: scale(1.15) rotate(10deg);
+      box-shadow: 0 0 15px rgba(229, 220, 237, 0.6);
+    }
+
+    .profile-link:hover {
+      color: #d7d0de;
+    }
+
+
+
+
+
+
+    /* Chat Bubbles */
+    .message {
+      margin: 8px 0;
+      display: flex;
+    }
+
+    .user-message {
+      justify-content: flex-end;
+    }
+
+    .bot-message {
+      justify-content: flex-start;
+    }
+
+    .bubble {
+      max-width: 70%;
+      padding: 8px 12px;
+      border-radius: 15px;
+      font-size: 14px;
+    }
+
+    .user-bubble {
+      background: #4CAF50;
+      color: white;
+      border-bottom-right-radius: 0;
+    }
+
+    .bot-bubble {
+      background: #e0e0e0;
+      color: black;
+      border-bottom-left-radius: 0;
+    }
+
+
+
+
+    /* Chat Open Button */
+    .chat-open-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      font-size: 22px;
+      padding: 12px 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+      z-index: 9999;
+    }
+
+    /* Chat Modal Box */
+    .chat-modal {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 300px;
+      height: 400px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+      display: none;
+      flex-direction: column;
+      z-index: 9999;
+    }
+
+    /* Header */
+    .chat-header {
+      background: #007bff;
+      color: white;
+      padding: 10px;
+      font-weight: bold;
+      border-radius: 10px 10px 0 0;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Close Button */
+    .close-btn {
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    /* Body */
+    .chat-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+      background: #f5f5f5;
+    }
+
+    /* Footer */
+    .chat-footer {
+      display: flex;
+      border-top: 1px solid #ddd;
+    }
+
+    .chat-footer input {
+      flex: 1;
+      border: none;
+      padding: 10px;
+    }
+
+    .chat-footer button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+
+
+
+
+
+
+    .back-to-top {
+      position: fixed;
+      bottom: 90px;
+      /* keeps space for chatbot */
+      right: 30px;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: #2c3e50;
+      color: white;
+      font-size: 20px;
+      border: none;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+
+    .back-to-top:hover {
+      background: #007bff;
+      transform: translateY(-4px);
+    }
+  </style>
+
+
+
+</head>
+
+<body>
+
+
+
+
+  <div class="site-wrap">
+
+    <div class="site-navbar mt-4">
+      <div class="container py-1">
+        <div class="row align-items-center">
+          <div class="col-8 col-md-8 col-lg-4">
+            <h1 class="mb-0"><a href="/User/Home/" class="text-white h2 mb-0"><strong>Apart<span
+                    class="text-primary">.</span></strong></a></h1>
+          </div>
+          <div class="col-4 col-md-4 col-lg-8">
+            <nav class="site-navigation text-right text-md-right" role="navigation">
+
+              <div class="d-inline-block d-lg-none ml-md-0 mr-auto py-3"><a href="#"
+                  class="site-menu-toggle js-menu-toggle text-white"><span class="icon-menu h3"></span></a></div>
+
+              <ul class="site-menu js-clone-nav d-none d-lg-block">
+                <li class="active">
+                  <a href="/User/Home/">Home</a>
+                </li>
+
+
+
+                <li class="has-children">
+                  <a href="#about">About</a>
+                  <ul class="dropdown arrow-top">
+                    <li><a href="#Message">Complaint</a></li>
+
+                    <li><a href="#Message">Feedback</a></li>
+
+
+                  </ul>
+                </li>
+
+                <li><a href="{% url 'User:Viewpro'%}">View property</a></li>
+                
+
+
+
+
+                <li class="has-children">
+                  <a href="/User/Home/">Auction</a>
+                  <ul class="dropdown arrow-top">
+                  <li><a href="{% url 'User:viewauctionlist' %}">View Auction</a></li>
+
+                  <li><a href="{% url 'User:myauction' %}">My Auction</a></li>
+
+
+                  </ul>
+                </li>
+
+
+
+
+                <li class="has-children">
+                  <a href="#">Booking</a>
+                  <ul class="dropdown arrow-top">
+                    <li><a href="{% url 'User:Myprobooking'%}">My Property Booking</a></li>
+
+                    <li><a href="{% url 'User:MyproRent'%}">My Property Rent</a></li>
+
+                    <!-- <li class="has-children">
+                      <a href="#">Sub Menu</a>
+                      <ul class="dropdown">
+                        <li><a href="#">Menu One</a></li>
+                        <li><a href="#">Menu Two</a></li>
+                        <li><a href="#">Menu Three</a></li>
+                      </ul>
+                    </li> -->
+                  </ul>
+                </li>
+                <li><a href="{% url 'Guest:index' %}">Log Out </a></li>
+                <!-- <li><a href="contact.html">Contact</a></li> -->
+
+
+                <li class="profile-item">
+                  <a href="{% url 'User:Myprofile' %}" class="profile-link">
+                    <div class="profile-icon">
+                      <i class="fa-solid fa-circle-user"></i>
+                    </div>
+                  </a>
+                </li>
+
+
+
+              </ul>
+            </nav>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="site-mobile-menu">
+    <div class="site-mobile-menu-header">
+      <div class="site-mobile-menu-close mt-3">
+        <span class="icon-close2 js-menu-toggle"></span>
+      </div>
+    </div>
+    <div class="site-mobile-menu-body"></div>
+  </div> <!-- .site-mobile-menu -->
+
+
+
+
+
+  <div class="site-blocks-cover overlay" style="background-image: url('{% static 'Main/images/hero_bg_2.jpg' %}');"
+    data-aos="fade" data-stellar-background-ratio="0.5" data-aos="fade">
+    <!-- <a href="index.html"><img src="{% static 'Admin/dist/assets/images/logo/logo.png' %}" alt="Logo" srcset=""
+        style="width: 100px; height: 100px;"></a> -->
+
+
+
+
+
+    <div class="container">
+      <div class="row align-items-center justify-content-center">
+        <div class="col-md-8 text-center" data-aos="fade-up" data-aos-delay="400">
+          <h1 class="mb-4">Find Your Dream Property in Kerala</h1>
+          <p class="mb-5">Buy • Sell • Rent Properties Across All 14 Districts of Kerala</p>
+          <!-- <p><a href="{% url 'Guest:Login'%}" class="btn btn-primary px-5 py-3">Take a Tour</a></p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container" id="about">
+    <div class="featured-property-half d-flex">
+
+      <div class="image" style="background-image: url('{% static 'Main/images/hero_bg_1.jpg' %}')"></div>
+
+      <div class="text">
+        <h2>About Our Company</h2>
+
+        <p class="mb-5">
+          Welcome to <strong>Apart Properties</strong>, a trusted real estate platform
+          dedicated to helping customers buy, sell, and rent properties with ease.
+          We focus on transparency, reliability, and customer satisfaction.
+        </p>
+
+        <ul class="property-list-details mb-5">
+          <li class="text-black">Company Name: <strong class="text-black">Apart Properties</strong></li>
+          <li>Established: <strong>2026</strong></li>
+          <li>Service Area: <strong>All 14 Districts In Kerala</strong></li>
+          <li>Services: <strong>Property Buying • Selling • Renting</strong></li>
+          <li>Support: <strong>Secure & Verified Listings</strong></li>
+        </ul>
+
+        <p>
+          We provide a user-friendly platform where buyers, sellers, and renters
+          can connect directly. Our goal is to make property transactions simple,
+          secure, and hassle-free for everyone.
+        </p>
+
+        <!-- <p>
+        <a href="#" class="btn btn-primary px-4 py-3">Explore Properties</a>
+      </p> -->
+
+      </div>
+    </div>
+  </div>
+
+  <div class="site-section">
+    <div class="container" id="pro">
+      <div class="row">
+        <div class="site-section-heading text-center mb-5 w-border col-md-6 mx-auto">
+          <h2 class="mb-5">Explore Properties Across Kerala</h2>
+          <p>
+            Find the perfect property based on district, BHK type and furnishing status. Buy, sell, or rent with
+            confidence.
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+          <a href="#pro" class="unit-9">
+            <div class="image" style="background-image: url('{% static 'Main/images/img_1.jpg' %}');"></div>
+            <div class="unit-9-content">
+              <h2>Thiruvananthapuram</h2>
+              <span>20,000/ 1,Month</span>
+              <!-- <span>with Wendy Matos</span> -->
+            </div>
+          </a>
+        </div>
+
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+          <a href="#pro" class="unit-9">
+            <div class="image" style="background-image: url('{% static 'Main/images/img_2.jpg' %}');"></div>
+            <div class="unit-9-content">
+              <h2>Ernakulam (Furnished)</h2>
+              <span>30,000 / 1,Month</span>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+          <a href="#pro" class="unit-9">
+            <div class="image" style="background-image: url('{% static 'Main/images/img_3.jpg' %}');"></div>
+            <div class="unit-9-content">
+              <h2>Thrissur (Furnished)</h2>
+              <span>25,000/ 1,Month</span>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+          <a href="#pro" class="unit-9">
+            <div class="image" style="background-image: url('{% static 'Main/images/img_4.jpg' %}');"></div>
+            <div class="unit-9-content">
+              <h2>Kozhikode (Semi Furnished)</h2>
+              <span>12,000/ 1,Month</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-md-12 text-center mt-5" data-aos="fade-up">
+          <a href="{% url 'User:Viewpro' %}" class="btn btn-primary">Browse All Propeties</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="site-section">
+
+    <div class="container" id="property">
+
+      <div class="row">
+        <div class="site-section-heading text-center mb-5 w-border col-md-6 mx-auto" data-aos="fade-up">
+          <h2 class="mb-5">Featured Properties in Kerala</h2>
+          <p>
+            Explore premium apartments, villas, and land listings
+            from top districts in Kerala.
+          </p>
+        </div>
+      </div>
+
+      <div class="site-block-retro d-block d-md-flex">
+
+        <!-- Property 1 -->
+        <a href="#property" class="col1 unit-9 no-height" data-aos="fade-up" data-aos-delay="100">
+          <div class="image" style="background-image: url('{% static 'Main/images/img_2.jpg' %}');"></div>
+          <div class="unit-9-content">
+            <h2>3BHK Apartment – Ernakulam (Furnished)</h2>
+            <span>₹ 65 Lakhs</span>
+          </div>
+        </a>
+
+        <div class="col2 ml-auto">
+
+          <!-- Property 2 -->
+          <a href="#property" class="col2-row1 unit-9 no-height" data-aos="fade-up" data-aos-delay="200">
+            <div class="image" style="background-image: url('{% static 'Main/images/img_3.jpg' %}');"></div>
+            <div class="unit-9-content">
+              <h2>2BHK Flat – Thiruvananthapuram (Furnished)</h2>
+              <span>₹ 45 Lakhs</span>
+            </div>
+          </a>
+
+          <!-- Property 3 -->
+          <a href="#property" class="col2-row2 unit-9 no-height" data-aos="fade-up" data-aos-delay="300">
+            <div class="image" style="background-image: url('{% static 'Main/images/img_1.jpg' %}');"></div>
+            <div class="unit-9-content">
+              <h2>Residential Land – Thrissur (Semi Furnished)</h2>
+              <span>₹ 12 Lakhs / Cent</span>
+            </div>
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="site-section block-13">
+    <div class="container" data-aos="fade-up">
+      <div class="row">
+        <div class="site-section-heading text-center mb-5 w-border col-md-6 mx-auto">
+          <h2 class="mb-5">Trusted by Property Buyers Across Kerala</h2>
+          <p>
+            See what our happy customers say about buying, selling, and renting
+            properties through our Kerala Property platform.
+          </p>
+        </div>
+      </div>
+      <div class="nonloop-block-13 owl-carousel">
+
+        <div class="text-center p-3 p-md-5 bg-white">
+          <div class="mb-4">
+            <img src="{% static 'Main/images/person_1.jpg' %}" alt="Image"
+              class="w-50 mx-auto img-fluid rounded-circle">
+          </div>
+          <div class="text-black">
+            <h3 class="font-weight-light h5">Anjali Menon – Ernakulam</h3>
+            <p class="font-italic">
+              “I found my 3BHK apartment in Ernakulam within a week.
+              The search filters and district-based options made it very easy.”
+            </p>
+          </div>
+        </div>
+
+
+
+
+        <div class="text-center p-3 p-md-5 bg-white">
+          <div class="mb-4">
+            <img src="{% static 'Main/images/person_2.jpg' %}" alt="Image"
+              class="w-50 mx-auto img-fluid rounded-circle">
+          </div>
+          <div class="text-black">
+            <h3 class="font-weight-light h5">Arjun Nair – Thrissur</h3>
+            <p class="font-italic">
+              “Very trustworthy platform. I sold my residential land in Thrissur
+              quickly without any complications.”
+            </p>
+          </div>
+        </div>
+
+
+
+
+
+        <div class="text-center p-3 p-md-5 bg-white">
+          <div class="mb-4">
+            <img src="{% static 'Main/images/person_3.jpg' %}" alt="Image"
+              class="w-50 mx-auto img-fluid rounded-circle">
+          </div>
+          <div class="text-black">
+            <h3 class="font-weight-light h5">Rahul Varghese – Kottayam</h3>
+            <p class="font-italic">
+              “The platform helped me compare prices and find a semi-furnished
+              2BHK flat within my budget in Kottayam.”
+            </p>
+          </div>
+        </div>
+
+
+
+
+        <div class="text-center p-3 p-md-5 bg-white">
+          <div class="mb-4">
+            <img src="{% static 'Main/images/person_5.jpg' %}" alt="Image"
+              class="w-50 mx-auto img-fluid rounded-circle">
+          </div>
+          <div class="text-black">
+            <h3 class="font-weight-light h5">Sandeep Krishnan – Kozhikode</h3>
+            <p class="font-italic">
+              “I found a fully furnished 2BHK apartment in Kozhikode within my budget.
+              The district-based search made everything simple.”
+            </p>
+          </div>
+        </div>
+
+
+        <div class="text-center p-3 p-md-5 bg-white">
+          <div class="mb-4">
+            <img src="{% static 'Main/images/person_6.jpg' %}" alt="Image"
+              class="w-50 mx-auto img-fluid rounded-circle">
+          </div>
+          <div class="text-black">
+            <h3 class="font-weight-light h5">Athira Raj – Alappuzha</h3>
+            <p class="font-italic">
+              “Very smooth experience selling my residential land in Alappuzha.
+              Highly reliable and easy to use platform.”
+            </p>
+          </div>
+        </div>
+
+
+
+        <div class="text-center p-3 p-md-5 bg-white">
+          <div class="mb-4">
+            <img src="{% static 'Main/images/person_4.jpg' %}" alt="Image"
+              class="w-50 mx-auto img-fluid rounded-circle">
+          </div>
+          <div class="text-black">
+            <h3 class="font-weight-light h5">Nikhil Varma – Palakkad</h3>
+            <p class="font-italic">
+              “The platform helped me rent out my 3BHK house quickly.
+              Excellent service for property owners in Kerala.”
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="site-section bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="site-section-heading text-center mb-5 w-border col-md-6 mx-auto" data-aos="fade-up">
+          <h2 class="mb-5">Kerala Real Estate Updates</h2>
+          <p>
+            Stay updated with the latest property trends, price insights,
+            and real estate news across Kerala.
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="100">
+          <img src="{% static 'Main/images/img_4.jpg' %}" class="img-fluid">
+          <div class="p-4 bg-white">
+            <span class="d-block text-secondary small text-uppercase">March 2026</span>
+            <h2 class="h5 text-black mb-3">
+              Property Prices Rising in Ernakulam
+            </h2>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="200">
+          <img src="{% static 'Main/images/img_2.jpg' %}" class="img-fluid">
+          <div class="p-4 bg-white">
+            <span class="d-block text-secondary small text-uppercase">February 2026</span>
+            <h2 class="h5 text-black mb-3">
+              Top Districts for Buying Land in Kerala
+            </h2>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="300">
+          <img src="{% static 'Main/images/img_3.jpg' %}" class="img-fluid">
+          <div class="p-4 bg-white">
+            <span class="d-block text-secondary small text-uppercase">January 2026</span>
+            <h2 class="h5 text-black mb-3">
+              Demand for 2BHK & 3BHK Flats Increasing
+            </h2>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+  <div class="bg-primary" data-aos="fade">
+    <div class="container">
+      <div class="row">
+        <a href="#" class="col-2 text-center py-4 social-icon d-block"><span
+            class="icon-facebook text-white"></span></a>
+        <a href="#" class="col-2 text-center py-4 social-icon d-block"><span class="icon-twitter text-white"></span></a>
+        <a href="#" class="col-2 text-center py-4 social-icon d-block"><span
+            class="icon-instagram text-white"></span></a>
+        <a href="#" class="col-2 text-center py-4 social-icon d-block"><span
+            class="icon-linkedin text-white"></span></a>
+        <a href="#" class="col-2 text-center py-4 social-icon d-block"><span
+            class="icon-pinterest text-white"></span></a>
+        <a href="#" class="col-2 text-center py-4 social-icon d-block"><span class="icon-youtube text-white"></span></a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="mb-5">
+            <h3 class="footer-heading mb-4">About Kerala Property Hub</h3>
+            <p>
+              Kerala Property Hub is a trusted platform to buy, sell and rent properties
+              across all 14 districts of Kerala. We connect buyers, sellers and renters
+              with verified listings and easy search options.
+            </p>
+          </div>
+
+
+          <div class="mb-5" id="Message">
+            <h3 class="footer-heading mb-4">Message</h3>
+            <div class="input-group mb-3 d-flex flex-row" style="width: 510px;gap: 110px;">
+              <a href="{% url 'User:Complaint' %}" style="text-decoration:none;">
+                <button class="continue-application mb-3">
+                  <div>
+                    <div class="pencil"></div>
+                    <div class="folder">
+                      <div class="top">
+                        <svg viewBox="0 0 24 27">
+                          <path d="M1,0 L23,0 C23.5522847,0 24,0.44771525 24,1 L24,8.17157288 
+                            C24,8.70200585 23.7892863,9.21071368 23.4142136,9.58578644 
+              L20.5857864,12.4142136 C20.2107137,12.7892863 20,13.2979941 
+              20,13.8284271 L20,26 C20,26.5522847 19.5522847,27 19,27 
+              L1,27 C0.44771525,27 0,26.5522847 0,26 L0,1 
+              C0,0.44771525 0.44771525,0 1,0 Z"></path>
+                        </svg>
+                      </div>
+                      <div class="paper"></div>
+                    </div>
+                  </div>
+                  Submit Complaint
+                </button>
+              </a>
+
+
+              <a href="{% url 'User:Feedback' %}" style="text-decoration:none;">
+                <button class="continue-application ">
+                  <div>
+                    <div class="pencil"></div>
+                    <div class="folder">
+                      <div class="top">
+                        <svg viewBox="0 0 24 27">
+                          <path d="M1,0 L23,0 C23.5522847,0 24,0.44771525 24,1 L24,8.17157288 
+              C24,8.70200585 23.7892863,9.21071368 23.4142136,9.58578644 
+              L20.5857864,12.4142136 C20.2107137,12.7892863 20,13.2979941 
+              20,13.8284271 L20,26 C20,26.5522847 19.5522847,27 19,27 
+              L1,27 C0.44771525,27 0,26.5522847 0,26 L0,1 
+              C0,0.44771525 0.44771525,0 1,0 Z"></path>
+                        </svg>
+                      </div>
+                      <div class="paper"></div>
+                    </div>
+                  </div>
+                  Give Feedback
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-3 mb-5 mb-lg-0">
+          <div class="row mb-5">
+            <div class="col-md-12">
+              <h3 class="footer-heading mb-4">Navigations</h3>
+            </div>
+            <div class="col-md-6 col-lg-6">
+              <ul class="list-unstyled">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Apartments</a></li>
+                <li><a href="#">News</a></li>
+                <!-- <li><a href="#">Featured Apartment</a></li> -->
+              </ul>
+            </div>
+
+
+            <!-- 
+<div class="col-md-6 col-lg-6">
+
+  <h5 class="text-white mb-3">Support</h5>
+
+  Complaint Button
+  <a href="{% url 'User:Complaint'%}" style="text-decoration:none;">
+    <button class="continue-application mb-3">
+      <div>
+        <div class="pencil"></div>
+        <div class="folder">
+          <div class="top">
+            <svg viewBox="0 0 24 27">
+              <path d="M1,0 L23,0 C23.5522847,0 24,0.44771525 24,1 L24,8.17157288 
+              C24,8.70200585 23.7892863,9.21071368 23.4142136,9.58578644 
+              L20.5857864,12.4142136 C20.2107137,12.7892863 20,13.2979941 
+              20,13.8284271 L20,26 C20,26.5522847 19.5522847,27 19,27 
+              L1,27 C0.44771525,27 0,26.5522847 0,26 L0,1 
+              C0,0.44771525 0.44771525,0 1,0 Z"></path>
+            </svg>
+          </div>
+          <div class="paper"></div>
+        </div>
+      </div>
+      Submit Complaint
+    </button>
+  </a>
+  
+  Feedback Button
+  <a href="{% url 'User:Feedback'%}" style="text-decoration:none;">
+    <button class="continue-application">
+      <div>
+        <div class="pencil"></div>
+        <div class="folder">
+          <div class="top">
+            <svg viewBox="0 0 24 27">
+              <path d="M1,0 L23,0 C23.5522847,0 24,0.44771525 24,1 L24,8.17157288 
+              C24,8.70200585 23.7892863,9.21071368 23.4142136,9.58578644 
+              L20.5857864,12.4142136 C20.2107137,12.7892863 20,13.2979941 
+              20,13.8284271 L20,26 C20,26.5522847 19.5522847,27 19,27 
+              L1,27 C0.44771525,27 0,26.5522847 0,26 L0,1 
+              C0,0.44771525 0.44771525,0 1,0 Z"></path>
+            </svg>
+          </div>
+          <div class="paper"></div>
+        </div>
+      </div>
+      Give Feedback
+    </button>
+  </a>
+  
+</div> -->
+
+          </div>
+        </div>
+
+        <div class="col-3 mb-5 mb-lg-0">
+          <div class="mb-5">
+            <h3 class="footer-heading mb-4">Watch Live Streaming</h3>
+
+            <div class="block-16">
+              <figure>
+                <img src="{% static 'Main/images/img_1.jpg '%}" alt="Image placeholder" class="img-fluid rounded">
+                <a href="https://vimeo.com/channels/staffpicks/93951774" class="play-button popup-vimeo"><span
+                    class="icon-play"></span></a>
+              </figure>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="row pt-5 mt-5 text-center">
+        <div class="col-md-12">
+          <p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;
+            <script data-cfasync="false"
+              src="{% static 'Main/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js' %}"></script>
+            <script>document.write(new Date().getFullYear());</script> All rights reserved <i
+              class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com"
+              target="_blank">Apart</a>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+
+
+    <!-- <button onclick="topFunction()" id="topBtn" class="button">
+      <svg class="svgIcon" viewBox="0 0 384 512">
+        <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0
+           45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5
+            12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z">
+        </path>
+      </svg>
+    </button>
+    </div> -->
+
+
+
+
+
+  </footer>
+
+  </div>
+
+  <script src="{% static 'Main/js/jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'Main/js/jquery-migrate-3.0.1.min.js' %}"></script>
+  <script src="{% static 'Main/js/jquery-ui.js' %}"></script>
+  <script src="{% static 'Main/js/popper.min.js' %}"></script>
+  <script src="{% static 'Main/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'Main/js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'Main/js/mediaelement-and-player.min.js' %}"></script>
+  <script src="{% static 'Main/js/jquery.stellar.min.js' %}"></script>
+  <script src="{% static 'Main/js/jquery.countdown.min.js' %}"></script>
+  <script src="{% static 'Main/js/jquery.magnific-popup.min.js' %}"></script>
+  <script src="{% static 'Main/js/bootstrap-datepicker.min.js '%}"></script>
+  <script src="{% static 'Main/js/aos.js' %}"></script>
+  <script src="{% static 'Main/js/circleaudioplayer.js' %}"></script>
+
+  <script src="{% static 'Main/js/main.js' %}"></script>
+
+
+  <button id="backToTop" class="back-to-top">
+    ↑
+  </button>
+
+
+  <script>
+
+    let topButton = document.getElementById("backToTop");
+
+    window.onscroll = function () {
+
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        topButton.style.display = "flex";
+      } else {
+        topButton.style.display = "none";
+      }
+
+    };
+
+    topButton.onclick = function () {
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    };
+
+  </script>
+
+
+</body>
+
+
+
+<button id="openChat" class="chat-open-btn">💬</button>
+<div id="chatModal" class="chat-modal">
+
+  <div class="chat-header">
+    Apart Chatbot
+    <span id="closeChat" class="close-btn">&times;</span>
+  </div>
+  <div id="result" class="chat-body">
+    <!-- Messages will appear here -->
+  </div>
+  <div class="chat-footer">
+    <input type="text" id="text" placeholder="Ask something...">
+    <button id="button">Send</button>
+  </div>
+
+
+  <!-- modal box-->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    function sendMessage() {
+
+      var text = $("#text").val().trim();
+
+      if (text === "") {
+        return;
+      }
+
+      // Add user message bubble
+      $("#result").append(`
+        <div class="message user-message">
+            <div class="bubble user-bubble">${text}</div>
+        </div>
+    `);
+
+      $("#text").val("");
+
+      var ur = "{% url 'User:chatbot_api' %}";
+
+      $.ajax({
+        url: ur,
+        type: "GET",
+        data: { text: text },
+        success: function (data) {
+
+          $("#result").append(`
+        <div class="message bot-message">
+            <div class="bubble bot-bubble">${data.reply}</div>
+        </div>
+    `);
+
+          $("#result").scrollTop($("#result")[0].scrollHeight);
+        }
+      });
+    }
+
+    // Button click
+    $("#button").click(function () {
+      sendMessage();
+    });
+
+    // Press Enter key
+    $("#text").keypress(function (e) {
+      if (e.which == 13) {
+        sendMessage();
+      }
+    });
+  </script>
+  <script>
+    $("#openChat").click(function () {
+      if ($("#chatModal").css("display") == "none") {
+        $("#chatModal").css("display", "flex");   // MUST be flex
+      } else {
+        $("#chatModal").hide();
+      }
+    });
+
+    $("#closeChat").click(function () {
+      $("#chatModal").hide();
+    });
+  </script>
+  <!-- end modal box -->
+
+</div>
+
 </html>

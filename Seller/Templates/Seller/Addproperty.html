@@ -1,18 +1,361 @@
 <!DOCTYPE html>
 <html lang="en">
-    
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Add Property</title>
-    </head>
-    <table border="1" align="">
-    <td><a href="{% url 'Seller:Home'%}" class="profile-action-btn">Home</a></td>
-    </table>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Property</title>
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #e8e0d5 0%, #f5f0ea 50%, #ddd5c8 100%);
+            color: #1a1814;
+            min-height: 100vh;
+            padding: 40px 20px 60px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 24px;
+            color: #1a1814;
+        }
+
+        h2 span {
+            color: #c8682a;
+        }
+
+        /* BACK BUTTON */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: #5a5550;
+            text-decoration: none;
+            background: #fff;
+            border: 1.5px solid #e0dbd4;
+            border-radius: 8px;
+            padding: 9px 18px;
+            margin-bottom: 24px;
+            transition: color 0.2s, border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .back-btn:hover {
+            color: #c8682a;
+            border-color: #c8682a;
+            box-shadow: 0 3px 12px rgba(200, 104, 42, 0.15);
+        }
+
+        /* TOP NAV TABLE */
+        table[border="1"]:not(form table) {
+            border: none !important;
+            margin: 0 0 8px 0;
+        }
+
+        table[border="1"]:not(form table) td {
+            border: none !important;
+        }
+
+        /* FORM WRAPPER */
+        form {
+            max-width: 620px;
+            margin: 0 auto 40px;
+            background: #fff;
+            border-radius: 14px;
+            padding: 30px 32px 28px;
+            box-shadow: 0 4px 24px rgba(26, 24, 20, 0.09);
+        }
+
+        /* FORM TABLE */
+        form table[border="1"] {
+            width: 100%;
+            border-collapse: collapse;
+            border: none !important;
+        }
+
+        form table[border="1"] tr td {
+            border: none !important;
+            padding: 9px 4px;
+        }
+
+        form table[border="1"] tr td:first-child {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #8a847e;
+            width: 130px;
+            padding-top: 14px;
+            vertical-align: top;
+        }
+
+        form table[border="1"] tr td:last-child {
+            padding-left: 12px;
+        }
+
+        form input[type="text"],
+        form textarea,
+        form select,
+        form input[type="file"] {
+            width: 100%;
+            border: 1.5px solid #e0dbd4;
+            border-radius: 8px;
+            padding: 11px 14px;
+            font-size: 13.5px;
+            font-family: 'Montserrat', sans-serif;
+            color: #1a1814;
+            background: #f8f6f3;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+        }
+
+        form input[type="text"]:focus,
+        form textarea:focus,
+        form select:focus {
+            border-color: #c8682a;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(200, 104, 42, 0.1);
+        }
+
+        form textarea {
+            resize: vertical;
+            min-height: 80px;
+            line-height: 1.6;
+        }
+
+        form select {
+            appearance: none;
+            cursor: pointer;
+        }
+
+        form input[type="file"] {
+            padding: 8px 14px;
+            cursor: pointer;
+        }
+
+        form td[colspan] {
+            padding-top: 20px;
+            text-align: center !important;
+        }
+
+        form input[type="submit"] {
+            background: #c8682a;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 32px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+            margin-right: 10px;
+        }
+
+        form input[type="submit"]:hover {
+            background: #b05a22;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(200, 104, 42, 0.3);
+        }
+
+        form input[type="reset"] {
+            background: #fff;
+            color: #5a5550;
+            border: 1.5px solid #e0dbd4;
+            border-radius: 8px;
+            padding: 12px 32px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        form input[type="reset"]:hover {
+            border-color: #c8682a;
+            color: #c8682a;
+        }
+
+        /* PROPERTY TABLE */
+        table[border="2"] {
+            width: 50%;
+            max-width: 620px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            border: none !important;
+            background: #fff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(26, 24, 20, 0.09);
+        }
+
+        table[border="2"] tr:first-child td {
+
+            background: #1a1814;
+            color: #fff;
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 14px 16px;
+            border: none !important;
+        }
+
+        table[border="2"] tr:not(:first-child) td {
+            padding: 13px 16px;
+            font-size: 13px;
+            color: #3a3530;
+            border: none !important;
+            border-bottom: 1px solid #f0ece6 !important;
+            vertical-align: middle;
+        }
+
+        table[border="2"] tr:not(:first-child):last-child td {
+            border-bottom: none !important;
+        }
+
+        table[border="2"] tr:not(:first-child):hover td {
+            background: #faf8f5;
+        }
+
+        table[border="2"] tr:not(:first-child) td:first-child {
+            font-weight: 700;
+            color: #b0a99e;
+            font-size: 12px;
+        }
+
+        table[border="2"] img {
+            border-radius: 6px;
+            object-fit: cover;
+            display: block;
+        }
+
+        table[border="2"] a {
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 5px 12px;
+            border-radius: 6px;
+            transition: background 0.2s;
+            margin-right: 4px;
+            display: inline-block;
+        }
+
+        table[border="2"] a:first-child {
+            color: #c0392b;
+        }
+
+        table[border="2"] a:first-child:hover {
+            background: #fdecea;
+        }
+
+        table[border="2"] a:last-child {
+            color: #2980b9;
+        }
+
+        table[border="2"] a:last-child:hover {
+            background: #eaf4fb;
+        }
+
+
+
+
+        /* MODAL BACKGROUND */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        /* MODAL BOX */
+        .modal-content {
+            background: #fff;
+            margin: auto;
+            padding: 25px;
+            border-radius: 12px;
+            width: 50%;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* CLOSE BUTTON */
+        .close-btn {
+            float: right;
+            font-size: 22px;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .close-btn:hover {
+            color: #c8682a;
+        }
+
+        /* BUTTON */
+        .read-more-btn {
+            color: #c8682a;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        .read-more-btn:hover {
+            text-decoration: underline;
+        }
+
+        /* ANIMATION */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+
+
+</head>
 
 <body>
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
+        <table border="1" align="">
+            <td><a href="{% url 'Seller:Home'%}" class="profile-action-btn">Back</a></td>
+        </table>
         <h2 align="center">Add Property</h2>
         <table border="1" align="center">
             <tr>
@@ -90,41 +433,71 @@
                 </td>
             </tr>
         </table>
-        <table border="2" align="center">
-            <tr>
-                <td>SLNO</td>
-                <td>NAME</td>
-                <td>DESCRIPTION</td>
-                <td>PROPERTY TYPE</td>
-                <td>PHOTO</td>
-                <td>DISTRICT</td>
-                <td>PLACE</td>
-                <td>CATEGORY</td>
-                <td>PRICE</td>
-                <td>ACTION</td>             
-            </tr>
-            {%for i in Addproperty %}
-            <tr>
-                <td>{{forloop.counter}}</td>
-                <td>{{i.property_name}}</td>
-                <td>{{i.property_description}}</td>
-                <td>{{i.propertytype_id.propertytype_name}}</td>
-                <td><img src="{{i.property_photo.url}}" width="80"> </td>
-                <td>{{ i.place_id.district.district_name }}</td>
-                <td>{{ i.place_id.place_name }}</td>
-                <td>{{ i.category_id.category_name }}</td>
-                <td>{{i.property_price}}</td>
-                <td>
-                    <a href="{% url 'Seller:delpro' i.id %}">Delete</a>
-                    <a href="{% url 'Seller:Gallery' i.id %}">Add Gallery</a>
-                    
-                  
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
-                </table>
+
+
     </form>
+    <table border="2" align="center">
+        <tr>
+            <td>SLNO</td>
+            <td>NAME</td>
+            <td>DESCRIPTION</td>
+            <td>PROPERTY TYPE</td>
+            <td>PHOTO</td>
+            <td>DISTRICT</td>
+            <td>PLACE</td>
+            <td>CATEGORY</td>
+            <td>PRICE</td>
+            <td>ACTION</td>
+        </tr>
+        {%for i in Addproperty %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.property_name}}</td>
+
+
+
+            <td>
+                {{ i.property_description|slice:":50" }}...
+                <a href="javascript:void(0);" class="read-more-btn"
+                    onclick="openModal(`{{ i.property_description|escapejs }}`)">
+                    Read More
+                </a>
+            </td>
+
+
+
+
+            <td>{{i.propertytype_id.propertytype_name}}</td>
+            <td><img src="{{i.property_photo.url}}" width="80"> </td>
+            <td>{{ i.place_id.district.district_name }}</td>
+            <td>{{ i.place_id.place_name }}</td>
+            <td>{{ i.category_id.category_name }}</td>
+            <td>{{i.property_price}}</td>
+            <td>
+                <a href="{% url 'Seller:delpro' i.id %}">Delete</a>
+                <a href="{% url 'Seller:Gallery' i.id %}">Add Gallery</a>
+                <a href="{% url 'Seller:addtoauction' i.id %}">Add To Auction</a>
+
+
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+
+    <!-- MODAL -->
+<div id="descModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h3>Property Description</h3>
+        <p id="modalText"></p>
+    </div>
+</div>
+
+
+
+
 </body>
 
 </html>
@@ -166,4 +539,24 @@
             },
         });
     });
+</script>
+
+<script>
+    function openModal(text) {
+        document.getElementById("modalText").innerText = text;
+        document.getElementById("descModal").style.display = "block";
+    }
+
+    function closeModal() {
+        document.getElementById("descModal").style.display = "none";
+    }
+
+    // Close when clicking outside
+    window.onclick = function (event) {
+        let modal = document.getElementById("descModal");
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+    
 </script>

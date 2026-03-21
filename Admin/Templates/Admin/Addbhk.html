@@ -1,3 +1,5 @@
+{% extends 'Admin/Header.html' %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,6 +7,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADD BHK</title>
+
+
+
+    <style>
+/* ===== CATEGORY PAGE CSS (PAGE ONLY) ===== */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #aac5e0;
+}
+
+/* Form spacing */
+form {
+    margin-top: 30px;
+}
+
+/* Tables */
+form table {
+    width: 65%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Remove default table borders */
+form table[border] {
+    border: none;
+}
+
+/* Table cells */
+form table td {
+    padding: 12px 14px;
+    font-size: 14px;
+    color: #1f2937;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: center;
+}
+
+/* Header row */
+form table tr:first-child {
+    background-color: #2563eb;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Input field */
+form input[type="text"],
+form select {
+    width: 95%;
+    padding: 8px 10px;
+    border-radius: 4px;
+    border: 1px solid #cbd5e1;
+    font-size: 14px;
+}
+
+/* Focus effect */
+form input[type="text"]:focus,
+form select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+    outline: none;
+}
+
+/* Submit button */
+form input[type="submit"] {
+    padding: 8px 18px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    background-color: #2563eb;
+    color: #ffffff;
+}
+
+/* Action links */
+form table a {
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    display: inline-block;
+    color: #2563eb;
+}
+
+/* Hover */
+form table a:hover {
+    transform: scale(1.1);
+    color: red;
+}
+</style>
+
+
+
+
+
 </head>
 
 <body>
@@ -44,11 +144,24 @@
                 <td>{{ i.propertytype.propertytype_name}}</td>
                 <td>{{i.bhk_name}}</td>
                 <td>
-                    <a href="{%url 'Admin:deladdbhk' i.id%}">Delete</a>
-                    <a href="{%url 'Admin:editaddbhk' i.id%}">Edit</a>
+                    <a href="{%url 'Admin:deladdbhk' i.id%}" class="deleteicon"
+                        onclick="return confirm('Are you sure?')">
+                         <i class="fa-solid fa-trash"></i>
+                     </a>
+                    <a href="{%url 'Admin:editaddbhk' i.id%}" class="editicon">
+                        <i class="fa-solid fa-pen"></i>
+                    </a>
                 </td>
             </tr>
             {% endfor %}
+
+
+
+
+
+
+
+
 
         </table>
         
@@ -66,3 +179,4 @@
     window.location = "{%url 'Admin:Addbhk'%}"
 </script>
 {% endif %}
+{% endblock content %}

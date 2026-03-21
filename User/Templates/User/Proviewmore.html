@@ -4,66 +4,510 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROPERTY VIEW MORE</title>
+
+    <title>Property Details</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f5f6fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+
+        /* Back Button */
+
+        .backbtn {
+            background: #0a66c2;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+
+
+        /* Main Card */
+
+        .main-card {
+
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 950px;
+            margin: 20px auto;
+
+        }
+
+
+        /* Top Section */
+
+        .top-section {
+
+            display: flex;
+            gap: 20px;
+
+        }
+
+
+        /* Property Image */
+
+        .property-img img {
+
+            width: 350px;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 10px;
+
+        }
+
+
+        /* Info */
+
+        .info {
+            flex: 1;
+        }
+
+
+        .title {
+
+            font-size: 24px;
+            font-weight: bold;
+
+        }
+
+
+        .location {
+
+            color: gray;
+            margin-top: 5px;
+
+        }
+
+
+        .price {
+
+            font-size: 28px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #222;
+
+        }
+
+
+        /* Sections */
+
+        .section {
+
+            margin-top: 30px;
+
+        }
+
+
+        .section-title {
+
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+
+        }
+
+
+
+        /* Property Details Grid */
+
+        .details-grid {
+
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+
+        }
+
+
+        .detail-box {
+
+            background: #f7f9fc;
+            padding: 10px;
+            border-radius: 6px;
+
+        }
+
+
+
+        /* Owner Box */
+
+        .owner-box {
+
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            background: #f7f9fc;
+            padding: 15px;
+            border-radius: 8px;
+
+        }
+
+
+        .owner-img {
+
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+
+        }
+
+
+
+        /* Buttons */
+
+        .buttons {
+
+            margin-top: 25px;
+
+        }
+
+
+        .btn {
+
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 10px;
+
+        }
+
+
+        .rentbtn {
+            background: #0a66c2;
+            color: white;
+        }
+
+
+        .buybtn {
+            background: #2ecc71;
+            color: white;
+        }
+
+
+        .gallerybtn {
+            border: 1px solid #0a66c2;
+            color: #0a66c2;
+        }
+    </style>
+
 </head>
- <table border="1">
-            <td><a href="{% url 'User:Viewpro' %}" class="profile-action-btn">Home</a></td>
-        </table>
+
+
 
 <body>
-    <h2 class="editprofile-title" align="center">PROPERTY VIEW</h2>
-    <table border="1" align="center" id="result">
-        <tr>
-            <td>SLNO</td>
-            <td>NAME</td>
-            <td>DESCRIPTION</td>
-            <td>PROPERTY TYPE</td>
-            <td>PHOTO</td>
-            <td>DISTRICT</td>
-            <td>PLACE</td>
-            <td>BHK</td>
 
-            <td>FURNISH</td>
-            
-            <td>CATEGORY</td>
-            <td>PRICE</td>
-            <td>ACTION</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>{{properdata.property_name}}</td>
-            <td>{{properdata.property_description}}</td>
-            <td>{{properdata.propertytype_id.propertytype_name}}</td>
-            <td><img src="{{properdata.property_photo.url}}" width="80"> </td>
-            <td>{{ properdata.place_id.district.district_name }}</td>
-            <td>{{ properdata.place_id.place_name }}</td>
-            <td>{{ properdata.bhk_id.bhk_name }}</td>
 
-            <td>
-                {% if properdata.furnish_id %}
-                {{ properdata.furnish_id.furnish_name }}
-                {% else %}
-                No Furnish
+    <a href="{% url 'User:Viewpro' %}" class="backbtn">
+        ← Back
+    </a>
+
+
+
+    <div class="main-card">
+
+
+
+        <!-- TOP SECTION -->
+
+        <div class="top-section">
+
+
+            <div class="property-img">
+
+                <img src="{{properdata.property_photo.url}}">
+
+            </div>
+
+
+
+            <div class="info">
+
+
+                <div class="title">
+
+                    {{properdata.property_name}}
+
+                </div>
+
+
+
+                <div class="location">
+
+                    {{properdata.place_id.place_name}},
+                    {{properdata.place_id.district.district_name}}
+
+                </div>
+
+
+
+                <div class="price">
+
+                    ₹{{properdata.property_price}}
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ABOUT PROPERTY -->
+
+        <div class="section">
+
+            <div class="section-title">
+
+                About Property
+
+            </div>
+
+            {{properdata.property_description}}
+
+        </div>
+
+
+
+        <!-- PROPERTY DETAILS -->
+
+        <div class="section">
+
+            <div class="section-title">
+                Property Details
+            </div>
+
+
+            <div class="details-grid">
+
+
+                <div class="detail-box">
+                    Property Type :
+                    <b>{{properdata.propertytype_id.propertytype_name}}</b>
+                </div>
+
+
+                <div class="detail-box">
+                    Category :
+                    <b>{{properdata.category_id.category_name}}</b>
+                </div>
+
+
+                <div class="detail-box">
+                    BHK :
+                    <b>
+
+                        {% if properdata.bhk_id %}
+                        {{properdata.bhk_id.bhk_name}}
+                        {% else %}
+                        Not Available
+                        {% endif %}
+
+                    </b>
+                </div>
+
+
+
+                <div class="detail-box">
+                    Furnish :
+                    <b>
+
+                        {% if properdata.furnish_id %}
+                        {{properdata.furnish_id.furnish_name}}
+                        {% else %}
+                        Not Furnished
+                        {% endif %}
+
+                    </b>
+                </div>
+
+
+
+                <div class="detail-box">
+                    District :
+                    <b>{{properdata.place_id.district.district_name}}</b>
+                </div>
+
+
+
+                <div class="detail-box">
+                    Place :
+                    <b>{{properdata.place_id.place_name}}</b>
+                </div>
+
+
+
+                <div class="detail-box">
+                    Price :
+                    <b>₹{{properdata.property_price}}</b>
+                </div>
+
+
+
+                <div class="detail-box">
+                    Posted Date :
+                    <b>{{properdata.property_date}}</b>
+                </div>
+
+
+
+                <div class="detail-box">
+                    Status :
+                    <b>
+
+                        {% if properdata.property_status == 0 %}
+                        Available
+                        {% else %}
+                        Not Available
+                        {% endif %}
+
+                    </b>
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+
+        <!-- SELLER DETAILS -->
+        {% if properdata.seller_id %}
+
+        <div class="section">
+
+            <div class="section-title">
+                Seller Details
+            </div>
+
+            <div class="owner-box">
+
+                <img src="{{properdata.seller_id.seller_photo.url}}" class="owner-img">
+
+
+                <div>
+
+                    <b>{{properdata.seller_id.seller_name}}</b>
+
+                    <br><br>
+
+                    Phone :
+                    {{properdata.seller_id.seller_contact}}
+
+                    <br>
+
+                    Email :
+                    {{properdata.seller_id.seller_email}}
+
+                    <br>
+
+                    Address :
+                    {{properdata.seller_id.seller_address}}
+
+                </div>
+
+            </div>
+
+        </div>
                 {% endif %}
-            </td>
 
-            <td>{{ properdata.category_id.category_name }}</td>
-            <td>{{properdata.property_price}}</td>
-            <td>
-                {% if properdata.property_typestatus == 0 %}
-                <a href="{% url 'User:PropertyRent' properdata.id %}" class="profile-action-btn">Rent</a>
-                {% elif properdata.property_typestatus == 1 %}
-                <a href="{% url 'User:Buy' properdata.id %}" class="profile-action-btn">Buy</a>
-                {% endif %}
-            <td>
-                <a href="{% url 'User:ViewGallery' properdata.id %}" class="profile-action-btn">
-                    View Gallery
-                </a>
-            </td>
-            </td>
 
-        </tr>
-    </table>
+
+
+        <!-- RENTER DETAILS -->
+
+        {% if properdata.renter_id %}
+
+        <div class="section">
+
+            <div class="section-title">
+                Renter Details
+            </div>
+
+            <div class="owner-box">
+
+                <img src="{{properdata.renter_id.renter_photo.url}}" class="owner-img">
+
+
+                <div>
+
+                    <b>{{properdata.renter_id.renter_name}}</b>
+
+                    <br><br>
+
+                    Phone :
+                    {{properdata.renter_id.renter_contact}}
+
+                    <br>
+
+                    Email :
+                    {{properdata.renter_id.renter_email}}
+
+                    <br>
+
+                    Address :
+                    {{properdata.renter_id.renter_address}}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+
+        <!-- BUTTONS -->
+
+        <div class="buttons">
+
+
+            {% if properdata.property_typestatus == 0 %}
+
+            <a href="{% url 'User:PropertyRent' properdata.id %}" class="btn rentbtn">
+
+                Rent Property
+
+            </a>
+
+            {% elif properdata.property_typestatus == 1 %}
+
+            <a href="{% url 'User:Buy' properdata.id %}" class="btn buybtn">
+
+                Buy Property
+
+            </a>
+
+            {% endif %}
+
+
+
+            <a href="{% url 'User:ViewGallery' properdata.id %}" class="btn gallerybtn">
+
+                View Gallery
+
+            </a>
+
+
+        </div>
+
+
+
+    </div>
+
+
+
 </body>
 
 </html>

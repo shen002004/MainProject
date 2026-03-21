@@ -51,30 +51,54 @@ def Changepas(request):
     return render(request,'Renter/Changepas.html',{'msg':"Password Changed Successfully"})   
 
 
-
 def Addproperty(request):
-    place=tbl_Place.objects.all()
-    adp=tbl_property.objects.filter(renter_id=request.session['rid'])
-    districtData=tbl_district.objects.all()
-    propertytypedata=tbl_propertytype.objects.all()
-    categorydata=tbl_category.objects.all()
-    if request.method=='POST':
-        name=request.POST.get('txt_name')
-        description=request.POST.get('txt_description')
-        propertytype=request.POST.get('sel_propertytype')
-        photo=request.FILES.get('txt_photo')
-        place=request.POST.get('sel_place')
-        category=request.POST.get('sel_category')
-        price=request.POST.get('txt_price')
-        tbl_property.objects.create(property_name=name,property_description=description,property_photo=photo,
-                                    propertytype_id=tbl_propertytype.objects.get(id=propertytype),
-                    place_id=tbl_Place.objects.get(id=place),category_id=tbl_category.objects.get(id=category),
-                    property_price=price,property_typestatus=0,renter_id=tbl_renter.objects.get(id=request.session['rid']))
-        return render(request,'Renter/Addproperty.html',{'msg':"Property Added"})
+    place = tbl_Place.objects.all()
+    adp = tbl_property.objects.filter(renter_id=request.session['rid'])
+    districtData = tbl_district.objects.all()
+    propertytypedata = tbl_propertytype.objects.all()
+    categorydata = tbl_category.objects.all()
+
+    if request.method == 'POST':
+        name = request.POST.get('txt_name')
+        description = request.POST.get('txt_description')
+        propertytype = request.POST.get('sel_propertytype')
+        photo = request.FILES.get('txt_photo')
+        place = request.POST.get('sel_place')
+        category = request.POST.get('sel_category')
+        price = request.POST.get('txt_price')
+
+        bhk = request.POST.get('sel_bhk')
+        furnish = request.POST.get('sel_furnish')
+
+        data = {
+            "property_name": name,
+            "property_description": description,
+            "property_photo": photo,
+            "propertytype_id": tbl_propertytype.objects.get(id=propertytype),
+            "place_id": tbl_Place.objects.get(id=place),
+            "category_id": tbl_category.objects.get(id=category),
+            "property_price": price,
+            "property_typestatus": 0,
+            "renter_id": tbl_renter.objects.get(id=request.session['rid'])
+        }
+
+        if bhk:
+            data["bhk_id"] = tbl_bhk.objects.get(id=bhk)
+
+        if furnish:
+            data["furnish_id"] = tbl_furnish.objects.get(id=furnish)
+
+        tbl_property.objects.create(**data)
+
+        return render(request, 'Renter/Addproperty.html', {'msg': "Property Added"})
+
     else:
-        return render(request,'Renter/Addproperty.html',{'districtData':districtData,'categorydata':categorydata,'Addproperty':adp,'propertytypedata':propertytypedata})
-
-
+        return render(request, 'Renter/Addproperty.html', {
+            'districtData': districtData,
+            'categorydata': categorydata,
+            'Addproperty': adp,
+            'propertytypedata': propertytypedata
+        })
 def delpro(request,did):
     tbl_property.objects.get(id=did).delete()
     return render(request,'Renter/Addproperty.html',{'msg':"data deleted"})
